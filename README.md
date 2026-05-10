@@ -4,7 +4,7 @@
 
 For people who do not want to use an AI agent's first answer as-is.
 
-Decision Space Mapper is an agent-native skill/protocol for Claude Code, Codex, Hermes Agent, Cursor, and generic AI agents. It makes an AI expand the option space before it recommends a path, especially for intangible decisions like product direction, positioning, pricing, launch plans, content strategy, offers, and career moves.
+Decision Space Mapper is an agent-native skill/protocol for Claude Code, Codex, Hermes Agent, Cursor, and generic AI agents. It makes an AI generate concrete candidate outputs before it recommends a path, especially for intangible decisions like product direction, positioning, pricing, launch plans, content strategy, offers, profiles, and career moves.
 
 ## Install
 
@@ -66,13 +66,13 @@ I am deciding what product to build next...
 The skill returns:
 
 - Decision frame
-- Decision lenses/categories
-- Exhaustive option map grouped by lens
+- Result families
+- Concrete candidate outputs grouped by family
 - Blind spots
 - Comparison without premature narrowing
 - Next evidence to collect before committing
 
-Use it when the default AI answer feels too narrow, too confident, or too optimized for sounding helpful instead of mapping what is actually possible.
+Use it when the default AI answer feels too narrow, too confident, or too optimized for sounding helpful instead of producing the range of real outputs you could actually publish, ship, send, or test.
 
 ## Distribution Model
 

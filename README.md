@@ -4,9 +4,9 @@
 
 For people who do not want to use an AI agent's first answer as-is.
 
-Decision Space Mapper is an agent-native skill/protocol for Claude Code, Codex, Hermes Agent, Cursor, and generic AI agents. It makes an AI extract the options already latent in your context, expand the missing alternatives, and map the full decision space before it recommends a path.
+Decision Space Mapper is an agent-native skill/protocol for Claude Code, Codex, Hermes Agent, Cursor, and generic AI agents. It makes an AI extract the options already latent in your context, expand the missing alternatives, and package them as coherent candidate paths before it recommends one.
 
-It is intentionally not a taste engine. For surfaces like profiles, launch posts, landing pages, and personal positioning, the skill maps ingredients, bundles, inclusion/exclusion choices, and reactions to test instead of writing polished copy by default.
+It is intentionally not a taste engine. For surfaces like profiles, launch posts, landing pages, and personal positioning, the skill maps viable paths, ingredients, action norms, inclusion/exclusion choices, and reactions to test instead of writing polished copy by default.
 
 ## Install
 
@@ -69,34 +69,38 @@ The skill returns:
 
 - Decision frame
 - Source inventory from your own context
-- Option families
-- Exhaustive option map by family
-- Combination options
-- Blind spots
+- Candidate paths / action patterns
+- Supporting option families when useful
 - Comparison without premature narrowing
 - Simulation bridge for later human or agent testing
 
-Use it when the default AI answer feels too narrow, too confident, or too optimized for sounding helpful instead of showing the real option space.
+Use it when the default AI answer feels too narrow, too confident, or too optimized for sounding helpful instead of showing the real paths you could choose.
 
 ## What It Produces
 
-The skill should produce a source-grounded option map, not polished copy.
+The skill should produce source-grounded candidate paths, not loose categories or polished copy.
 
 ```text
 ## Source Inventory
 - Existing options mentioned: AI search, AI-native agency, TryMind, Japan GTM, credentials, age.
 - Tensions: business clarity vs personal taste, trust vs suspicion, boring service vs interesting founder.
 
-## Option Map
-### Family: Profile foreground
-- Option A: Buyer clarity
-  - Include: AI search/GEO, business outcome, contact path.
-  - De-emphasize: age, too many side projects.
-  - Reaction to test: trustworthy or too narrow?
-- Option B: Weird founder / mind angle
-  - Include: TryMind, human mind/blog work, unusual taste.
-  - De-emphasize: corporate service clarity.
-  - Reaction to test: attracts right people or confuses buyers?
+## Candidate Paths
+### Path A: Business acquisition profile
+- Purpose: convert skeptical business buyers.
+- For: operators, founders, overseas companies entering Japan.
+- Foreground: AI search/GEO, business outcome, contact path.
+- De-emphasize: age, too many side projects, abstract personal philosophy.
+- Action norm: post proof, customer problems, teardown threads, clear offers.
+- Reaction to test: trustworthy or too narrow?
+
+### Path B: Full self / artist-founder profile
+- Purpose: attract people who resonate with the person, not only the service.
+- For: peers, founders with taste, creative technologists.
+- Foreground: TryMind, human mind/blog work, unusual taste.
+- De-emphasize: corporate service clarity.
+- Action norm: post essays, observations, prototypes, personal theses.
+- Reaction to test: attracts right people or confuses buyers?
 
 ## Simulation Bridge
 - Stimulus required: 2-3 actual profile drafts written in the user's voice.
@@ -114,4 +118,4 @@ This repository intentionally separates:
 - **Website:** `site/`
 - **Optional CLI:** `bin/decision-space-mapper.mjs`
 
-The skill is the free distribution layer for the option-mapping product and a preparation layer for future simulation workflows.
+The skill is the free distribution layer for the path-mapping product and a preparation layer for future simulation workflows.

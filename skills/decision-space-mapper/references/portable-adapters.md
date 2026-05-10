@@ -89,11 +89,10 @@ Keep the interface stable:
 
 - `decision_frame`
 - `source_inventory`
-- `option_families`
-- `option_map`
-- `combination_options`
+- `possible_decision_targets`
+- `candidate_paths`
+- `supporting_option_families`
 - `simulation_bridge`
-- `blind_spots`
 - `comparison_dimensions`
 - `next_evidence`
 

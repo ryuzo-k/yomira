@@ -1,7 +1,7 @@
 {
   "name": "decision-space-mapper",
   "version": "0.1.0",
-  "description": "Agent-native skill for mapping exhaustive options from messy decision context.",
+  "description": "Agent-native skill for mapping coherent candidate paths from messy decision context.",
   "type": "module",
   "bin": {
     "decision-space-mapper": "bin/decision-space-mapper.mjs",

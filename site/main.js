@@ -15,7 +15,7 @@ ${skillsCommand}
 
 If the command asks which agent to install for, choose the current environment. After installing, verify the skill exists and tell me the exact installed path.
 
-Then test it by mapping the full option space for a real decision before asking for a recommendation.`
+Then test it by mapping coherent candidate paths for a real decision before asking for a recommendation.`
   },
   "claude-code": {
     kind: "Claude Code",

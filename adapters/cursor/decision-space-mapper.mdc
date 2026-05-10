@@ -1,56 +1,58 @@
 ---
-description: Map the full decision space from messy user context before recommending a path. Use when deciding what to build, sell, write, publish, position, price, prioritize, launch, include, exclude, test, or choose.
+description: Map coherent candidate paths from messy user context before recommending a path. Use when deciding what to build, sell, write, publish, position, price, prioritize, launch, include, exclude, test, or choose.
 globs:
 alwaysApply: false
 ---
 
 # Decision Space Mapper
 
-When the user asks for alternatives, product direction, positioning, pricing, messaging, profiles, offers, launch plans, or "what else is possible?", recover the full decision space before recommending.
+When the user asks for alternatives, product direction, positioning, pricing, messaging, profiles, offers, launch plans, or "what else is possible?", recover coherent candidate paths before recommending.
 
-Core rule: do not replace the user's thinking with the agent's taste. For taste-sensitive outputs such as profiles, landing pages, launch posts, brand voice, or personal narrative, map candidate choices, ingredients, bundles, and tradeoffs instead of writing polished copy unless the user explicitly asks for drafts.
+Core rule: do not replace the user's thinking with the agent's taste. The main deliverable is not a list of atomic categories; it is a set of viable paths or action patterns. For taste-sensitive outputs such as profiles, landing pages, launch posts, brand voice, or personal narrative, map candidate paths, ingredients, bundles, and tradeoffs instead of writing polished copy unless the user explicitly asks for drafts.
 
 Follow this workflow:
 
-1. Clarify the decision frame: decision surface, desired outcome, current options, ingredients, constraints, hidden audience, irreversibility.
-2. Extract source inventory first: options mentioned, facts/assets, constraints, tensions, disliked directions, audience assumptions.
-3. Build 3-7 option families by foreground, audience, outcome, surface, business model, proof strategy, or constraint.
-4. Generate options under each family:
-   - Obvious
-   - User-mentioned
-   - Adjacent
-   - Inversion
-   - Extreme
-   - Lazy/simple
-   - Asset-building
-   - Cash-near
-   - Learning
-   - No-action/defer
-5. For important options, include:
-   - Name
-   - Include
-   - Exclude/de-emphasize
-   - What changes
-   - Main risk
-   - Reaction to test
+1. Clarify the decision target: decision surface, desired outcome, current options, ingredients, constraints, hidden audience, irreversibility.
+2. If the target is ambiguous, list possible decision targets and ask which one to map first.
+3. Extract source inventory first: options mentioned, facts/assets, constraints, tensions, disliked directions, audience assumptions.
+4. Build 3-9 coherent candidate paths. Each path should include:
+   - Purpose
+   - For
+   - Core choice
+   - Foreground
+   - De-emphasize
+   - Action norm
+   - Proof/assets
+   - Risk/reaction to test
+5. Use option families only as supporting material:
+   - Foreground choices
+   - Audience choices
+   - Outcome choices
+   - Surface choices
+   - Proof choices
 6. For taste-sensitive surfaces, use skeletons:
    - Ingredients
    - Order
    - Emphasis
    - Claim shape
    - Simulation stimulus needed
-7. Compare only after the full map exists.
+7. Compare only after the path map exists.
 8. End with a simulation bridge when human interpretation matters.
 
-Do not invent synthetic-user results. If no simulation tool/API is available, prepare the option map and exact stimuli needed for future testing.
+Do not invent synthetic-user results. If no simulation tool/API is available, prepare the path map and exact stimuli needed for future testing.
 
 Default output:
 
-1. Decision Frame
+1. Decision Target
 2. Source Inventory
-3. Option Families
-4. Option Map by Family
-5. Combination Options
-6. Comparison
-7. Simulation Bridge
-8. Next Move
+3. Candidate Paths
+4. Supporting Option Families (optional)
+5. Comparison
+6. Simulation Bridge
+7. Next Move
+
+If the target is ambiguous:
+
+1. Source Inventory
+2. Possible Decision Targets
+3. Question

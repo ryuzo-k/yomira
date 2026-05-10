@@ -66,8 +66,8 @@ I am deciding what product to build next...
 The skill returns:
 
 - Decision frame
-- Decision axes
-- Exhaustive option map
+- Decision lenses/categories
+- Exhaustive option map grouped by lens
 - Blind spots
 - Comparison without premature narrowing
 - Next evidence to collect before committing

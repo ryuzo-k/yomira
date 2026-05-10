@@ -1,4 +1,4 @@
 interface:
   display_name: "Decision Space Mapper"
-  short_description: "Generate concrete candidates before choosing"
-  default_prompt: "Use $decision-space-mapper to generate concrete candidate outputs for this decision before recommending a path."
+  short_description: "Map the full option space before choosing"
+  default_prompt: "Use $decision-space-mapper to extract my current options, expand the missing alternatives, and map the full decision space before recommending a path."

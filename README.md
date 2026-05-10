@@ -2,9 +2,11 @@
 
 [![skills.sh](https://skills.sh/b/ryuzo-k/decision-space-mapper)](https://skills.sh/ryuzo-k/decision-space-mapper)
 
-For people who do not want abstract AI advice.
+For people who do not want to use an AI agent's first answer as-is.
 
-Decision Space Mapper is an agent-native skill/protocol for Claude Code, Codex, Hermes Agent, Cursor, and generic AI agents. It makes an AI write the actual candidate artifacts before it recommends a path: profile drafts, offer drafts, product concepts, landing-page sections, launch posts, pricing packages, DM scripts, pitch copy, and other things a real person or simulation agent can react to.
+Decision Space Mapper is an agent-native skill/protocol for Claude Code, Codex, Hermes Agent, Cursor, and generic AI agents. It makes an AI extract the options already latent in your context, expand the missing alternatives, and map the full decision space before it recommends a path.
+
+It is intentionally not a taste engine. For surfaces like profiles, launch posts, landing pages, and personal positioning, the skill maps ingredients, bundles, inclusion/exclusion choices, and reactions to test instead of writing polished copy by default.
 
 ## Install
 
@@ -65,30 +67,41 @@ I am deciding what product to build next...
 
 The skill returns:
 
-- Output target
-- Candidate output families
-- Concrete artifacts grouped by family
+- Decision frame
+- Source inventory from your own context
+- Option families
+- Exhaustive option map by family
+- Combination options
 - Blind spots
 - Comparison without premature narrowing
-- Next evidence to collect before committing
+- Simulation bridge for later human or agent testing
 
-Use it when the default AI answer feels too narrow, too confident, or too optimized for sounding helpful instead of producing the range of real outputs you could actually publish, ship, sell, send, simulate, or test.
+Use it when the default AI answer feels too narrow, too confident, or too optimized for sounding helpful instead of showing the real option space.
 
 ## What It Produces
 
-The skill should produce artifacts, not commentary.
+The skill should produce a source-grounded option map, not polished copy.
 
 ```text
-### Family: Buyer-facing profile
-- Candidate A: "I help Japanese companies turn AI search into qualified pipeline. Strategy, implementation, and measurement in one sprint."
-- Candidate B: "AI-native GTM and search systems for companies entering Japan."
+## Source Inventory
+- Existing options mentioned: AI search, AI-native agency, TryMind, Japan GTM, credentials, age.
+- Tensions: business clarity vs personal taste, trust vs suspicion, boring service vs interesting founder.
 
-### Family: Cash-near offer
-- Candidate A: "AI Search Revenue Sprint: 14 days, 5 rewritten pages, query map, dashboard, and implementation calls. Fixed price: $8,000."
-- Candidate B: "Japan AI Search Audit: 48-hour diagnosis, prioritized fixes, and one implementation call. Fixed price: $1,500."
+## Option Map
+### Family: Profile foreground
+- Option A: Buyer clarity
+  - Include: AI search/GEO, business outcome, contact path.
+  - De-emphasize: age, too many side projects.
+  - Reaction to test: trustworthy or too narrow?
+- Option B: Weird founder / mind angle
+  - Include: TryMind, human mind/blog work, unusual taste.
+  - De-emphasize: corporate service clarity.
+  - Reaction to test: attracts right people or confuses buyers?
 
-### Family: Launch post
-- Candidate A: "I’m opening 3 slots for founders entering Japan who need AI-search-native GTM, not translated marketing. DM ‘Japan’ and I’ll send the audit format."
+## Simulation Bridge
+- Stimulus required: 2-3 actual profile drafts written in the user's voice.
+- Audience to test: buyers, peers, skeptical operators.
+- Signals: trust, suspicion, willingness to contact, memorability.
 ```
 
 ## Distribution Model
@@ -101,4 +114,4 @@ This repository intentionally separates:
 - **Website:** `site/`
 - **Optional CLI:** `bin/decision-space-mapper.mjs`
 
-The skill is the distribution layer for the candidate-output product.
+The skill is the free distribution layer for the option-mapping product and a preparation layer for future simulation workflows.

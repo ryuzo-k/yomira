@@ -1,17 +1,16 @@
 :root {
-  color-scheme: dark;
-  --bg: #08090a;
-  --ink: #f8fafc;
-  --muted: #aab4c2;
-  --line: rgba(255, 255, 255, 0.12);
-  --panel: rgba(255, 255, 255, 0.06);
-  --panel-strong: rgba(255, 255, 255, 0.1);
-  --teal: #37e0bf;
-  --blue: #7aa7ff;
-  --coral: #ff806d;
+  color-scheme: light;
+  --bg: #f7f8fb;
+  --ink: #101419;
+  --muted: #596474;
+  --line: #dfe4eb;
+  --panel: #ffffff;
+  --panel-soft: #eef3f8;
+  --teal: #0f9f8f;
+  --blue: #4266d5;
+  --coral: #c6533d;
   --yellow: #ffd166;
-  --dark-text: #101419;
-  --shadow: rgba(0, 0, 0, 0.38);
+  --shadow: rgba(16, 20, 25, 0.12);
 }
 
 * {
@@ -29,10 +28,7 @@ section {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 12% 10%, rgba(55, 224, 191, 0.18), transparent 28%),
-    radial-gradient(circle at 88% 4%, rgba(122, 167, 255, 0.16), transparent 30%),
-    linear-gradient(180deg, #08090a 0%, #0d1116 48%, #08090a 100%);
+  background: var(--bg);
   color: var(--ink);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -64,7 +60,7 @@ pre {
   min-height: 72px;
   padding: 0 clamp(18px, 5vw, 72px);
   border-bottom: 1px solid var(--line);
-  background: rgba(8, 9, 10, 0.78);
+  background: rgba(247, 248, 251, 0.86);
   backdrop-filter: blur(18px);
 }
 
@@ -85,7 +81,7 @@ pre {
 .brand-mark {
   width: 18px;
   height: 18px;
-  border: 1px solid rgba(55, 224, 191, 0.8);
+  border: 1px solid rgba(15, 159, 143, 0.8);
   background: linear-gradient(135deg, var(--teal), var(--blue));
   transform: rotate(45deg);
 }
@@ -102,11 +98,11 @@ main {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(440px, 1fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(440px, 1fr);
   gap: clamp(32px, 5vw, 76px);
   align-items: center;
-  min-height: calc(100vh - 72px);
-  padding: 62px clamp(18px, 5vw, 72px) 52px;
+  min-height: calc(92vh - 72px);
+  padding: 72px clamp(18px, 5vw, 72px) 62px;
 }
 
 .eyebrow,
@@ -129,15 +125,15 @@ p {
 h1 {
   max-width: 880px;
   margin: 0;
-  font-size: clamp(52px, 7.8vw, 108px);
-  line-height: 0.9;
+  font-size: clamp(46px, 7vw, 96px);
+  line-height: 0.92;
   letter-spacing: 0;
 }
 
 h2 {
   margin: 0;
-  font-size: clamp(32px, 4.6vw, 64px);
-  line-height: 0.98;
+  font-size: clamp(30px, 4vw, 56px);
+  line-height: 1.02;
   letter-spacing: 0;
 }
 
@@ -175,12 +171,12 @@ h3 {
 
 .primary-action {
   background: var(--ink);
-  color: #050608;
+  color: #fff;
 }
 
 .ghost-action {
   border-color: var(--line);
-  background: rgba(255, 255, 255, 0.06);
+  background: #fff;
 }
 
 .signal-row {
@@ -201,10 +197,8 @@ h3 {
 .installer,
 .cluster-board {
   border: 1px solid var(--line);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.035)),
-    rgba(255, 255, 255, 0.04);
-  box-shadow: 0 28px 100px var(--shadow);
+  background: var(--panel);
+  box-shadow: 0 24px 70px var(--shadow);
 }
 
 .hero-installer {
@@ -241,7 +235,7 @@ h3 {
 
 .agent-tab.is-active {
   background: var(--ink);
-  color: #050608;
+  color: #fff;
 }
 
 .prompt-meta {
@@ -259,7 +253,7 @@ h3 {
 #copy-agent-prompt {
   flex: 0 0 auto;
   background: var(--teal);
-  color: #03110e;
+  color: #fff;
 }
 
 pre {
@@ -271,7 +265,8 @@ pre {
   min-height: 312px;
   max-height: 430px;
   padding: 22px;
-  color: #d8dee9;
+  background: #111827;
+  color: #e5edf7;
   font-size: 14px;
   line-height: 1.6;
   white-space: pre-wrap;
@@ -308,12 +303,12 @@ pre {
 }
 
 .agent-cloud span {
-  background: rgba(255, 255, 255, 0.045);
+  background: #fff;
 }
 
 .workflow-section {
-  background: #f7f8fa;
-  color: var(--dark-text);
+  background: #fff;
+  color: var(--ink);
 }
 
 .workflow-section .eyebrow {
@@ -328,14 +323,14 @@ pre {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
-  background: rgba(17, 20, 24, 0.18);
-  border: 1px solid rgba(17, 20, 24, 0.18);
+  background: var(--line);
+  border: 1px solid var(--line);
 }
 
 .workflow-grid article {
   min-height: 260px;
   padding: 24px;
-  background: #fff;
+  background: #fbfcfe;
 }
 
 .workflow-grid span {
@@ -354,7 +349,7 @@ pre {
 }
 
 .artifact-section {
-  background: #101419;
+  background: #eef3f8;
 }
 
 .artifact-grid {
@@ -367,7 +362,7 @@ pre {
   min-height: 320px;
   padding: 22px;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.055);
+  background: #fff;
 }
 
 .artifact-grid h3 {
@@ -377,7 +372,7 @@ pre {
 .artifact-copy {
   margin: 26px 0 0;
   color: var(--ink);
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1.45;
 }
 
@@ -401,7 +396,6 @@ pre {
 .example-board {
   display: grid;
   gap: 12px;
-  padding: 14px;
 }
 
 .example-main {
@@ -411,18 +405,18 @@ pre {
   align-items: center;
   min-height: 124px;
   padding: 18px;
-  border: 1px solid rgba(55, 224, 191, 0.28);
-  background: rgba(55, 224, 191, 0.08);
+  border: 1px solid rgba(15, 159, 143, 0.25);
+  background: #e9fbf8;
 }
 
 .example-main.alt {
-  border-color: rgba(122, 167, 255, 0.28);
-  background: rgba(122, 167, 255, 0.08);
+  border-color: rgba(66, 102, 213, 0.24);
+  background: #edf1ff;
 }
 
 .example-main.warn {
-  border-color: rgba(255, 128, 109, 0.3);
-  background: rgba(255, 128, 109, 0.08);
+  border-color: rgba(198, 83, 61, 0.22);
+  background: #fff0ec;
 }
 
 .example-main span {

@@ -1,194 +1,183 @@
 ---
 name: decision-space-mapper
-description: Generate simulation-ready candidate artifacts for ambiguous or high-stakes choices before recommending a path. Use when a user needs every meaningful version of what they could publish, build, sell, write, launch, price, position, present, send, test, or show to the world; when they ask for exhaustive options, alternatives, overlooked paths, product/business/career strategy, positioning, pricing, messaging, profile/self-presentation, or concrete world-facing outputs.
+description: Map the full decision space from a user's messy context before recommending a path. Use when a user is deciding what to build, sell, write, publish, position, price, prioritize, launch, include, exclude, test, or choose; when they ask for exhaustive options, alternatives, overlooked paths, "what else is possible?", product/business/career strategy, positioning, pricing, messaging, profile/self-presentation, or a structured set of choices to prepare for later human or agent simulation.
 ---
 
 # Decision Space Mapper
 
 ## Purpose
 
-Use this skill to turn a vague decision into concrete candidate artifacts. The goal is not to brainstorm abstract directions, build a framework, or produce one confident recommendation; it is to stop the agent from collapsing too early and write the actual things the user could publish, ship, sell, send, test, simulate, or show to the world.
+Use this skill to turn messy user context into a comprehensive, source-grounded option map. The goal is not to invent polished artifacts, write clever copy, or produce one confident recommendation. The goal is to prevent the agent from collapsing too early, recover the choices already latent in the user's words, and expand them into a clear set of possible paths.
 
-This is especially useful for intangible, profit-relevant decisions where the user is choosing among product direction, positioning, pricing, launch plans, content strategy, offers, career moves, or business models.
+This is especially useful for intangible, profit-relevant decisions where the user is choosing among product direction, positioning, pricing, launch plans, content strategy, offers, profiles, career moves, or business models.
 
-Treat the output as a candidate output pack:
+Treat the output as a decision-space map:
 
-1. Identify what kind of output/result the user is choosing.
-2. Generate all meaningful concrete versions of that output, grouped by output family.
-3. Make each candidate specific enough that a person or simulation agent could react to it.
-4. Add only enough explanation for the user to understand what each candidate changes.
-5. Identify which real reactions, behaviors, or evidence would make one candidate better than another.
+1. Extract the user's existing options, ingredients, constraints, and tensions.
+2. Normalize them into clear option units.
+3. Expand the map with plausible missing options and meaningful combinations.
+4. Keep taste-dependent artifacts as skeletons, ingredients, or bundles unless the user explicitly asks for final copy.
+5. Prepare the option map so it can later feed human interviews, market tests, or a simulation API.
 
 ## Non-Negotiable Rule
 
-If another human or simulation agent could not react to the candidate as a real-world stimulus, the answer is not finished.
+Do not replace the user's thinking with the agent's taste.
 
-- For a profile decision, write profile drafts.
-- For an offer decision, write offer/package drafts.
-- For a landing-page decision, write page sections or full page variants.
-- For a product decision, write product concepts with audience, promise, surface, and buying situation.
-- For a launch decision, write launch posts, DM scripts, email drafts, waitlist copy, and partner pitches.
-- For pricing, write concrete packages, prices, limits, guarantees, and buyer-facing copy.
+For taste-sensitive surfaces such as profiles, launch posts, landing-page copy, personal narratives, founder positioning, or brand voice, do **not** default to polished prose. Instead, map the candidate choices:
 
-Never stop at "credibility strategy", "positioning angle", "premium path", or "trust axis". Those can be family names, but the deliverable is the candidate output itself.
+- What to foreground.
+- What to hide or de-emphasize.
+- Which audience each choice is for.
+- Which proof points to include.
+- Which risks or reactions each choice may create.
+- Which combinations deserve testing.
 
-Example quality standard:
+Only write final copy when the user explicitly asks for copywriting, drafts, examples, or text they can paste. Even then, keep it clearly labeled as a draft derived from the option map.
+
+Example:
 
 ```text
 Weak:
-- "Use a credibility-led profile."
+- Candidate A: "I help Japanese companies turn AI search into qualified pipeline..."
 
 Strong:
-### Family: Credibility-led profile
-- Candidate A: "AI search and AI-native GTM for companies entering Japan. Previously built at [credible background]. Now helping teams turn search, localization, and implementation into pipeline."
-- Candidate B: "I build AI-native growth systems for Japanese and overseas companies: search surfaces, GTM workflows, implementation, and measurement."
-
-Each candidate can be shown to a real person or simulated audience. That is the bar.
+### Family: Profile foreground
+- Option A: Buyer clarity
+  - Include: AI search/GEO work, concrete business outcome, contact path.
+  - De-emphasize: age, TryMind, too many credentials.
+  - Likely reaction to test: does this feel trustworthy or too narrow?
+- Option B: AI-native agency
+  - Include: AI-native implementation, agency capability, frontier feel.
+  - De-emphasize: SEO-like phrasing.
+  - Likely reaction to test: does this feel advanced or vague?
+- Option C: Weird founder / mind angle
+  - Include: TryMind, human mind/blog work, unusual taste.
+  - De-emphasize: corporate service clarity.
+  - Likely reaction to test: does this attract the right people or confuse buyers?
 ```
 
 ## Workflow
 
-### 1. Clarify the Output Target
+### 1. Recover the Decision Frame
 
 Infer the frame from the user's context. Ask at most one concise question only when the missing information would radically change the option set.
 
 Capture:
 
 - **Decision:** what must be chosen.
-- **Output surface:** the thing that will exist in the world: profile, landing page, offer, product concept, post, email, pricing page, pitch, roadmap, service package, career narrative, etc.
+- **Decision surface:** where the choice appears: profile, product, offer, price, launch, website, post, roadmap, career narrative, market, audience, etc.
+- **User-provided options:** choices, fragments, examples, and instincts already mentioned by the user.
+- **Ingredients:** facts, assets, proof points, constraints, tastes, fears, ambitions, audience assumptions, and distribution channels.
 - **Desired outcome:** what "good" means.
-- **Constraints:** money, time, reputation, energy, skill, team, market, ethics, distribution, geography.
-- **Current candidates:** what the user is already considering.
 - **Hidden audience:** whose reaction matters, if any.
 - **Irreversibility:** what becomes hard to undo.
 
 If the user provides messy or emotional context, preserve the nuance. Do not sanitize away motivations like boredom, desire for status, urgency, fear, or taste; those often determine which options are real.
 
-### 2. Define Candidate Output Families
+### 2. Extract Source Material First
 
-Before writing candidates, create 3-7 candidate output families. A family is a cluster of outputs that would look different in the world and would likely produce different reactions. It can be based on audience, surface, narrative, offer shape, credibility strategy, tone, business model, or constraint.
+Before adding new options, show the material you extracted from the user.
 
-Do not return abstract headings like "Trust and credibility" unless each heading immediately contains concrete candidates. The heading is scaffolding; the candidates are the product.
+Use a compact source inventory:
 
-Useful output families include:
+```text
+## Source Inventory
+- Existing options mentioned:
+- Important ingredients:
+- Constraints:
+- Audience/reaction assumptions:
+- Tensions:
+- Things the user seems to dislike:
+```
 
-- **World-facing artifact:** profile draft, landing page section, post, pitch, offer, pricing package, product concept.
-- **Audience-specific version:** for buyers, peers, employers, investors, overseas customers, operators, skeptics.
-- **Narrative version:** practical, visionary, credibility-heavy, weird/interesting, minimal, premium, honest, provocative.
-- **Business version:** service, productized service, SaaS, API, media, community, agency, consulting, marketplace.
-- **Proof version:** credential-led, product-led, case-study-led, numbers-led, founder-story-led, no-hype.
-- **Tone version:** safe, sharp, warm, technical, executive, indie, corporate, academic, contrarian.
-- **Constraint version:** fast to ship, trust-preserving, high-status, low-maintenance, cash-near, long-term asset.
+This keeps the skill grounded. If an option is invented by the agent, label it as an expansion rather than pretending the user said it.
 
-### 3. Generate the Candidate Output Pack by Family
+### 3. Define Option Families
 
-Generate concrete candidates under each family instead of dumping one flat list. Prefer 4-8 families, each with 2-6 candidates. The user should be able to copy, edit, publish, show, test, or feed a candidate into a simulation.
+Create 3-7 option families. A family is a group of choices that are meaningfully different in how they would be perceived, executed, or tested.
+
+Families can be based on:
+
+- **Foreground:** what gets emphasized or hidden.
+- **Audience:** buyer, peer, investor, operator, friend, overseas customer, skeptic, employee, community.
+- **Outcome:** cash, trust, status, learning, distribution, talent, optionality.
+- **Surface:** profile, offer, product, post, landing page, DM, pricing, roadmap, content series.
+- **Business model:** service, productized service, SaaS, API, media, community, agency, consulting, marketplace.
+- **Proof strategy:** credential-led, product-led, case-study-led, numbers-led, founder-story-led, no-hype.
+- **Constraint:** fast to ship, low-maintenance, reputation-safe, cash-near, high-upside, reversible.
+
+Do not force every family into an artificial "A vs B" axis. Some families are menus, bundles, inclusion/exclusion choices, sequences, or combinations.
+
+### 4. Build the Option Map
+
+Generate options under each family instead of dumping one flat list. Prefer 4-8 families, each with 2-8 options. The user should be able to see the whole space and choose what deserves deeper work.
 
 Default format:
 
 ```text
-## Candidate Output Pack
+## Option Map
 
-### Family: Practical buyer-facing profile
-- Candidate A: "..."
-- Candidate B: "..."
-- Candidate C: "..."
+### Family: Profile foreground
+- Option A: Buyer clarity
+  - Include:
+  - Exclude/de-emphasize:
+  - What changes:
+  - Reaction to test:
+- Option B: AI-native agency
+  - Include:
+  - Exclude/de-emphasize:
+  - What changes:
+  - Reaction to test:
 
-### Family: Visionary AI-native agency profile
-- Candidate A: "..."
-- Candidate B: "..."
-- Candidate C: "..."
-
-### Family: Minimal anti-suspicion profile
-- Candidate A: "..."
-- Candidate B: "..."
-- Candidate C: "..."
+### Family: Business wedge
+- Option A: Free skill as distribution
+- Option B: Paid simulation credits
+- Option C: Agency/service wedge
 ```
 
-For non-writing decisions, the candidates should still be concrete:
+Include these option types when relevant:
+
+- **Obvious options:** what a reasonable person would already consider.
+- **User-mentioned options:** preserve the user's own candidates.
+- **Adjacent options:** one step sideways from the current thinking.
+- **Inversion options:** remove the premise, change the target, or do the opposite.
+- **Extreme options:** overcommit, undercommit, go premium, go tiny, go public, go private.
+- **Lazy options:** the simplest acceptable thing to do.
+- **Asset options:** choices that compound into data, audience, code, reputation, or distribution.
+- **Cash options:** choices closest to revenue.
+- **Learning options:** choices that maximize information gained per unit of effort.
+- **No-action/defer options:** sometimes the correct option is to wait, preserve optionality, or avoid publishing.
+
+Do not collapse distinct options too early. If two options would create different reactions, require different execution, or teach different things, keep both.
+
+After the grouped map, optionally add a short **Combination Options** section for bundles that combine multiple families.
+
+### 5. Use Skeletons for Taste-Sensitive Outputs
+
+When the decision surface is a taste-sensitive artifact, provide skeletons rather than polished output unless asked.
+
+Use:
+
+- **Ingredients:** what elements go in.
+- **Order:** what appears first, second, last.
+- **Emphasis:** what is loud, quiet, omitted, or implied.
+- **Claim shape:** practical claim, weird claim, premium claim, proof-led claim, minimalist claim.
+- **Simulation stimulus needed:** what exact artifact would need to be created later for human or agent testing.
+
+Example skeleton:
 
 ```text
-### Family: Productized service
-- Candidate A: "AI search audit + implementation sprint for Japanese SMBs"
-- Candidate B: "Japan GTM landing-page localization and search-intent API"
-
-### Family: Content-led wedge
-- Candidate A: "Weekly teardown of AI-search winners in Japan"
-- Candidate B: "Public database of GEO/AIO patterns for Japanese companies"
+### Option: Buyer clarity profile
+- Ingredient order: business outcome -> AI search/GEO capability -> proof -> contact path.
+- Include: AI search work, Japan market, concrete service outcome.
+- De-emphasize: age, personal blog, too many credentials.
+- Claim shape: "I help [buyer] achieve [business result] through [method]."
+- Simulation stimulus needed: 2-3 actual profile drafts written in the user's voice.
 ```
-
-When the candidate is too large to fully write in one answer, include a representative stimulus plus the missing pieces needed to simulate it:
-
-```text
-### Family: Premium service offer
-- Candidate A
-  - Buyer-facing output: "AI Search Revenue Sprint: 2 weeks to turn your existing pages into AI-search surfaces that bring qualified Japanese buyers."
-  - Includes: audit, query map, 5 rewritten pages, measurement dashboard, weekly implementation call.
-  - Price shown: $8,000 fixed.
-  - Simulation stimulus: show this exact offer sentence, package, price, and guarantee to target buyers.
-```
-
-Include these candidate families when relevant:
-
-- **Obvious candidates:** what a reasonable person would already make.
-- **Adjacent candidates:** one step sideways from the user's current thinking.
-- **Inversion candidates:** remove the premise, change the target, or do the opposite.
-- **Extreme candidates:** overcommit, undercommit, go premium, go tiny, go public, go private.
-- **Lazy candidates:** the simplest acceptable thing to publish or do.
-- **Asset candidates:** candidates that compound into data, audience, code, reputation, or distribution.
-- **Cash candidates:** candidates closest to revenue.
-- **Learning candidates:** candidates that maximize information gained per unit of effort.
-- **No-action or defer candidates:** sometimes the concrete result is to wait, preserve optionality, or not publish.
-
-Do not collapse distinct candidates too early. If two outputs would be perceived differently by users or require different execution, keep both.
-
-After the grouped map, optionally add a short **Hybrid Candidates** section for outputs that combine multiple families.
-
-### 4. Calibrate Depth
-
-Do not over-structure too early. Match the depth to the user's need:
-
-- **Rough pack:** output-family headings plus one-line candidate artifacts.
-- **Decision-ready pack:** output families, concrete artifacts, and short notes on what each candidate changes.
-- **Deep pack:** compact artifact cards for the most important or confusing candidates.
-- **Exhaustive pack:** every output family, every meaningful candidate artifact, hybrids, and what evidence would change the choice.
-
-Use compact option cards only when useful. The default should be grouped concrete candidates, not a wall of abstract analysis.
-
-When expanding a candidate into a card, use:
-
-- **Name:** short and concrete.
-- **Candidate output:** the actual thing to publish, ship, send, sell, or show.
-- **Why it exists:** the logic behind it.
-- **What it foregrounds:** what this choice makes visible or important.
-- **Who it attracts/repels:** likely audience fit.
-- **What changes if chosen:** the real-world action or commitment.
-- **Main risk:** the failure mode that matters.
-
-When a candidate depends on other people, markets, or stakeholders, also include:
-
-- **Simulation stimulus:** the exact text, offer, profile, product concept, price, screen, post, or scenario that can be shown to a person or agent.
-- **Who needs to react:** the people whose interpretation matters.
-- **What to learn:** trust, desire, confusion, suspicion, willingness to pay, status response, shareability, avoidance, anger, etc.
-
-### 5. Surface Missing Options
-
-After the first pass, explicitly check for blind spots:
-
-- What candidate is being avoided because it feels socially awkward?
-- What candidate is being avoided because it is too simple?
-- What candidate artifact is obvious to a buyer but not to the builder?
-- What candidate creates distribution before product?
-- What candidate creates cash before software?
-- What candidate gives the user a proprietary dataset or repeated workflow?
-- What candidate uses the user's existing unfair advantage?
-- What candidate should be rejected because it attracts the wrong people?
-
-Add any newly discovered candidates to the pack.
 
 ### 6. Compare Without Prematurely Deciding
 
-Only after writing the candidate pack, compare the candidates. Use comparison language that helps the user think, not false precision.
+Only compare after the option map exists. Use comparison language that helps the user think, not false precision.
 
 Good comparison dimensions:
 
@@ -202,54 +191,61 @@ Good comparison dimensions:
 - Downside/reversibility
 - Learning value
 - Need for external evidence
+- Need for taste/copywriting judgment
+- Need for human or agent simulation
 
-Never substitute a tiny "top 3" for the full candidate pack. If you highlight candidates, explain what class of output each candidate represents and what could make a lower-ranked candidate win.
+Never substitute a tiny "top 3" for the full map. If you highlight options, explain what class of decision each highlighted option represents and what could make a lower-ranked option win.
 
-### 7. Define the Next Evidence
+### 7. Prepare the Simulation Bridge
 
-End by showing what evidence would make the decision clearer. Keep this practical and specific.
+When human interpretation matters, end with a simulation-ready brief, but do not invent simulation results.
 
 Include:
 
-- **Unknowns:** what must be learned before choosing.
-- **Evidence source:** user interview, sales call, landing page, public post, prototype, manual service, internal review, market research, or personal experiment.
-- **Question to ask:** the exact question or artifact to put in front of people.
-- **Signal to watch:** what response, behavior, or constraint would change the decision.
-- **Decision rule:** what result would make a candidate stronger or weaker.
+- **Options to simulate:** the options or bundles that need external reaction.
+- **Stimulus required:** what artifact must be created or shown.
+- **Audience to test:** whose interpretation matters.
+- **Signals to observe:** trust, desire, confusion, suspicion, willingness to pay, status response, shareability, avoidance, anger, etc.
+- **Decision rule:** what result would make an option stronger or weaker.
+
+This skill is the free preparation layer. A later simulation API can consume the option map and run deeper reaction testing.
 
 ## Output Shape
 
 Use this default structure:
 
-1. **Output Target**
-2. **Candidate Output Families**
-3. **Candidate Output Pack by Family**
-4. **Blind Spots Added**
-5. **Comparison**
-6. **Next Evidence**
-7. **Next Move**
+1. **Decision Frame**
+2. **Source Inventory**
+3. **Option Families**
+4. **Option Map by Family**
+5. **Combination Options**
+6. **Comparison**
+7. **Simulation Bridge**
+8. **Next Move**
 
-Keep the answer readable. Do not produce a single flat list unless the decision is genuinely tiny. If the user asks for exhaustive depth, expand each output family rather than adding one long undifferentiated list.
+Keep the answer readable. Do not produce a single flat list unless the decision is genuinely tiny. If the user asks for exhaustive depth, expand each family rather than adding one long undifferentiated list.
 
 ## Quality Bar
 
 A good result should make the user say:
 
-- "I now have actual candidates I could publish, ship, sell, send, simulate, or test."
-- "I can see what evidence would actually change the decision."
-- "I know what to try next."
+- "This captured what I was already circling around."
+- "I can see the whole option space now."
+- "I can choose what to write, test, simulate, or ignore next."
+- "The AI did not hijack my taste."
 
 A bad result:
 
-- Gives five generic candidates.
-- Gives only abstract lenses, categories, or strategy words without concrete candidate outputs.
-- Dumps 20 candidates in one flat list with no organizing output families.
+- Writes polished copy when the user needed options.
+- Replaces the user's context with generic strategy.
+- Gives five generic options.
+- Dumps 20 options in one flat list with no organizing families.
 - Forces every family into an artificial "A vs B" axis.
 - Recommends too early.
-- Uses fake scores or fake market data.
+- Uses fake scores, fake market data, or fake user reactions.
 - Treats every problem as startup strategy.
 - Ignores the user's personality, constraints, and taste.
-- Produces candidates that cannot be acted on or shown to others.
+- Produces options that cannot be connected back to the user's source material.
 
 ## References
 

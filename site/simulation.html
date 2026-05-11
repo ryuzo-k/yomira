@@ -26,29 +26,55 @@
     </nav>
 
     <main>
-      <section class="hero" id="top">
+      <section class="product-hero" id="top">
         <div class="hero-copy">
-          <p class="eyebrow">Paid reaction simulation API</p>
-          <h1>See how people may privately react before you go live.</h1>
+          <p class="eyebrow">Reaction simulation for real decisions</p>
+          <h1>Test what people might really think before you publish.</h1>
           <p class="lede">
-            Paste a post, landing page, offer, sales message, profile, or venture concept. Get reaction clusters, raw private voices, and downloadable Markdown/JSON for the next decision.
+            Run synthetic audience simulations for posts, landing pages, sales messages, offers, profiles, and venture ideas. Get reaction clusters, raw private voices, and exportable evidence for your next decision.
           </p>
           <div class="hero-actions">
             <a class="primary-action" href="./admin.html">Create account</a>
-            <a class="ghost-action" href="./docs.html">Read API docs</a>
+            <a class="ghost-action" href="./docs">Read API docs</a>
           </div>
         </div>
 
-        <div class="signal-card">
-          <p class="mini-label">Example output</p>
-          <h2>40 people simulated</h2>
-          <div class="signal-row"><span>Clear and intriguing</span><strong>38%</strong></div>
-          <div class="signal-row"><span>Needs examples</span><strong>25%</strong></div>
-          <div class="signal-row"><span>Skeptical about usefulness</span><strong>18%</strong></div>
+        <div class="product-surface" aria-label="Example simulation output">
+          <div class="surface-header">
+            <span>Simulation report</span>
+            <strong>40 agents</strong>
+          </div>
+          <div class="surface-title">
+            <p>Launch post preflight</p>
+            <h2>“Useful, but I need proof.”</h2>
+          </div>
+          <div class="reaction-stack">
+            <div class="reaction-row"><span>Interested but skeptical</span><strong>39%</strong></div>
+            <div class="reaction-row"><span>Wants concrete output sample</span><strong>26%</strong></div>
+            <div class="reaction-row"><span>Would try if setup is fast</span><strong>21%</strong></div>
+            <div class="reaction-row"><span>Dismisses as prompt wrapper</span><strong>14%</strong></div>
+          </div>
           <blockquote>
-            “I can see how this would save back-and-forth, but where is a real sample output?”
+            “I understand the promise. I would need to see one messy real example before paying.”
           </blockquote>
         </div>
+      </section>
+
+      <section class="quickstart-section">
+        <div class="quickstart-copy">
+          <p class="eyebrow">API-first</p>
+          <h2>Use it from your agent, script, or product.</h2>
+          <p>Start with self-serve credits. Export Markdown or JSON and keep discussing the result in Claude Code, Codex, Cursor, or your own workflow.</p>
+        </div>
+        <pre class="terminal-card"><code>curl -s -X POST "https://agent-simulation-api.vercel.app/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $AGENT_SIMULATION_API_KEY" \
+  -d '{
+    "objective": "Should we publish this landing page?",
+    "artifact": { "type": "landing_page", "content": "..." },
+    "audience": { "description": "founders, agencies, and operators" },
+    "simulation": { "target_n": 120 }
+  }'</code></pre>
       </section>
 
       <section class="usecase-section" id="usecases">
@@ -91,6 +117,7 @@
         <div class="section-copy">
           <p class="eyebrow">Pricing</p>
           <h2>Self-serve credits. Enterprise data is custom.</h2>
+          <p>Cheap simulations are fast synthetic preflight checks. Grounded simulations with external data, private customer context, or strict workflows are enterprise.</p>
         </div>
         <div class="pricing-grid">
           <article><h3>$20</h3><p>100 credits for quick checks and early experiments.</p></article>

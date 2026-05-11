@@ -1,7 +1,11 @@
 import { getPlan } from "../../src/billing/plans.mjs";
 import { stripeRequest } from "../../src/billing/stripe.mjs";
+import { handleOptions, setCors } from "../../src/http/cors.mjs";
 
 export default async function handler(request, response) {
+  if (handleOptions(request, response)) return;
+  setCors(response);
+
   if (request.method !== "POST") {
     response.status(405).json({ error: "Method not allowed. Use POST." });
     return;

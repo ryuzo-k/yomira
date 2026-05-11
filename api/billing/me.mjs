@@ -1,6 +1,10 @@
 import { getCreditAccount, getCredits, getUserByApiKey } from "../../src/billing/ledger.mjs";
+import { handleOptions, setCors } from "../../src/http/cors.mjs";
 
 export default async function handler(request, response) {
+  if (handleOptions(request, response)) return;
+  setCors(response);
+
   const apiKey = readApiKey(request);
   if (!apiKey) {
     response.status(401).json({ error: "Missing x-api-key." });

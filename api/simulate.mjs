@@ -2,18 +2,15 @@ import { simulateReaction } from "../src/simulation/engine.mjs";
 import { consumeCredits, getCreditAccount, getUserByApiKey, storeSimulation } from "../src/billing/ledger.mjs";
 import { estimateCredits } from "../src/billing/plans.mjs";
 import { maybeAutoTopup } from "../src/billing/auto-topup.mjs";
+import { handleOptions, setCors } from "../src/http/cors.mjs";
 
 export const config = {
   maxDuration: 300
 };
 
 export default async function handler(request, response) {
+  if (handleOptions(request, response)) return;
   setCors(response);
-
-  if (request.method === "OPTIONS") {
-    response.status(200).end();
-    return;
-  }
 
   if (request.method !== "POST") {
     response.status(405).json({ error: "Method not allowed. Use POST." });
@@ -75,12 +72,6 @@ export default async function handler(request, response) {
       error: error.message
     });
   }
-}
-
-function setCors(response) {
-  response.setHeader("access-control-allow-origin", process.env.CORS_ORIGIN || "*");
-  response.setHeader("access-control-allow-methods", "POST,OPTIONS");
-  response.setHeader("access-control-allow-headers", "content-type,authorization,x-api-key");
 }
 
 async function authorizeUsage(request, input) {

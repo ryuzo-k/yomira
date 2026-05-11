@@ -39,6 +39,14 @@
       "destination": "/api/simulate.mjs"
     },
     {
+      "source": "/api/auth/register",
+      "destination": "/api/auth/register.mjs"
+    },
+    {
+      "source": "/api/auth/login",
+      "destination": "/api/auth/login.mjs"
+    },
+    {
       "source": "/api/billing/checkout",
       "destination": "/api/billing/checkout.mjs"
     },

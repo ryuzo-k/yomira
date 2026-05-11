@@ -3,79 +3,386 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agent Simulation API Admin</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <title>Agent Simulation API</title>
     <style>
-      body { min-height: 100vh; }
-      .admin-shell { max-width: 920px; margin: 0 auto; padding: 48px 20px; }
-      .admin-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 28px 0; }
-      .plan-card { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: white; }
-      .plan-card h2 { font-size: 18px; margin: 0 0 8px; }
-      .plan-card p { color: var(--muted); min-height: 48px; }
-      .admin-box { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: white; margin-top: 16px; }
-      input { width: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: 8px; padding: 12px; font: inherit; }
-      button { cursor: pointer; }
-      code { word-break: break-all; }
+      :root {
+        color-scheme: light;
+        --bg: #f7f7f2;
+        --panel: #ffffff;
+        --ink: #101214;
+        --muted: #626a70;
+        --line: #d9ddd5;
+        --soft: #eef1ea;
+        --accent: #176f63;
+        --accent-2: #a83f2d;
+        --shadow: rgba(16, 18, 20, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      button, input, textarea, select { font: inherit; }
+
+      button {
+        min-height: 42px;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: white;
+        padding: 0 14px;
+        cursor: pointer;
+        font-weight: 750;
+      }
+
+      button.secondary {
+        border-color: var(--line);
+        background: white;
+        color: var(--ink);
+      }
+
+      button:disabled {
+        cursor: wait;
+        opacity: 0.55;
+      }
+
+      input, textarea, select {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: white;
+        color: var(--ink);
+        padding: 11px 12px;
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+
+      label {
+        display: grid;
+        gap: 7px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      .shell {
+        display: grid;
+        grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
+        min-height: 100vh;
+      }
+
+      .side {
+        border-right: 1px solid var(--line);
+        background: #fbfbf7;
+        padding: 34px 28px;
+      }
+
+      .main {
+        padding: 34px clamp(18px, 4vw, 56px) 56px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 850;
+      }
+
+      .mark {
+        width: 17px;
+        height: 17px;
+        background: var(--accent);
+        transform: rotate(45deg);
+      }
+
+      h1 {
+        margin: 34px 0 14px;
+        font-size: clamp(36px, 5vw, 64px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: 0;
+      }
+
+      h3 {
+        margin: 0 0 8px;
+        font-size: 15px;
+      }
+
+      p {
+        color: var(--muted);
+        line-height: 1.58;
+      }
+
+      .lede {
+        font-size: 18px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: 0 22px 60px var(--shadow);
+      }
+
+      .panel + .panel { margin-top: 18px; }
+
+      .panel-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .panel-body {
+        padding: 18px;
+      }
+
+      .stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .plans {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .plan {
+        border: 1px solid var(--line);
+        background: white;
+        padding: 14px;
+      }
+
+      .plan strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .small {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .key-box {
+        border: 1px solid var(--line);
+        background: var(--soft);
+        padding: 12px;
+        word-break: break-all;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 13px;
+      }
+
+      .status {
+        border: 1px solid var(--line);
+        background: white;
+        padding: 12px;
+        min-height: 46px;
+      }
+
+      .result-layout {
+        display: grid;
+        grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+        gap: 18px;
+        margin-top: 18px;
+      }
+
+      .distribution {
+        display: grid;
+        gap: 10px;
+      }
+
+      .dist-row {
+        display: grid;
+        gap: 6px;
+      }
+
+      .dist-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 13px;
+      }
+
+      .bar {
+        height: 9px;
+        background: var(--soft);
+      }
+
+      .bar span {
+        display: block;
+        height: 100%;
+        background: var(--accent);
+      }
+
+      .cluster {
+        border: 1px solid var(--line);
+        background: white;
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+
+      .cluster-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 10px;
+      }
+
+      .share {
+        color: var(--accent-2);
+        font-weight: 850;
+        white-space: nowrap;
+      }
+
+      .voice {
+        border-left: 3px solid var(--ink);
+        padding: 8px 0 8px 12px;
+        margin: 8px 0;
+        line-height: 1.55;
+      }
+
+      .hidden { display: none !important; }
+
+      @media (max-width: 980px) {
+        .shell { grid-template-columns: 1fr; }
+        .side { border-right: 0; border-bottom: 1px solid var(--line); }
+        .plans, .grid-2, .result-layout { grid-template-columns: 1fr; }
+      }
     </style>
   </head>
   <body>
-    <main class="admin-shell">
-      <a href="./index.html">Decision Foundation</a>
-      <h1>Agent Simulation API</h1>
-      <p>Buy credits, claim your API key, and check your remaining balance.</p>
+    <div class="shell">
+      <aside class="side">
+        <div class="brand"><span class="mark"></span><span>Agent Simulation API</span></div>
+        <h1>Hear the private voices before you decide.</h1>
+        <p class="lede">Paste a product, profile, offer, post, or landing page. The API simulates many likely human reactions, clusters the voices, and shows what share of people felt each way.</p>
 
-      <div class="admin-box">
-        <label for="email">Email</label>
-        <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
-      </div>
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Account</h2>
+              <p class="small">Create an account, get trial credits, then buy more when needed.</p>
+            </div>
+          </div>
+          <div class="panel-body stack">
+            <label>Email <input id="email" type="email" placeholder="you@example.com" autocomplete="email" /></label>
+            <label>Password <input id="password" type="password" placeholder="At least 8 characters" autocomplete="current-password" /></label>
+            <div class="row">
+              <button id="register">Create account</button>
+              <button id="login" class="secondary">Log in</button>
+            </div>
+            <div id="account-status" class="status small">Not signed in.</div>
+            <div id="api-key-wrap" class="hidden stack">
+              <div class="small">Current API key</div>
+              <div id="api-key" class="key-box"></div>
+              <button id="copy-key" class="secondary">Copy key</button>
+            </div>
+          </div>
+        </div>
 
-      <section class="admin-grid">
-        <article class="plan-card">
-          <h2>$20 Starter</h2>
-          <p>200 credits for testing real artifacts.</p>
-          <button data-plan="starter">Buy credits</button>
-        </article>
-        <article class="plan-card">
-          <h2>$99 Pro</h2>
-          <p>1,500 monthly credits for regular decisions.</p>
-          <button data-plan="pro">Start Pro</button>
-        </article>
-        <article class="plan-card">
-          <h2>$299 Pro Max</h2>
-          <p>6,000 monthly credits for heavy or agency use.</p>
-          <button data-plan="pro_max">Start Pro Max</button>
-        </article>
-      </section>
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Credits</h2>
+              <p class="small">Test mode payments are wired. Live mode can be switched later.</p>
+            </div>
+          </div>
+          <div class="panel-body stack">
+            <div id="balance" class="status">Credits: -</div>
+            <div class="plans">
+              <div class="plan"><strong>$20</strong><span class="small">200 credits</span><button data-plan="starter">Buy</button></div>
+              <div class="plan"><strong>$99/mo</strong><span class="small">1,500 credits</span><button data-plan="pro">Pro</button></div>
+              <div class="plan"><strong>$299/mo</strong><span class="small">6,000 credits</span><button data-plan="pro_max">Max</button></div>
+            </div>
+            <label class="row"><input id="auto-enabled" type="checkbox" style="width:auto" /> Auto top-up</label>
+            <div class="grid-2">
+              <label>Threshold <input id="auto-threshold" type="number" min="0" step="1" value="10" /></label>
+              <label>Top-up credits <input id="auto-credits" type="number" min="1" step="1" value="200" /></label>
+            </div>
+            <button id="save-auto" class="secondary">Save billing settings</button>
+            <div id="billing-status" class="status small"></div>
+          </div>
+        </div>
+      </aside>
 
-      <section class="admin-box">
-        <h2>Claim API key</h2>
-        <p>After checkout, this page will claim the key once. Store it locally.</p>
-        <button id="claim">Claim from checkout</button>
-        <pre id="claim-output"></pre>
-      </section>
+      <main class="main">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Run a simulation</h2>
+              <p class="small">The output is not advice. It is a structured pile of plausible human voices.</p>
+            </div>
+            <button id="sample" class="secondary">Load sample</button>
+          </div>
+          <div class="panel-body stack">
+            <label>Decision / objective
+              <input id="objective" value="Decide whether this product should be launched as a paid API." />
+            </label>
+            <label>Audience
+              <textarea id="audience">Indie hackers, AI tool builders, agency owners, startup founders, and operators who already use Claude Code, Codex, Cursor, or other agentic coding tools.</textarea>
+            </label>
+            <label>Artifact
+              <textarea id="artifact">An API that simulates how likely human audiences would react to a product, profile, offer, or content artifact. It returns many realistic private voices and aggregate patterns for better decisions.</textarea>
+            </label>
+            <div class="grid-2">
+              <label>Simulated people <input id="target-n" type="number" min="12" max="1000" value="80" /></label>
+              <label>Representative voices shown <input id="voice-limit" type="number" min="8" max="40" value="12" /></label>
+            </div>
+            <div class="row">
+              <button id="run">Run simulation</button>
+              <span id="run-status" class="small"></span>
+            </div>
+          </div>
+        </section>
 
-      <section class="admin-box">
-        <h2>Check balance</h2>
-        <input id="api-key" placeholder="sim_..." />
-        <button id="check">Check credits</button>
-        <pre id="balance-output"></pre>
-      </section>
-
-      <section class="admin-box">
-        <h2>Auto top-up</h2>
-        <p>When credits run low, charge the saved Stripe card and add credits automatically.</p>
-        <label>
-          <input id="auto-enabled" type="checkbox" />
-          Enable auto top-up
-        </label>
-        <label for="auto-threshold">Threshold</label>
-        <input id="auto-threshold" type="number" min="0" step="1" value="50" />
-        <label for="auto-credits">Credits per top-up</label>
-        <input id="auto-credits" type="number" min="1" step="1" value="200" />
-        <button id="save-auto">Save auto top-up</button>
-        <pre id="auto-output"></pre>
-      </section>
-    </main>
+        <section id="results" class="hidden">
+          <div class="result-layout">
+            <aside class="panel">
+              <div class="panel-head"><h2>Distribution</h2></div>
+              <div id="distribution" class="panel-body distribution"></div>
+            </aside>
+            <div>
+              <div class="panel">
+                <div class="panel-head">
+                  <div>
+                    <h2>Voice clusters</h2>
+                    <p id="result-note" class="small"></p>
+                  </div>
+                </div>
+                <div id="clusters" class="panel-body"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
     <script src="./admin.js"></script>
   </body>
 </html>

@@ -426,12 +426,17 @@ Core rules:
 - The main value is the raw human texture: inner voice, private motive, social mask, money reality, status pressure, likely action.
 - Avoid generic personas like "AI-interested founder". Make people feel specific without pretending they are real named individuals.
 - Do not write consultant language such as "growth mindset", "balancing efficiency", "actionable insights", "diverse stakeholders", or "market proof" unless a person would actually think those words.
+- Do not produce gibberish, pseudo-language, corrupted text, joke text, or surreal filler. Every raw voice must sound like a plausible private thought from one coherent person.
+- Do not summarize what a user segment "would value". Write what that person would actually mutter internally after seeing the artifact.
+- Each cluster must be built from individual raw voices first, then summarized into percentages. The percentage is a count of similar private reactions, not an abstract score.
 - Do not over-focus on trust/confidence as a meta field. If suspicion, desire, confusion, or trust appears, express it as human voice.
 - Build the audience from the given audience brief and artifact context. If the audience is broad, create several plausible clusters.
 - Simulate all relevant reaction types: desire, confusion, suspicion, curiosity, dismissal, status reaction, quiet conversion.
 - Use percentages and counts as a summary of the synthetic run, but make the voices the center.
 - When requested_n is large, do not return every individual. Return representative voices and clusters while preserving the simulated_n.
 - In raw_voices and inner_voice, write like private thought, not a survey answer. Include hesitation, vanity, money anxiety, embarrassment, status, fatigue, curiosity, and concrete context.
+- Good cluster labels are like "bootstrapped founders who want a fake-customer-call before paying for user research" or "agency owners who like the demo but fear clients will call it AI guessing".
+- Bad cluster labels are like "innovation-oriented users" or "stakeholders seeking trust".
 - A good voice sounds like: "I would probably try this once if it used my actual landing page. But if it comes back with polished marketing-speak, I will immediately think it is just another prompt wrapper."
 - A bad voice sounds like: "This tool provides actionable insights for founders seeking validation."
 

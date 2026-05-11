@@ -11,33 +11,89 @@ export function hashApiKey(apiKey) {
 
 export async function createCustomerAccess({ email, stripeCustomerId, credits = 0, planId = "starter" }) {
   const now = new Date().toISOString();
+  let user = null;
 
-  const [user] = await supabaseRequest("/profiles", {
-    method: "POST",
-    body: JSON.stringify({
-      email,
-      stripe_customer_id: stripeCustomerId,
-      plan_id: planId,
-      created_at: now,
-      updated_at: now
-    })
-  });
+  if (email) {
+    const existing = await supabaseRequest(`/profiles?email=eq.${encodeURIComponent(email)}&limit=1`);
+    if (existing[0]) {
+      const [updated] = await supabaseRequest(`/profiles?id=eq.${encodeURIComponent(existing[0].id)}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          email,
+          stripe_customer_id: stripeCustomerId || existing[0].stripe_customer_id,
+          plan_id: planId,
+          updated_at: now
+        })
+      });
+      user = updated;
+    }
+  }
+
+  if (!user) {
+    [user] = await supabaseRequest("/profiles", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        stripe_customer_id: stripeCustomerId,
+        plan_id: planId,
+        created_at: now,
+        updated_at: now
+      })
+    });
+  }
 
   const apiKey = await createApiKeyForUser(user.id);
 
-  await supabaseRequest("/credit_accounts", {
-    method: "POST",
-    body: JSON.stringify({
-      user_id: user.id,
-      balance: 0
-    })
-  });
+  await ensureCreditAccount(user.id);
 
   if (credits) {
     await addCredits(user.id, credits, "initial_purchase");
   }
 
   return { user: normalizeUser(user), apiKey };
+}
+
+export async function createAccountForAuthUser({ authUserId, email, trialCredits = 20 }) {
+  let user = await getUserByAuthUserId(authUserId);
+  const now = new Date().toISOString();
+
+  if (!user && email) {
+    const existing = await supabaseRequest(`/profiles?email=eq.${encodeURIComponent(email)}&limit=1`);
+    if (existing[0]) {
+      const [updated] = await supabaseRequest(`/profiles?id=eq.${encodeURIComponent(existing[0].id)}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          auth_user_id: authUserId,
+          email,
+          updated_at: now
+        })
+      });
+      user = normalizeUser(updated);
+    }
+  }
+
+  if (!user) {
+    const [created] = await supabaseRequest("/profiles", {
+      method: "POST",
+      body: JSON.stringify({
+        auth_user_id: authUserId,
+        email,
+        plan_id: "free",
+        created_at: now,
+        updated_at: now
+      })
+    });
+    user = normalizeUser(created);
+  }
+
+  await ensureCreditAccount(user.id);
+  const balance = await getCredits(user.id);
+  if (balance === 0 && trialCredits > 0) {
+    await addCredits(user.id, trialCredits, "trial_grant");
+  }
+
+  const apiKey = await createApiKeyForUser(user.id, "Login session");
+  return { user, apiKey, credits: await getCredits(user.id) };
 }
 
 export async function createApiKeyForUser(userId, label = "Default") {
@@ -74,6 +130,11 @@ export async function getUserByStripeCustomer(stripeCustomerId) {
   return users[0] ? normalizeUser(users[0]) : null;
 }
 
+export async function getUserByAuthUserId(authUserId) {
+  const users = await supabaseRequest(`/profiles?auth_user_id=eq.${encodeURIComponent(authUserId)}&limit=1`);
+  return users[0] ? normalizeUser(users[0]) : null;
+}
+
 export async function addCredits(userId, credits, reason = "credit_grant", metadata = {}) {
   return Number(await supabaseRpc("add_credits", {
     target_user_id: userId,
@@ -91,6 +152,20 @@ export async function getCredits(userId) {
 export async function getCreditAccount(userId) {
   const rows = await supabaseRequest(`/credit_accounts?user_id=eq.${encodeURIComponent(userId)}&limit=1`);
   return rows[0] || null;
+}
+
+export async function ensureCreditAccount(userId) {
+  const existing = await getCreditAccount(userId);
+  if (existing) return existing;
+
+  const [row] = await supabaseRequest("/credit_accounts", {
+    method: "POST",
+    body: JSON.stringify({
+      user_id: userId,
+      balance: 0
+    })
+  });
+  return row;
 }
 
 export async function updateAutoTopup(userId, settings) {

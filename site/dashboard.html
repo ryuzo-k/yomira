@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent Simulation Dashboard</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f7f2;
+        --panel: #ffffff;
+        --ink: #101214;
+        --muted: #626a70;
+        --line: #d9ddd5;
+        --soft: #eef1ea;
+        --accent: #176f63;
+        --accent-2: #a83f2d;
+        --shadow: rgba(16, 18, 20, 0.08);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      button, input, textarea { font: inherit; }
+      button {
+        min-height: 42px;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: white;
+        padding: 0 14px;
+        cursor: pointer;
+        font-weight: 780;
+      }
+      button.secondary { border-color: var(--line); background: white; color: var(--ink); }
+      button:disabled { opacity: 0.55; cursor: wait; }
+      input, textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: white;
+        padding: 11px 12px;
+      }
+      textarea { min-height: 140px; resize: vertical; line-height: 1.5; }
+      label { display: grid; gap: 7px; color: var(--muted); font-size: 13px; font-weight: 700; }
+      .topbar {
+        min-height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 0 clamp(18px, 4vw, 48px);
+        border-bottom: 1px solid var(--line);
+        background: #fbfbf7;
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 850; }
+      .mark { width: 17px; height: 17px; background: var(--accent); transform: rotate(45deg); }
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(300px, 430px) minmax(0, 1fr);
+        gap: 18px;
+        padding: 18px;
+      }
+      .panel { border: 1px solid var(--line); background: var(--panel); box-shadow: 0 18px 48px var(--shadow); }
+      .panel + .panel { margin-top: 18px; }
+      .panel-head { padding: 18px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+      .panel-body { padding: 18px; }
+      h1, h2, h3, p { margin-top: 0; letter-spacing: 0; }
+      h1 { font-size: 28px; margin-bottom: 4px; }
+      h2 { font-size: 18px; margin-bottom: 0; }
+      h3 { font-size: 15px; margin-bottom: 8px; }
+      p, .small { color: var(--muted); line-height: 1.55; }
+      .small { font-size: 13px; }
+      .stack { display: grid; gap: 14px; }
+      .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+      .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+      .plan { border: 1px solid var(--line); padding: 12px; }
+      .key-box, .status { border: 1px solid var(--line); background: var(--soft); padding: 12px; min-height: 44px; }
+      .key-box { word-break: break-all; font-family: "SFMono-Regular", Consolas, monospace; font-size: 12px; }
+      .result-layout { display: grid; grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); gap: 18px; }
+      .distribution { display: grid; gap: 10px; }
+      .dist-meta { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+      .bar { height: 9px; background: var(--soft); }
+      .bar span { display: block; height: 100%; background: var(--accent); }
+      .cluster { border: 1px solid var(--line); padding: 16px; margin-bottom: 12px; background: white; }
+      .cluster-top { display: flex; justify-content: space-between; gap: 18px; margin-bottom: 10px; }
+      .share { color: var(--accent-2); font-weight: 850; white-space: nowrap; }
+      .voice { border-left: 3px solid var(--ink); padding: 8px 0 8px 12px; margin: 8px 0; line-height: 1.55; }
+      .history-item { border-top: 1px solid var(--line); padding: 12px 0; }
+      .hidden { display: none !important; }
+      @media (max-width: 980px) {
+        .layout, .result-layout, .grid-2, .plans { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand"><span class="mark"></span><span>Agent Simulation API</span></div>
+      <div class="row">
+        <span id="account" class="small"></span>
+        <button id="logout" class="secondary">Log out</button>
+      </div>
+    </header>
+    <main class="layout">
+      <aside>
+        <section class="panel">
+          <div class="panel-head"><div><h2>Account</h2><p class="small">API key and credits.</p></div></div>
+          <div class="panel-body stack">
+            <div id="balance" class="status">Credits: -</div>
+            <div class="key-box" id="api-key"></div>
+            <button id="copy-key" class="secondary">Copy API key</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><div><h2>Credits</h2><p class="small">Test mode payments are wired.</p></div></div>
+          <div class="panel-body stack">
+            <div class="plans">
+              <div class="plan"><strong>$20</strong><div class="small">200 credits</div><button data-plan="starter">Buy</button></div>
+              <div class="plan"><strong>$99/mo</strong><div class="small">1,500 credits</div><button data-plan="pro">Pro</button></div>
+              <div class="plan"><strong>$299/mo</strong><div class="small">6,000 credits</div><button data-plan="pro_max">Max</button></div>
+            </div>
+            <label class="row"><input id="auto-enabled" type="checkbox" style="width:auto" /> Auto top-up</label>
+            <div class="grid-2">
+              <label>Threshold <input id="auto-threshold" type="number" min="0" step="1" value="10" /></label>
+              <label>Credits <input id="auto-credits" type="number" min="1" step="1" value="200" /></label>
+            </div>
+            <button id="save-auto" class="secondary">Save billing settings</button>
+            <div id="billing-status" class="small"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><div><h2>History</h2><p class="small">Download previous runs.</p></div></div>
+          <div class="panel-body" id="history"></div>
+        </section>
+      </aside>
+
+      <section>
+        <section class="panel">
+          <div class="panel-head">
+            <div><h1>Run a simulation</h1><p class="small">Paste the thing people will see. The export is meant to be reused in Claude, Codex, Cursor, or team discussions.</p></div>
+            <button id="sample" class="secondary">Load sample</button>
+          </div>
+          <div class="panel-body stack">
+            <label>Decision / objective <input id="objective" value="Decide whether this product should be launched as a paid API." /></label>
+            <label>Audience <textarea id="audience">Indie hackers, AI tool builders, agency owners, startup founders, and operators who already use Claude Code, Codex, Cursor, or other agentic coding tools.</textarea></label>
+            <label>Artifact <textarea id="artifact">An API that simulates how likely human audiences would react to a product, profile, offer, or content artifact. It returns many realistic private voices and aggregate patterns for better decisions.</textarea></label>
+            <div class="grid-2">
+              <label>Simulated people <input id="target-n" type="number" min="12" max="1000" value="80" /></label>
+              <label>Representative voices shown <input id="voice-limit" type="number" min="8" max="40" value="12" /></label>
+            </div>
+            <div class="row">
+              <button id="run">Run simulation</button>
+              <span id="run-status" class="small"></span>
+            </div>
+          </div>
+        </section>
+
+        <section id="results" class="hidden">
+          <div class="panel">
+            <div class="panel-head">
+              <div><h2>Result</h2><p id="result-note" class="small"></p></div>
+              <div class="row">
+                <button id="download-json" class="secondary">Download JSON</button>
+                <button id="download-md" class="secondary">Download Markdown</button>
+              </div>
+            </div>
+            <div class="panel-body result-layout">
+              <div id="distribution" class="distribution"></div>
+              <div id="clusters"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="./dashboard.js"></script>
+  </body>
+</html>

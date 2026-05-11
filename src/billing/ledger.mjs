@@ -215,6 +215,15 @@ export async function storeSimulation({ userId, input, result, creditsCharged = 
   return row;
 }
 
+export async function getSimulationForUser(simulationId, userId) {
+  const rows = await supabaseRequest(`/simulations?id=eq.${encodeURIComponent(simulationId)}&user_id=eq.${encodeURIComponent(userId)}&limit=1`);
+  return rows[0] || null;
+}
+
+export async function listSimulationsForUser(userId, limit = 20) {
+  return supabaseRequest(`/simulations?user_id=eq.${encodeURIComponent(userId)}&select=id,artifact_type,objective,requested_n,credits_charged,created_at,completed_at&order=created_at.desc&limit=${Number(limit) || 20}`);
+}
+
 function normalizeUser(user) {
   if (!user) return null;
   return {

@@ -23,6 +23,14 @@
       "destination": "/site/admin.js"
     },
     {
+      "source": "/dashboard.html",
+      "destination": "/site/dashboard.html"
+    },
+    {
+      "source": "/dashboard.js",
+      "destination": "/site/dashboard.js"
+    },
+    {
       "source": "/styles.css",
       "destination": "/site/styles.css"
     },
@@ -37,6 +45,14 @@
     {
       "source": "/api/simulate",
       "destination": "/api/simulate.mjs"
+    },
+    {
+      "source": "/api/simulations",
+      "destination": "/api/simulations/index.mjs"
+    },
+    {
+      "source": "/api/simulations/:id",
+      "destination": "/api/simulations/[id].mjs?id=:id"
     },
     {
       "source": "/api/auth/register",

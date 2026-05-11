@@ -43,12 +43,17 @@ export default async function handler(request, response) {
     }
     const result = await simulateReaction(input);
     if (usage) {
-      await storeSimulation({
+      const stored = await storeSimulation({
         userId: usage.user.id,
         input,
         result,
         creditsCharged: usage.credits
       });
+      result.simulation_id = stored.id;
+      result.downloads = {
+        json: `/api/simulations/${stored.id}?format=json`,
+        markdown: `/api/simulations/${stored.id}?format=markdown`
+      };
       result.billing = {
         credits_charged: usage.credits,
         credits_remaining: await consumeCredits(usage.user.id, usage.credits),

@@ -165,14 +165,45 @@ Add Agent Simulation as the paid bridge skill:
 - it exports Markdown/JSON
 - it lets Claude Code, Codex, Cursor, and other agents use the product
 
-Possible future skills:
+Use-case skills:
 
 - GEO Content Reaction Check
-- Offer Reaction Check
-- X Profile Reaction Check
-- Sales DM Reaction Check
+- Content Reaction Check
+- Message Reaction Flow
+- Venture Idea Simulation
 
-Do not make all of them now. Start with Agent Simulation.
+These should be wrappers around the same API. The value is not new technology; it is better context collection for each scene.
+
+## Why People Pay
+
+People pay when the simulation is tied to a money-adjacent decision:
+
+- publish this content or not
+- send this sales message or not
+- launch this offer or not
+- choose this pricing or not
+- show this enterprise narrative or not
+
+They do not pay for abstract "AI personas". They pay to avoid embarrassment, wasted ad spend, weak positioning, ignored messages, bad content, or wrong product direction.
+
+The product becomes valuable when it saves one bad launch, one bad client deliverable, one ignored sales sequence, or one week of building the wrong thing.
+
+## Technical Evolution
+
+The next real technical step is async jobs:
+
+1. `/api/simulate` creates a job and returns `job_id` immediately.
+2. A background worker runs the simulation.
+3. Dashboard polls `/api/jobs/:id`.
+4. Large N simulations become reliable.
+
+After that:
+
+- multi-pass simulation: generate audience first, then reactions, then clusters
+- artifact variants: simulate A/B/C versions in one run
+- context packs: save reusable company/audience context
+- calibration: compare synthetic predictions to real outcomes
+- private enterprise mode: no retention, workspace-specific context, export audit logs
 
 ## First Launch Motion
 

@@ -116,3 +116,20 @@ Use this to test whether a message feels useful, desperate, impressive, suspicio
 ### Candidate Paths From Decision Foundation
 
 Use Decision Foundation first to produce coherent paths. Then simulate each path, or simulate the top few actual artifacts derived from those paths.
+
+## Context Quality
+
+The API works best when the request includes the exact artifact and enough business context.
+
+Good context includes:
+
+- exact thing people will see
+- who sees it
+- where they see it
+- what they already believe
+- what the sender/company sells
+- desired action
+- known worries
+- alternatives being compared
+
+Thin context produces generic voices. Agent skills should build a context packet from the current conversation before calling the API.

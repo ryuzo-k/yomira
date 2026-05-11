@@ -156,5 +156,9 @@ The paid simulation product now has:
 - API docs: `docs/agent-simulation-api.md`
 - Go-to-market notes: `docs/go-to-market.md`
 - Agent skill: `skills/agent-simulation/SKILL.md`
+- Use-case skills:
+  - `skills/content-reaction-check/SKILL.md`
+  - `skills/message-reaction-flow/SKILL.md`
+  - `skills/venture-idea-simulation/SKILL.md`
 
 Decision Foundation is the free option-mapping layer. Agent Simulation is the paid reaction-testing layer.

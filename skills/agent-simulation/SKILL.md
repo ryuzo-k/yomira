@@ -48,12 +48,32 @@ Do not use this as proof of reality. It is synthetic decision support.
 
 ## Workflow
 
-1. Clarify the decision being tested.
-2. Extract the artifact people will actually see.
-3. Define the audience likely to encounter it.
-4. Start with `target_n: 40` for speed.
-5. If the result is useful, run a larger simulation such as `target_n: 120` or `180`.
-6. Download or preserve the JSON/Markdown result so the user can continue discussing it with another agent.
+1. Build the context packet from the current conversation.
+2. Clarify the decision being tested.
+3. Extract the artifact people will actually see.
+4. Define the audience likely to encounter it.
+5. Start with `target_n: 40` for speed.
+6. If the result is useful, run a larger simulation such as `target_n: 120` or `180`.
+7. Download or preserve the JSON/Markdown result so the user can continue discussing it with another agent.
+
+## Context Packet
+
+The simulation will be weak if the input is thin. Before calling the API, gather context from the current conversation, files, docs, or repo. Do not ask the user to re-explain what is already visible.
+
+Prepare:
+
+- **artifact:** the exact thing people will see, not a description of the thing.
+- **decision:** what choice the user is trying to make.
+- **audience:** who will see it, how they encounter it, and what they care about.
+- **stakes:** what happens if the reaction is bad.
+- **business context:** what the user sells, to whom, price range, trust problem, proof, constraints.
+- **distribution context:** X, Reddit, LinkedIn, email, sales DM, SEO/GEO, enterprise deck, app UI, etc.
+- **known worries:** the user's explicit fears, dislikes, or hypotheses.
+- **alternatives:** any candidate paths or variants being compared.
+
+If one of artifact, audience, or decision is missing, ask one concise question. If the user is in a hurry, make a labeled assumption and run a small simulation first.
+
+When used after Decision Foundation, convert each candidate path into a concrete artifact or stimulus before simulating. Do not simulate vague path names alone.
 
 ## API Call
 
@@ -72,7 +92,8 @@ curl -s -X POST "${AGENT_SIMULATION_BASE_URL:-https://agent-simulation-api.verce
     },
     "simulation": {
       "target_n": 40,
-      "max_agent_voices": 8
+      "max_agent_voices": 8,
+      "max_output_tokens": 16000
     }
   }'
 ```

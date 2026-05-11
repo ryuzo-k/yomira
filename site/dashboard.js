@@ -129,7 +129,8 @@ async function runSimulation() {
         audience: { description: $("#audience").value },
         simulation: {
           target_n: Number($("#target-n").value),
-          max_agent_voices: Number($("#voice-limit").value)
+          max_agent_voices: Number($("#voice-limit").value),
+          max_output_tokens: 16000
         }
       }
     });
@@ -200,8 +201,8 @@ function loadSample() {
   $("#objective").value = "Decide whether Agent Simulation API is worth launching as a paid developer API.";
   $("#audience").value = "Indie hackers, AI tool builders, agency owners, startup founders, and operators who already use Claude Code, Codex, Cursor, or other agentic coding tools.";
   $("#artifact").value = "An API that simulates how likely human audiences would react to a product, profile, offer, or content artifact. It returns many realistic private voices and aggregate patterns for better decisions.";
-  $("#target-n").value = 120;
-  $("#voice-limit").value = 12;
+  $("#target-n").value = 40;
+  $("#voice-limit").value = 8;
 }
 
 async function api(path, options = {}) {

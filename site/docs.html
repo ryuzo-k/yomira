@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent Simulation API Docs</title>
+    <style>
+      :root { --bg:#f7f7f2; --panel:#fff; --ink:#101214; --muted:#626a70; --line:#d9ddd5; --accent:#176f63; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      main { max-width: 980px; margin: 0 auto; padding: 42px 20px 80px; }
+      nav { display:flex; justify-content:space-between; gap:18px; align-items:center; margin-bottom:48px; }
+      a { color: inherit; }
+      h1 { font-size: clamp(42px, 7vw, 78px); line-height: .96; letter-spacing: 0; margin: 0 0 18px; }
+      h2 { margin-top: 42px; font-size: 28px; }
+      p, li { color: var(--muted); line-height: 1.65; }
+      pre { overflow:auto; border:1px solid var(--line); background:#101214; color:#eef1ea; padding:18px; line-height:1.55; }
+      code { font-family: "SFMono-Regular", Consolas, monospace; }
+      .panel { border:1px solid var(--line); background:var(--panel); padding:22px; margin-top:18px; }
+      .cta { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:0 14px; background:var(--ink); color:white; text-decoration:none; font-weight:800; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <strong>Agent Simulation API</strong>
+        <a href="./admin.html">Create account</a>
+      </nav>
+      <h1>Simulate private human reactions, then export the result.</h1>
+      <p>Use this before publishing content, launching an offer, sending a sales message, changing an X profile, or choosing between product directions.</p>
+      <a class="cta" href="./admin.html">Create account</a>
+
+      <h2>Web UI</h2>
+      <ol>
+        <li>Create an account and get trial credits.</li>
+        <li>Open the dashboard.</li>
+        <li>Paste the artifact, audience, and objective.</li>
+        <li>Start with 40 simulated people for speed.</li>
+        <li>Download Markdown or JSON for later work in Claude, Codex, Cursor, or your team.</li>
+      </ol>
+
+      <h2>API</h2>
+      <pre><code>curl -s -X POST "https://agent-simulation-api.vercel.app/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $AGENT_SIMULATION_API_KEY" \
+  -d '{
+    "objective": "Decide whether to publish this content.",
+    "artifact": {
+      "type": "content_draft",
+      "content": "Paste the actual text people will see."
+    },
+    "audience": {
+      "description": "Describe who will see this."
+    },
+    "simulation": {
+      "target_n": 40,
+      "max_agent_voices": 8
+    }
+  }'</code></pre>
+
+      <h2>Download Results</h2>
+      <pre><code>curl -s "https://agent-simulation-api.vercel.app/api/simulations/SIMULATION_ID?format=markdown" \
+  -H "x-api-key: $AGENT_SIMULATION_API_KEY"</code></pre>
+
+      <h2>Agent Skill</h2>
+      <p>Use the repo skill at <code>skills/agent-simulation/SKILL.md</code>. Decision Foundation maps possible paths; Agent Simulation tests one path or artifact against likely human reaction.</p>
+
+      <h2>Suggested Defaults</h2>
+      <div class="panel">
+        <p><strong>Fast:</strong> 40 people, 8 voices. Use this for first-pass content or messaging checks.</p>
+        <p><strong>Serious:</strong> 120 people, 12 voices. Use this for launch decisions, pricing, and important offers.</p>
+        <p><strong>Report:</strong> 180+ people. Use this when you plan to download and discuss the result later.</p>
+      </div>
+    </main>
+  </body>
+</html>

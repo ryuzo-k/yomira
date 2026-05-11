@@ -146,3 +146,15 @@ npm run sim:sample
 ```
 
 See `docs/product-2-api.md` for the current contract.
+
+## Agent Simulation API
+
+The paid simulation product now has:
+
+- Web onboarding: `https://agent-simulation-api.vercel.app/admin.html`
+- Dashboard: `https://agent-simulation-api.vercel.app/dashboard.html`
+- API docs: `docs/agent-simulation-api.md`
+- Go-to-market notes: `docs/go-to-market.md`
+- Agent skill: `skills/agent-simulation/SKILL.md`
+
+Decision Foundation is the free option-mapping layer. Agent Simulation is the paid reaction-testing layer.

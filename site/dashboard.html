@@ -141,7 +141,7 @@
       <section>
         <section class="panel">
           <div class="panel-head">
-            <div><h1>Run a simulation</h1><p class="small">Paste the thing people will see. The export is meant to be reused in Claude, Codex, Cursor, or team discussions.</p></div>
+            <div><h1>Run a simulation</h1><p class="small">Paste the thing people will see. Start with 40 people for speed, then run a larger export when the framing is right.</p></div>
             <button id="sample" class="secondary">Load sample</button>
           </div>
           <div class="panel-body stack">
@@ -149,8 +149,8 @@
             <label>Audience <textarea id="audience">Indie hackers, AI tool builders, agency owners, startup founders, and operators who already use Claude Code, Codex, Cursor, or other agentic coding tools.</textarea></label>
             <label>Artifact <textarea id="artifact">An API that simulates how likely human audiences would react to a product, profile, offer, or content artifact. It returns many realistic private voices and aggregate patterns for better decisions.</textarea></label>
             <div class="grid-2">
-              <label>Simulated people <input id="target-n" type="number" min="12" max="1000" value="80" /></label>
-              <label>Representative voices shown <input id="voice-limit" type="number" min="8" max="40" value="12" /></label>
+              <label>Simulated people <input id="target-n" type="number" min="12" max="1000" value="40" /></label>
+              <label>Representative voices shown <input id="voice-limit" type="number" min="8" max="40" value="8" /></label>
             </div>
             <div class="row">
               <button id="run">Run simulation</button>

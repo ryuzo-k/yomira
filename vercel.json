@@ -31,6 +31,10 @@
       "destination": "/site/dashboard.js"
     },
     {
+      "source": "/docs.html",
+      "destination": "/site/docs.html"
+    },
+    {
       "source": "/styles.css",
       "destination": "/site/styles.css"
     },

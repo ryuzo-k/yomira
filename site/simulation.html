@@ -6,127 +6,183 @@
     <title>Agent Simulation API</title>
     <meta
       name="description"
-      content="Simulate likely private human reactions before publishing content, sending messages, launching offers, or testing venture ideas."
+      content="Agent-native reaction simulation for messages, content, landing pages, offers, and venture ideas before they reach the world."
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
-    <nav class="topbar" aria-label="Primary navigation">
-      <a class="brand" href="./" aria-label="Agent Simulation API home">
-        <span class="brand-mark"></span>
-        <span>Agent Simulation API</span>
-      </a>
-      <div class="nav-links">
-        <a href="./decision-foundation">Decision Foundation</a>
-        <a href="#usecases">Use cases</a>
-        <a href="#pricing">Pricing</a>
-        <a href="./docs">Docs</a>
-        <a href="./admin.html">Sign in</a>
-      </div>
-    </nav>
+  <body class="essay-page">
+    <div class="essay-shell">
+      <nav class="essay-nav" aria-label="Primary navigation">
+        <a class="essay-brand" href="./">Agent Simulation API</a>
+        <div class="essay-nav-links">
+          <a href="./docs">Docs</a>
+          <a href="./decision-foundation">Decision Foundation</a>
+          <a href="./admin.html">Sign in</a>
+          <a class="essay-button essay-button-small" href="./admin.html">Get started &rarr;</a>
+        </div>
+      </nav>
 
-    <main>
-      <section class="product-hero" id="top">
-        <div class="hero-copy">
-          <p class="eyebrow">Reaction simulation for real decisions</p>
-          <h1>Test what people might really think before you publish.</h1>
-          <p class="lede">
-            Run synthetic audience simulations for posts, landing pages, sales messages, offers, profiles, and venture ideas. Get reaction clusters, raw private voices, and exportable evidence for your next decision.
+      <main>
+        <header class="essay-hero">
+          <h1>
+            Simulate real reactions,
+            <br />
+            before decisions reach the world.
+          </h1>
+          <p class="essay-lede">
+            Agent Simulation API helps you test how people may privately respond to messages, posts, landing pages, offers, product ideas, and other planning materials before you publish, send, or build.
           </p>
-          <div class="hero-actions">
-            <a class="primary-action" href="./admin.html">Create account</a>
-            <a class="ghost-action" href="./docs">Read API docs</a>
+          <div class="essay-actions">
+            <a class="essay-button" href="./admin.html">Start with credits &rarr;</a>
+            <a class="essay-link" href="./docs">Read the API docs</a>
           </div>
-        </div>
+        </header>
 
-        <div class="product-surface" aria-label="Example simulation output">
-          <div class="surface-header">
-            <span>Simulation report</span>
-            <strong>40 agents</strong>
+        <section class="essay-section">
+          <h2>The problem</h2>
+          <p>
+            Most AI tools give you a plausible answer. That is not enough when the real question is how different people will interpret what you are about to put into the world. A message can sound clear to you and still feel vague, suspicious, exciting, cheap, credible, or irrelevant to the people who actually see it.
+          </p>
+        </section>
+
+        <section class="essay-section">
+          <h2>The product</h2>
+          <p>
+            Agent Simulation API runs audience simulations and returns the distribution of reactions: who becomes interested, who stays skeptical, who misunderstands the offer, who dismisses it, and what they would actually say in their own words. The output is designed to be used inside Claude Code, Codex, Hermes Agent, Cursor, OpenClaw, scripts, dashboards, and your own product.
+          </p>
+        </section>
+
+        <section class="essay-section">
+          <h2>Use cases</h2>
+          <ul class="essay-feature-list">
+            <li><span>Content preflight</span> &mdash; check how a post, article, ad, or GEO page may be received before it goes live.</li>
+            <li><span>Message decisions</span> &mdash; compare sales DMs, follow-ups, investor notes, user interviews, and sensitive outreach before sending.</li>
+            <li><span>Product and offer positioning</span> &mdash; test landing pages, pricing pages, feature explanations, and launch copy against likely buyer reactions.</li>
+            <li><span>Venture idea checks</span> &mdash; see which parts of a new business idea create desire, confusion, distrust, or concrete willingness to try.</li>
+            <li><span>Embedded simulation products</span> &mdash; add reaction simulation to your own workflow, research product, agency tooling, or decision system through the API.</li>
+          </ul>
+        </section>
+
+        <section class="essay-section">
+          <h2>How it works</h2>
+          <ol class="essay-steps">
+            <li>
+              <div>1. Send the artifact</div>
+              <p>Pass the message, page, content, offer, plan, or product idea you want to test.</p>
+            </li>
+            <li>
+              <div>2. Define the audience</div>
+              <p>Describe the people whose reactions matter, from broad public audiences to narrow buyer groups.</p>
+            </li>
+            <li>
+              <div>3. Run the simulation</div>
+              <p>The API creates agent-level reactions in parallel, then aggregates them into distributions and raw voices.</p>
+            </li>
+            <li>
+              <div>4. Export the evidence</div>
+              <p>Download JSON or Markdown and keep using the result in your agent conversation, report, or product.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="essay-section">
+          <h2>What you get</h2>
+          <div class="essay-output">
+            <div>
+              <span>Interested but skeptical</span>
+              <strong>38%</strong>
+            </div>
+            <div>
+              <span>Wants a concrete example first</span>
+              <strong>24%</strong>
+            </div>
+            <div>
+              <span>Understands the value immediately</span>
+              <strong>19%</strong>
+            </div>
+            <div>
+              <span>Dismisses it as a prompt wrapper</span>
+              <strong>12%</strong>
+            </div>
+            <div>
+              <span>Confused about pricing or setup</span>
+              <strong>7%</strong>
+            </div>
           </div>
-          <div class="surface-title">
-            <p>Launch post preflight</p>
-            <h2>“Useful, but I need proof.”</h2>
-          </div>
-          <div class="reaction-stack">
-            <div class="reaction-row"><span>Interested but skeptical</span><strong>39%</strong></div>
-            <div class="reaction-row"><span>Wants concrete output sample</span><strong>26%</strong></div>
-            <div class="reaction-row"><span>Would try if setup is fast</span><strong>21%</strong></div>
-            <div class="reaction-row"><span>Dismisses as prompt wrapper</span><strong>14%</strong></div>
-          </div>
-          <blockquote>
-            “I understand the promise. I would need to see one messy real example before paying.”
+          <blockquote class="essay-quote">
+            "I get why this matters. I would try it if the setup is fast and the output shows real private objections, not just generic AI feedback."
           </blockquote>
-        </div>
-      </section>
+        </section>
 
-      <section class="quickstart-section">
-        <div class="quickstart-copy">
-          <p class="eyebrow">API-first</p>
-          <h2>Use it from your agent, script, or product.</h2>
-          <p>Start with self-serve credits. Export Markdown or JSON and keep discussing the result in Claude Code, Codex, Cursor, or your own workflow.</p>
-        </div>
-        <pre class="terminal-card"><code>curl -s -X POST "https://agent-simulation-api.vercel.app/api/simulate" \
+        <section class="essay-section">
+          <h2>Who it is for</h2>
+          <p>
+            Start with individual builders, founders, marketers, agencies, and agent-native users who already make decisions inside AI tools. Larger teams can use it for content checks, new business validation, customer-facing messaging, and grounded simulations with private or external data.
+          </p>
+        </section>
+
+        <section class="essay-section">
+          <h2>Pricing</h2>
+          <p>
+            Self-serve usage runs on credits. Quick synthetic simulations are cheap enough for daily decisions. Enterprise work is custom when you need external data, private customer context, strict security, or grounded audience construction.
+          </p>
+          <div class="essay-pricing">
+            <div><strong>$20</strong><span>Starter credits</span></div>
+            <div><strong>$99</strong><span>Regular usage</span></div>
+            <div><strong>$299</strong><span>Team and agency usage</span></div>
+            <div><strong>Custom</strong><span>Enterprise data and workflows</span></div>
+          </div>
+          <a class="essay-button" href="./admin.html">Create account &rarr;</a>
+        </section>
+
+        <section class="essay-section">
+          <h2>API quickstart</h2>
+          <pre class="essay-code"><code>curl -s -X POST "https://agent-simulation-api.vercel.app/api/simulate" \
   -H "content-type: application/json" \
   -H "x-api-key: $AGENT_SIMULATION_API_KEY" \
   -d '{
     "objective": "Should we publish this landing page?",
     "artifact": { "type": "landing_page", "content": "..." },
-    "audience": { "description": "founders, agencies, and operators" },
-    "simulation": { "target_n": 120 }
+    "audience": { "description": "founders, marketers, agencies, and AI-agent users" },
+    "simulation": { "target_n": 100, "mode": "standard" }
   }'</code></pre>
-      </section>
+        </section>
 
-      <section class="usecase-section" id="usecases">
-        <div class="section-copy">
-          <p class="eyebrow">Use cases</p>
-          <h2>Use it where misunderstanding is expensive.</h2>
-        </div>
-        <div class="usecase-grid">
-          <div>Content and GEO preflight</div>
-          <div>Sales messages and follow-ups</div>
-          <div>Landing pages and offers</div>
-          <div>Pricing and packaging</div>
-          <div>X profiles and launch posts</div>
-          <div>New venture concepts</div>
-        </div>
-      </section>
+        <section class="essay-section">
+          <h2>Decision Foundation</h2>
+          <p>
+            Decision Foundation is a free companion skill. It maps the possible options before you simulate them. Use it when you do not yet know which messages, positioning paths, launch plans, or product directions are worth testing.
+          </p>
+          <a class="essay-link" href="./decision-foundation">Open Decision Foundation</a>
+        </section>
 
-      <section class="example-section">
-        <div class="section-copy">
-          <p class="eyebrow">What you get</p>
-          <h2>Not a score. A distribution of private reactions.</h2>
-        </div>
-        <div class="example-layout">
-          <div class="distribution-card">
-            <div class="bar-row"><span>Interested but skeptical</span><strong>39%</strong></div>
-            <div class="bar-row"><span>Curious trial users</span><strong>31%</strong></div>
-            <div class="bar-row"><span>Dismissive / prompt-wrapper suspicion</span><strong>17%</strong></div>
-            <div class="bar-row"><span>Pricing anxiety</span><strong>8%</strong></div>
-            <div class="bar-row"><span>High-intent agency/founder buyers</span><strong>5%</strong></div>
+        <section class="essay-section">
+          <h2>FAQ</h2>
+          <div class="essay-faq">
+            <div>
+              <h3>Is this a survey replacement?</h3>
+              <p>Not for every case. It is a fast reaction preflight layer. Grounded enterprise simulations can use more specific external or private data.</p>
+            </div>
+            <div>
+              <h3>Can I use it from an AI agent?</h3>
+              <p>Yes. Give your agent the docs, an API key, and the artifact you want to test. The API returns status, JSON, Markdown, distributions, and voices.</p>
+            </div>
+            <div>
+              <h3>Is the result a single score?</h3>
+              <p>No. The useful part is the distribution of reactions and the raw private voices behind that distribution.</p>
+            </div>
+            <div>
+              <h3>Who should try it first?</h3>
+              <p>People who publish, send, sell, launch, or position things often enough that one misunderstood artifact has a real cost.</p>
+            </div>
           </div>
-          <div class="voice-card">
-            <p>“Looks like a clever prompt hack dressed up as a product. I’ll poke around, but I won’t pay unless it does something unique.”</p>
-            <p>“If this cuts down user calls and gives solid private voice insights, it could be worth paying for.”</p>
-            <p>“I want to know how many credits a typical artifact costs before I get deep into it.”</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      <section class="pricing-section" id="pricing">
-        <div class="section-copy">
-          <p class="eyebrow">Pricing</p>
-          <h2>Self-serve credits. Enterprise data is custom.</h2>
-          <p>Cheap simulations are fast synthetic preflight checks. Grounded simulations with external data, private customer context, or strict workflows are enterprise.</p>
-        </div>
-        <div class="pricing-grid">
-          <article><h3>$20</h3><p>100 credits for quick checks and early experiments.</p></article>
-          <article><h3>$99</h3><p>700 credits for regular content, offer, and message checks.</p></article>
-          <article><h3>$299</h3><p>2,500 credits for teams, agencies, and larger comparison runs.</p></article>
-          <article><h3>Enterprise</h3><p>External data, private context packs, no-retention workflows, and grounded simulations.</p></article>
-        </div>
-        <a class="primary-action" href="./admin.html">Create account</a>
-      </section>
-    </main>
+      <footer class="essay-footer">
+        <div>Contact: <a href="mailto:ryuzo.kijima@yobouinc.co.jp">ryuzo.kijima@yobouinc.co.jp</a></div>
+        <div>&copy; 2026 Yobou Inc. &mdash; Agent Simulation API</div>
+      </footer>
+    </div>
   </body>
 </html>

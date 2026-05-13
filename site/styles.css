@@ -407,3 +407,316 @@ pre { margin: 0; }
     font-size: clamp(48px, 14vw, 82px);
   }
 }
+
+/* Essay LP: quiet single-column sales letter for Agent Simulation API. */
+.essay-page {
+  --essay-bg: #ffffff;
+  --essay-ink: #0a0a0b;
+  --essay-text: #27272a;
+  --essay-mid: #3f3f46;
+  --essay-muted: #71717a;
+  --essay-line: #e4e4e7;
+  background: var(--essay-bg);
+  color: var(--essay-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+}
+
+.essay-page a {
+  text-decoration: none;
+}
+
+.essay-shell {
+  width: min(100%, 816px);
+  margin: 0 auto;
+  padding: 32px 24px 40px;
+}
+
+.essay-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 88px;
+}
+
+.essay-brand {
+  color: var(--essay-ink);
+  font-size: 15px;
+  font-weight: 620;
+}
+
+.essay-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--essay-muted);
+  font-size: 14px;
+}
+
+.essay-nav-links a:hover,
+.essay-link:hover,
+.essay-footer a:hover {
+  color: var(--essay-ink);
+}
+
+.essay-hero,
+.essay-section {
+  margin-bottom: 96px;
+}
+
+.essay-hero h1 {
+  max-width: none;
+  color: var(--essay-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  font-size: clamp(40px, 6vw, 62px);
+  font-weight: 660;
+  letter-spacing: 0;
+  line-height: 1.12;
+}
+
+.essay-lede {
+  max-width: 720px;
+  margin: 28px 0 0;
+  color: var(--essay-mid);
+  font-size: 20px;
+  line-height: 1.7;
+}
+
+.essay-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.essay-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 6px;
+  background: var(--essay-ink);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 560;
+}
+
+.essay-button:hover {
+  background: #3f3f46;
+}
+
+.essay-button-small {
+  min-height: 38px;
+  padding: 0 14px;
+  font-size: 14px;
+}
+
+.essay-link {
+  color: var(--essay-muted);
+  font-size: 15px;
+  font-weight: 520;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.essay-section h2 {
+  margin: 0 0 14px;
+  color: var(--essay-muted);
+  font-size: 12px;
+  font-weight: 680;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.essay-section > p {
+  margin: 0;
+  color: var(--essay-text);
+  font-size: 19px;
+  line-height: 1.75;
+}
+
+.essay-feature-list,
+.essay-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--essay-text);
+  font-size: 19px;
+  line-height: 1.72;
+}
+
+.essay-feature-list {
+  display: grid;
+  gap: 22px;
+}
+
+.essay-feature-list span,
+.essay-steps div {
+  color: var(--essay-ink);
+  font-weight: 620;
+}
+
+.essay-steps {
+  display: grid;
+  gap: 24px;
+}
+
+.essay-steps p {
+  margin: 5px 0 0;
+  color: var(--essay-mid);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.essay-output {
+  border-top: 1px solid var(--essay-line);
+}
+
+.essay-output div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--essay-line);
+  color: var(--essay-mid);
+  font-size: 18px;
+}
+
+.essay-output strong {
+  color: var(--essay-ink);
+  font-weight: 650;
+}
+
+.essay-quote {
+  margin: 28px 0 0;
+  padding: 0 0 0 18px;
+  border-left: 2px solid var(--essay-ink);
+  color: var(--essay-text);
+  font-size: 19px;
+  line-height: 1.7;
+}
+
+.essay-pricing {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 28px 0 28px;
+  border-top: 1px solid var(--essay-line);
+  border-left: 1px solid var(--essay-line);
+}
+
+.essay-pricing div {
+  min-height: 124px;
+  padding: 18px;
+  border-right: 1px solid var(--essay-line);
+  border-bottom: 1px solid var(--essay-line);
+}
+
+.essay-pricing strong,
+.essay-pricing span {
+  display: block;
+}
+
+.essay-pricing strong {
+  margin-bottom: 8px;
+  color: var(--essay-ink);
+  font-size: 22px;
+  font-weight: 650;
+}
+
+.essay-pricing span {
+  color: var(--essay-muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.essay-code {
+  overflow: auto;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--essay-line);
+  border-radius: 6px;
+  background: #fafafa;
+  color: var(--essay-text);
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre;
+}
+
+.essay-faq {
+  display: grid;
+  gap: 28px;
+}
+
+.essay-faq h3 {
+  margin: 0;
+  color: var(--essay-ink);
+  font-size: 17px;
+  font-weight: 620;
+}
+
+.essay-faq p {
+  margin: 6px 0 0;
+  color: var(--essay-mid);
+  font-size: 17px;
+  line-height: 1.68;
+}
+
+.essay-footer {
+  display: grid;
+  gap: 8px;
+  padding-top: 36px;
+  border-top: 1px solid var(--essay-line);
+  color: var(--essay-muted);
+  font-size: 14px;
+}
+
+.essay-footer a {
+  color: var(--essay-muted);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+  .essay-shell {
+    padding: 24px 20px 34px;
+  }
+
+  .essay-nav {
+    align-items: flex-start;
+    margin-bottom: 72px;
+  }
+
+  .essay-nav-links {
+    justify-content: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .essay-nav-links a:not(.essay-button) {
+    display: none;
+  }
+
+  .essay-hero,
+  .essay-section {
+    margin-bottom: 76px;
+  }
+
+  .essay-hero h1 {
+    font-size: clamp(36px, 11vw, 46px);
+  }
+
+  .essay-lede,
+  .essay-section > p,
+  .essay-feature-list,
+  .essay-steps {
+    font-size: 18px;
+  }
+
+  .essay-pricing {
+    grid-template-columns: 1fr;
+  }
+}

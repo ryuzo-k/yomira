@@ -25,12 +25,12 @@
       <main>
         <header class="essay-hero">
           <h1>
-            Simulate real reactions,
+            Build the audience first,
             <br />
-            before decisions reach the world.
+            then simulate the reaction.
           </h1>
           <p class="essay-lede">
-            Yomira helps you test how people may privately respond to messages, posts, landing pages, offers, product ideas, and other planning materials before you publish, send, or build.
+            Yomira lets your AI agent collect working context from conversations, files, docs, and company materials, generate the right synthetic audience for the decision, and simulate how those people may privately react before you publish, send, or build.
           </p>
           <div class="essay-actions">
             <a class="essay-button" href="./admin.html">Start with credits &rarr;</a>
@@ -41,14 +41,14 @@
         <section class="essay-section">
           <h2>The problem</h2>
           <p>
-            Most AI tools give you a plausible answer. That is not enough when the real question is how different people will interpret what you are about to put into the world. A message can sound clear to you and still feel vague, suspicious, exciting, cheap, credible, or irrelevant to the people who actually see it.
+            Most AI tools answer from the prompt in front of them. But real reactions come from people with context: what they already believe, what problem they have, how much they trust the sender, what alternatives they compare against, and whether the artifact reaches them at the right moment. A useful simulation has to reconstruct that audience before it predicts the reaction.
           </p>
         </section>
 
         <section class="essay-section">
           <h2>The product</h2>
           <p>
-            Yomira runs audience simulations and returns the distribution of reactions: who becomes interested, who stays skeptical, who misunderstands the offer, who dismisses it, and what they would actually say in their own words. The output is designed to be used inside Claude Code, Codex, Hermes Agent, Cursor, OpenClaw, scripts, dashboards, and your own product.
+            Yomira is a context-first simulation API. In self-serve mode, the user's AI agent gathers the artifact, company context, channel, audience clues, constraints, and known worries, then Yomira builds a synthetic audience and runs reaction simulations. In enterprise mode, Yomira builds grounded audience datasets from real customer, market, and social data.
           </p>
         </section>
 
@@ -67,20 +67,20 @@
           <h2>How it works</h2>
           <ol class="essay-steps">
             <li>
-              <div>1. Send the artifact</div>
-              <p>Pass the message, page, content, offer, plan, or product idea you want to test.</p>
+              <div>1. Collect working context</div>
+              <p>Your AI agent extracts the artifact, company context, channel, audience clues, constraints, and known worries from the conversation, files, docs, or repo.</p>
             </li>
             <li>
-              <div>2. Define the audience</div>
-              <p>Describe the people whose reactions matter, from broad public audiences to narrow buyer groups.</p>
+              <div>2. Generate the audience</div>
+              <p>Yomira turns that context into a synthetic audience that matches the decision instead of a generic persona list.</p>
             </li>
             <li>
-              <div>3. Run the simulation</div>
-              <p>The API creates agent-level reactions in parallel, then aggregates them into distributions and raw voices.</p>
+              <div>3. Simulate individual reactions</div>
+              <p>Each agent reacts to the exact artifact, producing private voices, likely actions, confusion, desire, and suspicion.</p>
             </li>
             <li>
-              <div>4. Export the evidence</div>
-              <p>Download JSON or Markdown and keep using the result in your agent conversation, report, or product.</p>
+              <div>4. Decide with evidence</div>
+              <p>Yomira returns distributions, clusters, raw voices, missing-data warnings, and exports for the next decision.</p>
             </li>
           </ol>
         </section>
@@ -88,7 +88,7 @@
         <section class="essay-section" id="skill">
           <h2>Official skill</h2>
           <p>
-            Install the Yomira skill into Claude Code, Codex, Cursor, Hermes Agent, or another AI agent. After that, you can ask your agent to simulate DMs, posts, landing pages, offers, pricing pages, product ideas, or Mora options without writing the API call yourself.
+            Install the Yomira skill into Claude Code, Codex, Cursor, Hermes Agent, or another AI agent. The skill tells your agent to gather the necessary context first, construct the target audience, and then call the real API instead of guessing from a thin prompt.
           </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
@@ -169,14 +169,14 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
         <section class="essay-section">
           <h2>Who it is for</h2>
           <p>
-            Start with individual builders, founders, marketers, agencies, and agent-native users who already make decisions inside AI tools. Larger teams can use it for content checks, new business validation, customer-facing messaging, and grounded simulations with private or external data.
+            Start with builders, founders, marketers, agencies, and agent-native users who already make decisions inside AI tools. Self-serve is for context-enriched simulations from a user's workspace. Enterprise is for grounded simulations where Yomira constructs the audience dataset from customer, market, and social data.
           </p>
         </section>
 
         <section class="essay-section">
           <h2>Pricing</h2>
           <p>
-            Self-serve usage runs on credits. Quick synthetic simulations are cheap enough for daily decisions. Enterprise work is custom when you need external data, private customer context, strict security, or grounded audience construction.
+            Self-serve credits are for context-enriched synthetic simulations. Enterprise work is custom when you need Yomira to build grounded audience datasets from CRM data, customer lists, reviews, interviews, X/social data, or private market context.
           </p>
           <div class="essay-pricing">
             <div><strong>$20</strong><span>Starter credits</span></div>
@@ -211,7 +211,7 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
         <section class="essay-section">
           <h2>Human / Machine</h2>
           <p>
-            The hard part is not making an AI say something plausible. The hard part is making the machine reconstruct the humans who actually matter for the decision.
+            A wrapper asks an LLM for feedback. Yomira reconstructs the audience first, then simulates reactions.
           </p>
           <div class="human-machine-grid">
             <div>
@@ -226,9 +226,9 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
             <div>
               <h3>Machine</h3>
               <ul>
-                <li>needs the artifact, audience, channel, company context, and known worries</li>
-                <li>builds a synthetic audience instead of guessing from a generic prompt</li>
-                <li>returns raw voices, distributions, confidence, and missing-data warnings</li>
+                <li>collects the artifact, company context, channel, constraints, and known worries</li>
+                <li>generates a synthetic audience from that context</li>
+                <li>simulates individual private reactions before aggregating</li>
                 <li>gets better as predictions are compared with real outcomes</li>
               </ul>
             </div>
@@ -240,11 +240,11 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
           <div class="essay-faq">
             <div>
               <h3>Is this a survey replacement?</h3>
-              <p>Not for every case. It is a fast reaction preflight layer. Grounded enterprise simulations can use more specific external or private data.</p>
+              <p>Not for every case. Self-serve is context-enriched synthetic decision support. Enterprise simulations can be grounded in real customer, market, and social data.</p>
             </div>
             <div>
               <h3>Can I use it from an AI agent?</h3>
-              <p>Yes. Give your agent the docs, an API key, and the artifact you want to test. The API returns status, JSON, Markdown, distributions, and voices.</p>
+              <p>Yes. Your agent can collect context from your conversation, files, and docs, call Yomira, and return audience construction, reaction distribution, raw voices, and exports.</p>
             </div>
             <div>
               <h3>Is the result a single score?</h3>

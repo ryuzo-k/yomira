@@ -17,3 +17,17 @@ for (const button of document.querySelectorAll("[data-copy-target]")) {
     copyText(target.textContent.trim(), button);
   });
 }
+
+for (const switcher of document.querySelectorAll(".human-machine-switcher")) {
+  for (const button of switcher.querySelectorAll("[data-mode-button]")) {
+    button.addEventListener("click", () => {
+      const mode = button.dataset.modeButton;
+      switcher.dataset.mode = mode;
+      for (const option of switcher.querySelectorAll("[data-mode-button]")) {
+        const active = option.dataset.modeButton === mode;
+        option.setAttribute("aria-pressed", active ? "true" : "false");
+        option.textContent = `${active ? "●" : "○"} ${option.dataset.modeButton.toUpperCase()}`;
+      }
+    });
+  }
+}

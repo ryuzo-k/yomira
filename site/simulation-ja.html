@@ -213,24 +213,30 @@ Yomira API keyを渡した場合は、必ず実際のAPIを呼んでください
           <p>
             LLMラッパーは、AIに感想を聞きます。Yomiraは、まず対象母集団を再構成し、その人たちの反応をシミュレーションします。
           </p>
-          <div class="human-machine-grid">
-            <div>
-              <h3>Human</h3>
-              <ul>
-                <li>お金の不安、地位、疲れ、好み、過去の経験を持っている</li>
-                <li>言葉、チャネル、タイミング、送り手によって反応が変わる</li>
-                <li>表では言わない本音を内側に持っている</li>
-                <li>今ある課題に触れたときだけ、実際の行動に近づく</li>
-              </ul>
+          <div class="human-machine-switcher" data-mode="human">
+            <div class="human-machine-grid">
+              <div data-panel="human">
+                <h3>Human</h3>
+                <ul>
+                  <li>お金の不安、地位、疲れ、好み、過去の経験を持っている</li>
+                  <li>言葉、チャネル、タイミング、送り手によって反応が変わる</li>
+                  <li>表では言わない本音を内側に持っている</li>
+                  <li>今ある課題に触れたときだけ、実際の行動に近づく</li>
+                </ul>
+              </div>
+              <div data-panel="machine">
+                <h3>Machine</h3>
+                <ul>
+                  <li>成果物、会社文脈、チャネル、制約、既知の不安を集める</li>
+                  <li>その文脈から synthetic audience を生成する</li>
+                  <li>個別の本音反応を出してから分布にまとめる</li>
+                  <li>予測と実際の結果を比較するほど精度が上がる</li>
+                </ul>
+              </div>
             </div>
-            <div>
-              <h3>Machine</h3>
-              <ul>
-                <li>成果物、会社文脈、チャネル、制約、既知の不安を集める</li>
-                <li>その文脈から synthetic audience を生成する</li>
-                <li>個別の本音反応を出してから分布にまとめる</li>
-                <li>予測と実際の結果を比較するほど精度が上がる</li>
-              </ul>
+            <div class="human-machine-tabs" aria-label="Human and machine switcher">
+              <button type="button" data-mode-button="human" aria-pressed="true">● HUMAN</button>
+              <button type="button" data-mode-button="machine" aria-pressed="false">○ MACHINE</button>
             </div>
           </div>
         </section>

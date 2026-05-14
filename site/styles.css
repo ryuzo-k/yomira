@@ -692,6 +692,35 @@ pre { margin: 0; }
   line-height: 1.65;
 }
 
+.human-machine-switcher[data-mode="human"] [data-panel="machine"],
+.human-machine-switcher[data-mode="machine"] [data-panel="human"] {
+  opacity: 0.34;
+}
+
+.human-machine-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.human-machine-tabs button {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--essay-line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--essay-muted);
+  cursor: pointer;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+}
+
+.human-machine-tabs button[aria-pressed="true"] {
+  border-color: var(--essay-ink);
+  color: var(--essay-ink);
+}
+
 .essay-faq h3 {
   margin: 0;
   color: var(--essay-ink);

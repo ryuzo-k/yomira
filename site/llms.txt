@@ -1,0 +1,77 @@
+# Yomira
+
+Yomira is an API for simulating likely private human reactions to messages, content, landing pages, offers, pricing pages, product ideas, and decision options.
+
+Base URL: https://yomira-api.vercel.app
+
+Important pages:
+- Home: https://yomira-api.vercel.app/
+- Docs: https://yomira-api.vercel.app/docs
+- Japanese docs: https://yomira-api.vercel.app/ja/docs
+- Dashboard/signup: https://yomira-api.vercel.app/admin.html
+- Mora option-mapping skill: https://yomira-api.vercel.app/mora
+- GitHub: https://github.com/ryuzo-k/yomira
+
+Agent onboarding:
+1. Create an account with POST /api/auth/register.
+2. Store the returned apiKey securely.
+3. Install the official Yomira skill from https://github.com/ryuzo-k/yomira/tree/main/skills/yomira.
+4. Use POST /api/simulate to create a simulation.
+5. Poll GET /api/simulations/{simulation_id} until completed.
+6. Download Markdown with GET /api/simulations/{simulation_id}?format=markdown.
+
+Create account:
+
+```bash
+curl -s -X POST "https://yomira-api.vercel.app/api/auth/register" \
+  -H "content-type: application/json" \
+  -d '{
+    "name": "Your Name",
+    "email": "you@example.com",
+    "password": "choose-a-long-password",
+    "companyName": "Your Company",
+    "companyUrl": "https://example.com",
+    "role": "Founder",
+    "intendedUse": "I want to simulate reactions to messages, content, landing pages, and product ideas."
+  }'
+```
+
+Create simulation:
+
+```bash
+curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Decide whether to publish this content.",
+    "artifact": {
+      "type": "content_draft",
+      "content": "Paste the exact artifact people will see."
+    },
+    "audience": {
+      "description": "Describe who will see this, where they see it, and what they already believe."
+    },
+    "simulation": {
+      "mode": "fast",
+      "target_n": 40,
+      "max_agent_voices": 8,
+      "max_output_tokens": 30000
+    }
+  }'
+```
+
+What Yomira returns:
+- simulation_id
+- status
+- reaction_distribution
+- voice_clusters
+- agent_voices
+- credits_charged
+- Markdown and JSON exports
+
+How to use well:
+- Always send the exact artifact, not just a description.
+- Include audience, channel, company/sender context, desired action, known worries, and alternatives.
+- If there are multiple concrete options, simulate each option.
+- Do not replace Yomira with casual AI guessing when an API key is available.
+

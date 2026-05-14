@@ -79,6 +79,33 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
           </div>
         </section>
 
+        <section class="essay-section" id="agent-onboarding">
+          <h2>Agent onboarding</h2>
+          <p>
+            Yomira can be created from a terminal-capable AI agent. The user still owns the email, password, and API key. The agent can prepare the request, run the signup call, install the skill, and verify the API.
+          </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>Create an account from an agent</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="agent-signup">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="agent-signup">curl -s -X POST "https://yomira-api.vercel.app/api/auth/register" \
+  -H "content-type: application/json" \
+  -d '{
+    "name": "Your Name",
+    "email": "you@example.com",
+    "password": "choose-a-long-password",
+    "companyName": "Your Company",
+    "companyUrl": "https://example.com",
+    "role": "Founder",
+    "intendedUse": "I want to simulate reactions to messages, content, landing pages, and product ideas."
+  }'</code></pre>
+          </div>
+          <p>
+            The response includes <code>apiKey</code>, <code>credits</code>, and <code>user</code>. Store the API key as a secret, then install the Yomira skill and use the setup prompt below.
+          </p>
+        </section>
+
         <section class="essay-section" id="agent-prompt">
           <h2>Agent setup prompt</h2>
           <p>
@@ -216,6 +243,19 @@ curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
           <p>
             The API gets better when the agent sends the exact artifact, the audience, the channel, the sender/company context, the desired action, and known worries. Thin context produces generic voices. Good agent usage should build a context packet before calling the API.
           </p>
+        </section>
+
+        <section class="essay-section" id="simulation-method">
+          <h2>Simulation method</h2>
+          <p>
+            The current self-serve engine is an LLM-backed synthetic voice simulator. It builds a context packet, creates audience agents from the described population, generates private reactions in parallel batches, and reduces those voices into distributions, clusters, representative voices, and exports. This is useful for fast decision support, but it is not yet the final form of the technology.
+          </p>
+          <ul class="essay-feature-list">
+            <li><span>Level 1: Described audience</span> &mdash; the current default. The user or agent describes who should react.</li>
+            <li><span>Level 2: Context-enriched audience</span> &mdash; the agent adds company context, channel context, prior conversation, docs, and customer hypotheses before calling the API.</li>
+            <li><span>Level 3: Grounded audience</span> &mdash; the simulation is built from uploaded CRM rows, customer lists, reviews, interview notes, X/social data, community posts, or other source material.</li>
+            <li><span>Level 4: Calibrated audience</span> &mdash; synthetic outputs are compared against real survey/interview outcomes, then adjusted by segment and use case.</li>
+          </ul>
         </section>
 
         <section class="essay-section" id="enterprise">

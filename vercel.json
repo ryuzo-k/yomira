@@ -71,6 +71,10 @@
       "destination": "/site/docs.js"
     },
     {
+      "source": "/llms.txt",
+      "destination": "/site/llms.txt"
+    },
+    {
       "source": "/docs",
       "destination": "/site/docs.html"
     },

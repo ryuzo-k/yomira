@@ -79,6 +79,33 @@ Yomira API keyを渡した場合は、必ず実際のAPIを呼んでください
           </div>
         </section>
 
+        <section class="essay-section" id="agent-onboarding">
+          <h2>AIエージェントから登録する</h2>
+          <p>
+            Yomiraは、ターミナルを使えるAIエージェントからもアカウント作成できます。メール、パスワード、APIキーの所有者はユーザーです。AIエージェントは、signupリクエストの作成、APIキー取得、skill導入、API確認まで実行できます。
+          </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>エージェントからアカウントを作成する</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="agent-signup-ja">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="agent-signup-ja">curl -s -X POST "https://yomira-api.vercel.app/api/auth/register" \
+  -H "content-type: application/json" \
+  -d '{
+    "name": "Your Name",
+    "email": "you@example.com",
+    "password": "choose-a-long-password",
+    "companyName": "Your Company",
+    "companyUrl": "https://example.com",
+    "role": "Founder",
+    "intendedUse": "I want to simulate reactions to messages, content, landing pages, and product ideas."
+  }'</code></pre>
+          </div>
+          <p>
+            レスポンスには <code>apiKey</code>、<code>credits</code>、<code>user</code> が含まれます。APIキーはsecretとして保存し、その後Yomira skillを導入してください。
+          </p>
+        </section>
+
         <section class="essay-section" id="agent-prompt">
           <h2>AIエージェント導入プロンプト</h2>
           <p>
@@ -216,6 +243,19 @@ curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
           <p>
             APIは、成果物そのもの、対象者、チャネル、送信者/会社の文脈、望む行動、既知の不安が入っているほど良くなります。情報が薄いと、声も薄くなります。AIエージェントから使う場合は、APIを呼ぶ前にコンテキストパケットを作らせてください。
           </p>
+        </section>
+
+        <section class="essay-section" id="simulation-method">
+          <h2>シミュレーション技術</h2>
+          <p>
+            現在のセルフサーブ版は、LLMベースの合成人間反応シミュレーターです。コンテキストパケットを作り、対象層に近いaudience agentsを構成し、並列バッチで本音の反応を生成し、それを分布、クラスター、代表的な声、エクスポートにまとめます。高速な意思決定支援には使えますが、これが最終形ではありません。
+          </p>
+          <ul class="essay-feature-list">
+            <li><span>Level 1: Described audience</span> &mdash; 現在の基本。ユーザーまたはAIが対象層を文章で指定します。</li>
+            <li><span>Level 2: Context-enriched audience</span> &mdash; AIが会社情報、チャネル、過去会話、docs、顧客仮説を集めてからAPIを呼びます。</li>
+            <li><span>Level 3: Grounded audience</span> &mdash; CRM、顧客リスト、レビュー、インタビュー、X/social data、コミュニティ投稿などを元に母集団を作ります。</li>
+            <li><span>Level 4: Calibrated audience</span> &mdash; 実際の調査・インタビュー結果とsynthetic outputを比較し、用途やセグメントごとに補正します。</li>
+          </ul>
         </section>
 
         <section class="essay-section" id="enterprise">

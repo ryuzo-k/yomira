@@ -599,6 +599,13 @@ pre { margin: 0; }
   line-height: 1.7;
 }
 
+.essay-small-note {
+  margin: 14px 0 0;
+  color: var(--essay-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 .essay-pricing {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

@@ -60,6 +60,25 @@
           </ol>
         </section>
 
+        <section class="essay-section" id="official-skill">
+          <h2>公式skill</h2>
+          <p>
+            公式skillは、どの場面でAPIを使うか、どうコンテキストを集めるか、どう結果をpollするか、そしてAPIを使わずに雑な予測で代替しないことをAIエージェントに教えます。
+          </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>公式Agent Simulation skillを導入する</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="official-skill-prompt-ja">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="official-skill-prompt-ja">このGitHub repoから、公式のAgent Simulation skillを導入してください。
+https://github.com/ryuzo-k/decision-space-mapper/tree/main/skills/agent-simulation
+
+導入後は、私がメッセージ、投稿、LP、オファー、価格ページ、プロダクト案、意思決定候補への反応をシミュレーションしてほしいと言ったときに、このskillを使ってください。
+
+Agent Simulation API keyを渡した場合は、必ず実際のAPIを呼んでください。私が明示的に「APIを使わないで」と言わない限り、あなた自身の雑な反応予測で代替しないでください。</code></pre>
+          </div>
+        </section>
+
         <section class="essay-section" id="agent-prompt">
           <h2>AIエージェント導入プロンプト</h2>
           <p>

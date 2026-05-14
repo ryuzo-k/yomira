@@ -85,6 +85,25 @@
           </ol>
         </section>
 
+        <section class="essay-section" id="skill">
+          <h2>Official skill</h2>
+          <p>
+            Install the Agent Simulation skill into Claude Code, Codex, Cursor, Hermes Agent, or another AI agent. After that, you can ask your agent to simulate DMs, posts, landing pages, offers, pricing pages, product ideas, or Decision Foundation options without writing the API call yourself.
+          </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>Paste this into your AI agent</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="agent-simulation-install">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="agent-simulation-install">Install the official Agent Simulation skill from this GitHub repo:
+https://github.com/ryuzo-k/decision-space-mapper/tree/main/skills/agent-simulation
+
+After installing, use it whenever I ask you to simulate reactions to a message, post, landing page, offer, pricing page, product idea, or decision option.
+
+If I provide an Agent Simulation API key, call the real API. Do not replace it with casual reaction prediction unless I explicitly ask you not to use the API.</code></pre>
+          </div>
+        </section>
+
         <section class="essay-section">
           <h2>What you get</h2>
           <div class="essay-output">
@@ -112,6 +131,39 @@
           <blockquote class="essay-quote">
             "I get why this matters. I would try it if the setup is fast and the output shows real private objections, not just generic AI feedback."
           </blockquote>
+        </section>
+
+        <section class="essay-section">
+          <h2>Real example</h2>
+          <p>
+            We simulated a simple workflow: a user installs the skill, gives an API key to Claude Code or Codex, and asks it to check a sales DM before sending. The API ran 40 simulated people.
+          </p>
+          <div class="essay-output">
+            <div>
+              <span>Desire with reservation</span>
+              <strong>27.5%</strong>
+            </div>
+            <div>
+              <span>Intellectual interest</span>
+              <strong>25%</strong>
+            </div>
+            <div>
+              <span>Quiet conversion</span>
+              <strong>20%</strong>
+            </div>
+            <div>
+              <span>Private suspicion</span>
+              <strong>7.5%</strong>
+            </div>
+            <div>
+              <span>Dismissal</span>
+              <strong>5%</strong>
+            </div>
+          </div>
+          <blockquote class="essay-quote">
+            "This could shortcut endless A/B testing if accurate." Another voice said: "Wish this was a plug-and-play tool, not a skill install."
+          </blockquote>
+          <p class="essay-small-note">Simulation id: fe1d26c8-8a74-413c-b9bf-3b0b6ab7e289</p>
         </section>
 
         <section class="essay-section">
@@ -184,5 +236,6 @@
         <div>&copy; 2026 Yobou Inc. &mdash; Agent Simulation API</div>
       </footer>
     </div>
+    <script src="/docs.js"></script>
   </body>
 </html>

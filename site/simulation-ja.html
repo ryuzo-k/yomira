@@ -85,6 +85,25 @@
           </ol>
         </section>
 
+        <section class="essay-section" id="skill">
+          <h2>公式skill</h2>
+          <p>
+            Agent Simulation skillをClaude Code、Codex、Cursor、Hermes Agentなどに入れると、ユーザーはAPI呼び出しを書かずに、DM、投稿、LP、オファー、価格ページ、事業案、Decision Foundationで出した候補をそのままシミュレーションできます。
+          </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>AIエージェントに貼る文章</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="agent-simulation-install-ja">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="agent-simulation-install-ja">このGitHub repoから、公式のAgent Simulation skillを導入してください。
+https://github.com/ryuzo-k/decision-space-mapper/tree/main/skills/agent-simulation
+
+導入後は、私がメッセージ、投稿、LP、オファー、価格ページ、プロダクト案、意思決定候補への反応をシミュレーションしてほしいと言ったときに、このskillを使ってください。
+
+Agent Simulation API keyを渡した場合は、必ず実際のAPIを呼んでください。私が明示的に「APIを使わないで」と言わない限り、あなた自身の雑な反応予測で代替しないでください。</code></pre>
+          </div>
+        </section>
+
         <section class="essay-section">
           <h2>出力例</h2>
           <div class="essay-output">
@@ -112,6 +131,39 @@
           <blockquote class="essay-quote">
             「やりたいことは分かる。導入が簡単で、ただのAIっぽい感想じゃなくて本当に反応の分布が見えるなら、一回試してみたい。」
           </blockquote>
+        </section>
+
+        <section class="essay-section">
+          <h2>実際の使用例</h2>
+          <p>
+            「ユーザーがskillを入れ、APIキーをClaude CodeやCodexに渡し、営業DMを送る前に反応を確認する」という使い方を、実際に40人でシミュレーションしました。
+          </p>
+          <div class="essay-output">
+            <div>
+              <span>欲しいが、まだ慎重</span>
+              <strong>27.5%</strong>
+            </div>
+            <div>
+              <span>知的な興味</span>
+              <strong>25%</strong>
+            </div>
+            <div>
+              <span>静かに試しそう</span>
+              <strong>20%</strong>
+            </div>
+            <div>
+              <span>内心で疑っている</span>
+              <strong>7.5%</strong>
+            </div>
+            <div>
+              <span>不要だと判断</span>
+              <strong>5%</strong>
+            </div>
+          </div>
+          <blockquote class="essay-quote">
+            「正確なら、延々とA/Bテストする手間を短縮できそう。」別の声では「skill導入ではなく、もっとすぐ使えるツールだと嬉しい。」という反応も出ました。
+          </blockquote>
+          <p class="essay-small-note">Simulation id: fe1d26c8-8a74-413c-b9bf-3b0b6ab7e289</p>
         </section>
 
         <section class="essay-section">
@@ -184,5 +236,6 @@
         <div>&copy; 2026 Yobou Inc. &mdash; Agent Simulation API</div>
       </footer>
     </div>
+    <script src="/docs.js"></script>
   </body>
 </html>

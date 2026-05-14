@@ -1,20 +1,48 @@
 ---
 name: agent-simulation
-description: Run synthetic human-reaction simulations through the Agent Simulation API. Use when the user wants to test how people may privately react to a product idea, offer, landing page, X profile, post, DM, sales message, GEO/content draft, launch plan, pricing page, or one or more candidate paths produced by Decision Foundation.
+description: Use Agent Simulation API to run real API-backed human-reaction simulations before publishing, sending, selling, launching, pricing, or choosing. Use when the user asks how people may react to a message, DM, email, content draft, landing page, offer, pricing page, X profile/post, product idea, venture concept, or candidate options from Decision Foundation. Always prefer calling the API over casual guessing when an API key is available.
 ---
 
-# Agent Simulation
+# Agent Simulation API
 
 ## Purpose
 
-Use this skill when the user wants to hear plausible private human reactions before publishing, selling, messaging, or choosing.
+Use this skill when the user wants to hear likely private human reactions before publishing, sending, selling, launching, pricing, or choosing.
 
 This skill is different from Decision Foundation:
 
 - Decision Foundation maps the possible paths.
-- Agent Simulation tests one artifact or a set of paths against likely human reactions.
+- Agent Simulation tests concrete artifacts or options against likely human reactions.
 
-The output should center raw human voices, then summarize the clusters and percentages.
+The output should center raw human voices, then summarize clusters, percentages, and decision implications.
+
+## What Users Do With This Skill
+
+After installing this skill into Claude Code, Codex, Cursor, Hermes Agent, or another AI agent, the user can ask things like:
+
+```text
+Use Agent Simulation API to check this DM before I send it.
+```
+
+```text
+Simulate how potential buyers will react to this landing page.
+```
+
+```text
+Use Decision Foundation to map my options, then simulate every concrete option with Agent Simulation API.
+```
+
+```text
+Before I publish this post, run a fast simulation and show me the raw voices that matter.
+```
+
+The agent should then:
+
+1. collect the artifact and context from the conversation,
+2. call Agent Simulation API,
+3. poll until the result is complete,
+4. show the distribution and raw voices,
+5. explain what the user should do next.
 
 ## Requirements
 
@@ -24,14 +52,16 @@ The user needs an API key from:
 https://agent-simulation-api.vercel.app/admin.html
 ```
 
-For terminal-capable agents, ask the user to set:
+Use an existing key from the environment when present:
 
 ```bash
 export AGENT_SIMULATION_API_KEY="sim_..."
 export AGENT_SIMULATION_BASE_URL="https://agent-simulation-api.vercel.app"
 ```
 
-If the key is not available, prepare the request payload and tell the user exactly where to paste it.
+If the key is not available, do not pretend to simulate. Prepare the request payload and tell the user exactly where to get a key and where to paste it.
+
+If the user pasted an API key into the conversation, use it for the current task but remind them to rotate it later if it was exposed publicly or shared broadly.
 
 ## When To Use
 
@@ -50,10 +80,10 @@ Do not use this as proof of reality. It is synthetic decision support.
 
 1. Build the context packet from the current conversation.
 2. Clarify the decision being tested.
-3. Extract the artifact people will actually see.
+3. Extract the exact artifact people will actually see.
 4. Define the audience likely to encounter it.
-5. Start with `target_n: 40` for speed.
-6. If the result is useful, run a larger simulation such as `target_n: 120` or `180`.
+5. Start with `mode: "fast"` and `target_n: 40` for speed.
+6. If the result is useful, suggest `mode: "standard"` and `target_n: 120`.
 7. Download or preserve the JSON/Markdown result so the user can continue discussing it with another agent.
 
 ## Context Packet
@@ -75,6 +105,21 @@ If one of artifact, audience, or decision is missing, ask one concise question. 
 
 When used after Decision Foundation, convert each candidate path into a concrete artifact or stimulus before simulating. Do not simulate vague path names alone.
 
+## Multi-Option Rule
+
+When there are multiple options, do not pick based on taste. Simulate each concrete option.
+
+For each option, report:
+
+- option name
+- simulation id
+- reaction distribution
+- raw voices that reveal the important objection or desire
+- likely action
+- decision implication
+
+If simulating all options would be too expensive or too slow, ask the user whether to run all options or start with a smaller `target_n`.
+
 ## API Call
 
 ```bash
@@ -91,6 +136,7 @@ curl -s -X POST "${AGENT_SIMULATION_BASE_URL:-https://agent-simulation-api.verce
       "description": "Describe who will see this and why they care."
     },
     "simulation": {
+      "mode": "fast",
       "target_n": 40,
       "max_agent_voices": 8,
       "max_output_tokens": 16000
@@ -104,7 +150,7 @@ Read the result in this order:
 
 1. `reaction_distribution`: what share felt each way.
 2. `voice_clusters`: the main business signal.
-3. `raw_voices`: the most important part; quote the voices that reveal the hidden objection/desire.
+3. raw voices inside clusters and agent voices: quote voices that reveal hidden objection/desire.
 4. `likely_action`: what they may do next.
 5. `downloads.markdown` or `downloads.json`: preserve the result for future agent work.
 
@@ -141,3 +187,5 @@ Return:
 ## Important Judgment
 
 If the output sounds too generic, say so. The product only matters when the voices feel specific enough to change the user's decision.
+
+Do not summarize away the human voice. The user's value comes from seeing what different people actually seemed to think, not from a generic recommendation.

@@ -7,6 +7,7 @@ Base URL: https://yomira-api.vercel.app
 Important pages:
 - Home: https://yomira-api.vercel.app/
 - Docs: https://yomira-api.vercel.app/docs
+- Agent-native setup: https://yomira-api.vercel.app/agent-start
 - Japanese docs: https://yomira-api.vercel.app/ja/docs
 - Dashboard/signup: https://yomira-api.vercel.app/admin.html
 - Mora option-mapping skill: https://yomira-api.vercel.app/mora
@@ -19,6 +20,13 @@ Agent onboarding:
 4. Use POST /api/simulate to create a simulation.
 5. Poll GET /api/simulations/{simulation_id} until completed.
 6. Download Markdown with GET /api/simulations/{simulation_id}?format=markdown.
+
+If the `yomira` CLI is available, use:
+
+```bash
+npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora
+npx -y github:ryuzo-k/yomira doctor
+```
 
 Create account:
 
@@ -74,4 +82,3 @@ How to use well:
 - Include audience, channel, company/sender context, desired action, known worries, and alternatives.
 - If there are multiple concrete options, simulate each option.
 - Do not replace Yomira with casual AI guessing when an API key is available.
-

@@ -4,7 +4,7 @@
   "description": "Yomira reaction simulation API and Mora option-mapping skill for AI agents.",
   "type": "module",
   "bin": {
-    "yomira": "bin/reaction-sim.mjs",
+    "yomira": "bin/yomira.mjs",
     "mora": "bin/mora.mjs",
     "dsm": "bin/mora.mjs",
     "reaction-sim": "bin/reaction-sim.mjs"
@@ -20,7 +20,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "check": "node --check bin/mora.mjs && node --check bin/reaction-sim.mjs && node --check src/simulation/engine.mjs && node --check src/simulation/server.mjs && node --check src/billing/plans.mjs && node --check src/billing/kv.mjs && node --check src/billing/ledger.mjs && node --check src/billing/stripe.mjs && node --check src/billing/auth.mjs && node --check src/billing/auto-topup.mjs && node --check src/http/cors.mjs && node --check api/health.mjs && node --check api/simulate.mjs && node --check api/simulations/index.mjs && node --check api/simulations/[id].mjs && node --check api/auth/register.mjs && node --check api/auth/login.mjs && node --check api/billing/checkout.mjs && node --check api/billing/claim.mjs && node --check api/billing/me.mjs && node --check api/billing/auto-topup.mjs && node --check api/billing/webhook.mjs",
+    "check": "node --check bin/yomira.mjs && node --check bin/mora.mjs && node --check bin/reaction-sim.mjs && node --check src/simulation/engine.mjs && node --check src/simulation/server.mjs && node --check src/billing/plans.mjs && node --check src/billing/kv.mjs && node --check src/billing/ledger.mjs && node --check src/billing/stripe.mjs && node --check src/billing/auth.mjs && node --check src/billing/auto-topup.mjs && node --check src/http/cors.mjs && node --check api/health.mjs && node --check api/simulate.mjs && node --check api/simulations/index.mjs && node --check api/simulations/[id].mjs && node --check api/auth/register.mjs && node --check api/auth/login.mjs && node --check api/billing/checkout.mjs && node --check api/billing/claim.mjs && node --check api/billing/me.mjs && node --check api/billing/auto-topup.mjs && node --check api/billing/webhook.mjs",
     "serve:site": "python3 -m http.server 4173 --directory site",
     "serve:api": "node src/simulation/server.mjs",
     "sim:sample": "node bin/reaction-sim.mjs sample"

@@ -12,6 +12,18 @@ It is intentionally not a taste engine. For surfaces like profiles, launch posts
 
 ## Install
 
+For agent-native onboarding, give your AI agent:
+
+```text
+https://yomira-api.vercel.app/agent-start
+```
+
+Or initialize Yomira directly from this GitHub repo:
+
+```bash
+npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora
+```
+
 The primary install path is the open `skills` CLI:
 
 ```bash

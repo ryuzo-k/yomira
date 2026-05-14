@@ -35,6 +35,7 @@
           <div class="essay-actions">
             <a class="essay-button" href="/admin.html">アカウントを作成する &rarr;</a>
             <a class="essay-link" href="#agent-prompt">導入プロンプトをコピーする</a>
+            <a class="essay-link" href="/agent-start">Agent-native setup</a>
           </div>
         </header>
 
@@ -84,6 +85,9 @@ Yomira API keyを渡した場合は、必ず実際のAPIを呼んでください
           <p>
             Yomiraは、ターミナルを使えるAIエージェントからもアカウント作成できます。メール、パスワード、APIキーの所有者はユーザーです。AIエージェントは、signupリクエストの作成、APIキー取得、skill導入、API確認まで実行できます。
           </p>
+          <p>
+            最短で使う場合は、<a href="/agent-start">Agent Start</a> を開き、セットアッププロンプトを Claude Code、Codex、Cursor、Hermes Agent などに貼ってください。
+          </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
               <strong>エージェントからアカウントを作成する</strong>
@@ -104,6 +108,14 @@ Yomira API keyを渡した場合は、必ず実際のAPIを呼んでください
           <p>
             レスポンスには <code>apiKey</code>、<code>credits</code>、<code>user</code> が含まれます。APIキーはsecretとして保存し、その後Yomira skillを導入してください。
           </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>APIキー取得後にCLIでセットアップする</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="yomira-cli-init-ja">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="yomira-cli-init-ja">npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora
+npx -y github:ryuzo-k/yomira doctor</code></pre>
+          </div>
         </section>
 
         <section class="essay-section" id="agent-prompt">

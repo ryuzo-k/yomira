@@ -71,6 +71,14 @@
       "destination": "/site/docs.js"
     },
     {
+      "source": "/agent-start",
+      "destination": "/site/agent-start.html"
+    },
+    {
+      "source": "/agent-start.html",
+      "destination": "/site/agent-start.html"
+    },
+    {
       "source": "/llms.txt",
       "destination": "/site/llms.txt"
     },

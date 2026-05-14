@@ -35,6 +35,7 @@
           <div class="essay-actions">
             <a class="essay-button" href="./admin.html">Create account &rarr;</a>
             <a class="essay-link" href="#agent-prompt">Copy agent setup prompt</a>
+            <a class="essay-link" href="./agent-start">Agent-native setup</a>
           </div>
         </header>
 
@@ -84,6 +85,9 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
           <p>
             Yomira can be created from a terminal-capable AI agent. The user still owns the email, password, and API key. The agent can prepare the request, run the signup call, install the skill, and verify the API.
           </p>
+          <p>
+            For the shortest flow, open <a href="./agent-start">Agent Start</a> and paste the setup prompt into Claude Code, Codex, Cursor, Hermes Agent, or another terminal-capable agent.
+          </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
               <strong>Create an account from an agent</strong>
@@ -104,6 +108,14 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
           <p>
             The response includes <code>apiKey</code>, <code>credits</code>, and <code>user</code>. Store the API key as a secret, then install the Yomira skill and use the setup prompt below.
           </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>Bootstrap with CLI after you have an API key</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="yomira-cli-init">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="yomira-cli-init">npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora
+npx -y github:ryuzo-k/yomira doctor</code></pre>
+          </div>
         </section>
 
         <section class="essay-section" id="agent-prompt">

@@ -1,0 +1,36 @@
+---
+description: Use Yomira for API-backed human reaction simulations.
+globs:
+alwaysApply: false
+---
+
+# Yomira
+
+Use Yomira when the user asks how people may react to a message, DM, email, content draft, landing page, offer, pricing page, X profile/post, product idea, venture concept, or concrete decision option.
+
+Do not replace Yomira with casual AI guessing when an API key is available.
+
+## API
+
+Base URL:
+
+```text
+https://yomira-api.vercel.app
+```
+
+Find the API key in one of these places:
+
+- `YOMIRA_API_KEY`
+- `~/.yomira/config.json`
+- the current conversation if the user just pasted it
+
+## Workflow
+
+1. Identify the exact artifact people will see.
+2. Build a context packet: objective, audience, channel, sender/company context, desired action, known concerns, alternatives.
+3. Call `POST /api/simulate`.
+4. Poll `GET /api/simulations/{simulation_id}` until completion.
+5. Report reaction distribution, raw private voices, decision implications, and export links.
+
+If there are multiple concrete options, simulate each option.
+

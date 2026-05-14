@@ -23,7 +23,7 @@ function sampleRequest() {
   return {
     artifact: {
       type: "x_profile",
-      content: "AI-native agency founder. Building Decision Foundation and synthetic human voice simulation for better decisions."
+      content: "AI-native agency founder. Building Mora and synthetic human voice simulation for better decisions."
     },
     objective: "Understand how people would interpret this X profile and what actions they might take.",
     audience: {

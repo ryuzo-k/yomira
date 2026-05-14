@@ -7,22 +7,22 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const packageRoot = path.resolve(__dirname, "..");
-const skillSource = path.join(packageRoot, "skills", "decision-space-mapper");
-const cursorRuleSource = path.join(packageRoot, "adapters", "cursor", "decision-space-mapper.mdc");
+const skillSource = path.join(packageRoot, "skills", "mora");
+const cursorRuleSource = path.join(packageRoot, "adapters", "cursor", "mora.mdc");
 
 const home = process.env.HOME || process.env.USERPROFILE || "";
 
 function usage() {
-  return `Decision Space Mapper
+  return `Mora
 
 Usage:
-  node bin/decision-space-mapper.mjs install --target all
-  node bin/decision-space-mapper.mjs install --target claude
-  node bin/decision-space-mapper.mjs install --target codex
-  node bin/decision-space-mapper.mjs install --target hermes
-  node bin/decision-space-mapper.mjs install --target cursor --cwd /path/to/project
-  node bin/decision-space-mapper.mjs prompt
-  node bin/decision-space-mapper.mjs doctor
+  node bin/mora.mjs install --target all
+  node bin/mora.mjs install --target claude
+  node bin/mora.mjs install --target codex
+  node bin/mora.mjs install --target hermes
+  node bin/mora.mjs install --target cursor --cwd /path/to/project
+  node bin/mora.mjs prompt
+  node bin/mora.mjs doctor
 
 Options:
   --target <all|claude|codex|hermes|cursor>
@@ -85,16 +85,16 @@ function userTarget(agent) {
   }
 
   if (agent === "claude") {
-    return path.join(home, ".claude", "skills", "decision-space-mapper");
+    return path.join(home, ".claude", "skills", "mora");
   }
 
   if (agent === "codex") {
     const codexHome = process.env.CODEX_HOME || path.join(home, ".codex");
-    return path.join(codexHome, "skills", "decision-space-mapper");
+    return path.join(codexHome, "skills", "mora");
   }
 
   if (agent === "hermes") {
-    return path.join(home, ".hermes", "skills", "decision-space-mapper");
+    return path.join(home, ".hermes", "skills", "mora");
   }
 
   throw new Error(`No user skill target for ${agent}.`);
@@ -102,11 +102,11 @@ function userTarget(agent) {
 
 function projectTarget(agent, cwd) {
   if (agent === "claude") {
-    return path.join(cwd, ".claude", "skills", "decision-space-mapper");
+    return path.join(cwd, ".claude", "skills", "mora");
   }
 
   if (agent === "codex") {
-    return path.join(cwd, ".codex", "skills", "decision-space-mapper");
+    return path.join(cwd, ".codex", "skills", "mora");
   }
 
   throw new Error(`Project install is not defined for ${agent}.`);
@@ -119,7 +119,7 @@ async function installSkill(agent, scope, cwd) {
 }
 
 async function installCursor(cwd) {
-  const destination = path.join(cwd, ".cursor", "rules", "decision-space-mapper.mdc");
+  const destination = path.join(cwd, ".cursor", "rules", "mora.mdc");
   await copyFile(cursorRuleSource, destination);
   return destination;
 }
@@ -152,12 +152,12 @@ async function install(args) {
     results.push({ target, destination });
   }
 
-  console.log("Installed Decision Space Mapper:");
+  console.log("Installed Mora:");
   for (const result of results) {
     console.log(`- ${result.target}: ${result.destination}`);
   }
   console.log("");
-  console.log("Try: Use decision-space-mapper to map coherent candidate paths for this decision: ...");
+  console.log("Try: Use mora to map coherent candidate paths for this decision: ...");
 }
 
 async function doctor() {
@@ -165,10 +165,10 @@ async function doctor() {
     ["claude", userTarget("claude")],
     ["codex", userTarget("codex")],
     ["hermes", userTarget("hermes")],
-    ["cursor", path.join(process.cwd(), ".cursor", "rules", "decision-space-mapper.mdc")]
+    ["cursor", path.join(process.cwd(), ".cursor", "rules", "mora.mdc")]
   ];
 
-  console.log("Decision Space Mapper install check:");
+  console.log("Mora install check:");
   for (const [name, targetPath] of checks) {
     const ok = await exists(targetPath);
     console.log(`- ${name}: ${ok ? "found" : "missing"} (${targetPath})`);
@@ -176,17 +176,17 @@ async function doctor() {
 }
 
 function prompt() {
-  console.log(`Install Decision Space Mapper for this environment.
+  console.log(`Install Mora for this environment.
 
 If you can run shell commands, run:
 
-npx skills add ryuzo-k/decision-space-mapper
+npx skills add ryuzo-k/yomira
 
 Then verify the install and tell me which adapters were installed.
 
 After installing, use it to map coherent candidate paths for a real decision before asking for a recommendation.
 
-If npx is not available, fetch the GitHub repository and copy the decision-space-mapper skill folder into the current agent's skill directory. For Cursor, install the Cursor adapter as .cursor/rules/decision-space-mapper.mdc.`);
+If npx is not available, fetch the GitHub repository and copy the mora skill folder into the current agent's skill directory. For Cursor, install the Cursor adapter as .cursor/rules/mora.mdc.`);
 }
 
 async function main() {

@@ -2,7 +2,7 @@
 
 Circleback ID: 8644552 / linkId: Uuscyg6bvjrp7GOe8LUM6
 
-> このMTG議事録は Decision Foundation / Path Simulator プロダクトの事業化検討記録。
+> このMTG議事録は Mora / Path Simulator プロダクトの事業化検討記録。
 > 関連商談: ユニオンツール（勝俣氏）5/11 10:45 MTG（`~/yobou/sales/leads/katsumata-uniontool/`）
 
 ## 参加者
@@ -21,7 +21,7 @@ Circleback ID: 8644552 / linkId: Uuscyg6bvjrp7GOe8LUM6
 - **2B より 2C の方がスケールしやすい**・Ryuzoの性格にも向いている認識で一致
 
 ## プロダクト構造（README/docs/product-2-simulation.md より）
-- **Product 1: Decision Foundation**（無料配布層・skills.sh）— 候補パス抽出/比較
+- **Product 1: Mora**（無料配布層・skills.sh）— 候補パス抽出/比較
 - **Product 2: Path Simulator**（課金型シミュレーションAPI）— 候補パスを「シミュレートしたオーディエンス」にぶつけて反応分布を返す
 
 ### MVP契約（既存設計）

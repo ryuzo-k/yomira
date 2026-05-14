@@ -36,7 +36,7 @@ If the idea is vague, first ask for the artifact the market will see: landing pa
 
 ## API Use
 
-Use Agent Simulation API with:
+Use Yomira with:
 
 ```json
 {

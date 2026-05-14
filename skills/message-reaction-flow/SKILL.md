@@ -34,7 +34,7 @@ If the exact message is missing, ask for it or create clearly labeled variants o
 
 ## API Use
 
-Use Agent Simulation API with:
+Use Yomira with:
 
 ```json
 {

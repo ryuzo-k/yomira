@@ -1,9 +1,9 @@
-const repo = "ryuzo-k/decision-space-mapper";
+const repo = "ryuzo-k/yomira";
 const repoUrl = `https://github.com/${repo}`;
 const skillsCommand = `npx skills add ${repo}`;
 const isJapanese = document.documentElement.lang === "ja";
 
-const installPrompt = isJapanese ? `Decision Foundation を open skills ecosystem から導入してください。
+const installPrompt = isJapanese ? `Mora を open skills ecosystem から導入してください。
 
 次のコマンドを実行してください。
 
@@ -14,7 +14,7 @@ ${skillsCommand}
 導入後は、私の現在の文脈から選択肢を抽出し、抜けている選択肢を補い、推奨する前に一貫した候補パスとして整理してください。
 
 Source:
-${repoUrl}` : `Install Decision Foundation from the open skills ecosystem.
+${repoUrl}` : `Install Mora from the open skills ecosystem.
 
 Run this command:
 

@@ -23,7 +23,7 @@
 **現実的閾値: N=1000人インタビュー + クラスタ補強で N=10000相当**
 
 科学的参照点:
-- **Park et al. 2024「Generative Agent Simulations of 1000 People」**（Stanford）
+- **Park et al. 2024「Generative Yomiras of 1000 People」**（Stanford）
   - 1000人を2hの深層インタビュー → LLM persona に投影
   - 個人の社会調査回答を **正答率85%** で予測（人間専門家とほぼ同等）
   - **「1000人が現実的閾値の一つ」** という科学的根拠

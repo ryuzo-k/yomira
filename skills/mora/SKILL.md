@@ -1,9 +1,9 @@
 ---
-name: decision-space-mapper
+name: mora
 description: Map coherent candidate paths from a user's messy decision context before recommending a path. Use when a user is deciding what to build, sell, write, publish, position, price, prioritize, launch, include, exclude, test, or choose; when they ask for exhaustive options, alternatives, overlooked paths, "what else is possible?", product/business/career strategy, positioning, pricing, messaging, profile/self-presentation, or a structured set of action patterns to prepare for later human or agent simulation.
 ---
 
-# Decision Foundation
+# Mora
 
 ## Purpose
 
@@ -22,7 +22,7 @@ Treat the output as a path map:
 
 ## Connected Simulation Workflow
 
-Decision Foundation is the first move. Human Reaction Simulation is the second move.
+Mora is the first move. Human Reaction Simulation is the second move.
 
 After mapping candidate paths, identify which paths depend on human reaction: selling, publishing, pitching, pricing, messaging, profile positioning, launch strategy, or enterprise communication.
 
@@ -34,7 +34,7 @@ For those paths, prepare a simulation handoff:
 - risks or reactions to test
 - variants worth comparing
 
-If the `agent-simulation` skill or Agent Simulation API is available, suggest using it after the path map. Do not simulate vague path labels; convert paths into concrete artifacts first.
+If the `yomira` skill or Yomira is available, suggest using it after the path map. Do not simulate vague path labels; convert paths into concrete artifacts first.
 
 ## Non-Negotiable Rule
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agent Simulation API</title>
+    <title>Yomira</title>
     <meta
       name="description"
       content="Agent-native reaction simulation for messages, content, landing pages, offers, and venture ideas before they reach the world."
@@ -13,7 +13,7 @@
   <body class="essay-page">
     <div class="essay-shell">
       <nav class="essay-nav" aria-label="Primary navigation">
-        <a class="essay-brand" href="./">Agent Simulation API</a>
+        <a class="essay-brand" href="./">Yomira</a>
         <div class="essay-nav-links">
           <a href="./docs">Docs</a>
           <a href="/ja">日本語</a>
@@ -30,7 +30,7 @@
             before decisions reach the world.
           </h1>
           <p class="essay-lede">
-            Agent Simulation API helps you test how people may privately respond to messages, posts, landing pages, offers, product ideas, and other planning materials before you publish, send, or build.
+            Yomira helps you test how people may privately respond to messages, posts, landing pages, offers, product ideas, and other planning materials before you publish, send, or build.
           </p>
           <div class="essay-actions">
             <a class="essay-button" href="./admin.html">Start with credits &rarr;</a>
@@ -48,7 +48,7 @@
         <section class="essay-section">
           <h2>The product</h2>
           <p>
-            Agent Simulation API runs audience simulations and returns the distribution of reactions: who becomes interested, who stays skeptical, who misunderstands the offer, who dismisses it, and what they would actually say in their own words. The output is designed to be used inside Claude Code, Codex, Hermes Agent, Cursor, OpenClaw, scripts, dashboards, and your own product.
+            Yomira runs audience simulations and returns the distribution of reactions: who becomes interested, who stays skeptical, who misunderstands the offer, who dismisses it, and what they would actually say in their own words. The output is designed to be used inside Claude Code, Codex, Hermes Agent, Cursor, OpenClaw, scripts, dashboards, and your own product.
           </p>
         </section>
 
@@ -88,19 +88,19 @@
         <section class="essay-section" id="skill">
           <h2>Official skill</h2>
           <p>
-            Install the Agent Simulation skill into Claude Code, Codex, Cursor, Hermes Agent, or another AI agent. After that, you can ask your agent to simulate DMs, posts, landing pages, offers, pricing pages, product ideas, or Decision Foundation options without writing the API call yourself.
+            Install the Yomira skill into Claude Code, Codex, Cursor, Hermes Agent, or another AI agent. After that, you can ask your agent to simulate DMs, posts, landing pages, offers, pricing pages, product ideas, or Mora options without writing the API call yourself.
           </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
               <strong>Paste this into your AI agent</strong>
-              <button class="docs-copy-button" type="button" data-copy-target="agent-simulation-install">Copy</button>
+              <button class="docs-copy-button" type="button" data-copy-target="yomira-install">Copy</button>
             </div>
-            <pre class="essay-code"><code id="agent-simulation-install">Install the official Agent Simulation skill from this GitHub repo:
-https://github.com/ryuzo-k/decision-space-mapper/tree/main/skills/agent-simulation
+            <pre class="essay-code"><code id="yomira-install">Install the official Yomira skill from this GitHub repo:
+https://github.com/ryuzo-k/yomira/tree/main/skills/yomira
 
 After installing, use it whenever I ask you to simulate reactions to a message, post, landing page, offer, pricing page, product idea, or decision option.
 
-If I provide an Agent Simulation API key, call the real API. Do not replace it with casual reaction prediction unless I explicitly ask you not to use the API.</code></pre>
+If I provide a Yomira API key, call the real API. Do not replace it with casual reaction prediction unless I explicitly ask you not to use the API.</code></pre>
           </div>
         </section>
 
@@ -189,9 +189,9 @@ If I provide an Agent Simulation API key, call the real API. Do not replace it w
 
         <section class="essay-section">
           <h2>API quickstart</h2>
-          <pre class="essay-code"><code>curl -s -X POST "https://agent-simulation-api.vercel.app/api/simulate" \
+          <pre class="essay-code"><code>curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
   -H "content-type: application/json" \
-  -H "x-api-key: $AGENT_SIMULATION_API_KEY" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
   -d '{
     "objective": "Should we publish this landing page?",
     "artifact": { "type": "landing_page", "content": "..." },
@@ -201,11 +201,11 @@ If I provide an Agent Simulation API key, call the real API. Do not replace it w
         </section>
 
         <section class="essay-section">
-          <h2>Decision Foundation</h2>
+          <h2>Mora</h2>
           <p>
-            Decision Foundation is a free companion skill. It maps the possible options before you simulate them. Use it when you do not yet know which messages, positioning paths, launch plans, or product directions are worth testing.
+            Mora is a free companion skill. It maps the possible options before you simulate them. Use it when you do not yet know which messages, positioning paths, launch plans, or product directions are worth testing.
           </p>
-          <a class="essay-link" href="./decision-foundation">Open Decision Foundation</a>
+          <a class="essay-link" href="./mora">Open Mora</a>
         </section>
 
         <section class="essay-section">
@@ -233,7 +233,7 @@ If I provide an Agent Simulation API key, call the real API. Do not replace it w
 
       <footer class="essay-footer">
         <div>Contact: <a href="mailto:ryuzo.kijima@yobouinc.co.jp">ryuzo.kijima@yobouinc.co.jp</a></div>
-        <div>&copy; 2026 Yobou Inc. &mdash; Agent Simulation API</div>
+        <div>&copy; 2026 Yobou Inc. &mdash; Yomira</div>
       </footer>
     </div>
     <script src="/docs.js"></script>

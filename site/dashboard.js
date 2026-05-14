@@ -1,17 +1,19 @@
-const API_BASE = location.protocol === "file:" ? "https://agent-simulation-api.vercel.app" : "";
+const API_BASE = location.protocol === "file:" ? "https://yomira-api.vercel.app" : "";
 const state = {
-  apiKey: localStorage.getItem("agent_sim_api_key") || "",
-  user: JSON.parse(localStorage.getItem("agent_sim_user") || "null"),
+  apiKey: localStorage.getItem("yomira_api_key") || localStorage.getItem("agent_sim_api_key") || "",
+  user: JSON.parse(localStorage.getItem("yomira_user") || localStorage.getItem("agent_sim_user") || "null"),
   latest: null
 };
 
 const $ = (selector) => document.querySelector(selector);
 
 if (!state.apiKey) location.href = "./admin.html";
+if (state.apiKey) localStorage.setItem("yomira_api_key", state.apiKey);
+if (state.user) localStorage.setItem("yomira_user", JSON.stringify(state.user));
 
 $("#logout").addEventListener("click", () => {
-  localStorage.removeItem("agent_sim_api_key");
-  localStorage.removeItem("agent_sim_user");
+  localStorage.removeItem("yomira_api_key");
+  localStorage.removeItem("yomira_user");
   location.href = "./admin.html";
 });
 $("#copy-key").addEventListener("click", () => copyText(state.apiKey, $("#copy-key"), "Copy API key"));
@@ -55,11 +57,11 @@ async function claimCheckoutIfNeeded() {
     const data = await api("/api/billing/claim", { method: "POST", body: { sessionId } });
     if (data.apiKey) {
       state.apiKey = data.apiKey;
-      localStorage.setItem("agent_sim_api_key", data.apiKey);
+      localStorage.setItem("yomira_api_key", data.apiKey);
     }
     if (data.user) {
       state.user = data.user;
-      localStorage.setItem("agent_sim_user", JSON.stringify(data.user));
+      localStorage.setItem("yomira_user", JSON.stringify(data.user));
     }
     $("#billing-status").textContent = "Payment claimed.";
     await hydrate();
@@ -221,7 +223,7 @@ function syncAutoTopup(account) {
 }
 
 function loadSample() {
-  $("#objective").value = "Decide whether Agent Simulation API is worth launching as a paid developer API.";
+  $("#objective").value = "Decide whether Yomira is worth launching as a paid developer API.";
   $("#audience").value = "Indie hackers, AI tool builders, agency owners, startup founders, and operators who already use Claude Code, Codex, Cursor, or other agentic coding tools.";
   $("#artifact").value = "An API that simulates how likely human audiences would react to a product, profile, offer, or content artifact. It returns many realistic private voices and aggregate patterns for better decisions.";
   $("#target-n").value = 40;
@@ -230,10 +232,10 @@ function loadSample() {
 }
 
 function agentSetupPrompt() {
-  return `You can use Agent Simulation API for reaction simulation.
+  return `You can use Yomira for reaction simulation.
 
 API base URL:
-https://agent-simulation-api.vercel.app
+https://yomira-api.vercel.app
 
 API key:
 ${state.apiKey}

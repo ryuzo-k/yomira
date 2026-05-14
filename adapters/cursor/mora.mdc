@@ -4,7 +4,7 @@ globs:
 alwaysApply: false
 ---
 
-# Decision Space Mapper
+# Mora
 
 When the user asks for alternatives, product direction, positioning, pricing, messaging, profiles, offers, launch plans, or "what else is possible?", recover coherent candidate paths before recommending.
 

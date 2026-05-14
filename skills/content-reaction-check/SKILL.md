@@ -1,6 +1,6 @@
 ---
 name: content-reaction-check
-description: Check how likely readers may privately react before publishing content, especially GEO/SEO articles, thought-leadership posts, launch posts, X/LinkedIn posts, essays, or company content. Uses Agent Simulation API when available.
+description: Check how likely readers may privately react before publishing content, especially GEO/SEO articles, thought-leadership posts, launch posts, X/LinkedIn posts, essays, or company content. Uses Yomira when available.
 ---
 
 # Content Reaction Check
@@ -30,7 +30,7 @@ If the exact draft is missing, ask for it. Do not simulate a vague description u
 
 ## API Use
 
-Use Agent Simulation API with:
+Use Yomira with:
 
 ```json
 {

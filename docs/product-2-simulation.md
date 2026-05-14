@@ -2,7 +2,7 @@
 
 ## Product Thesis
 
-Decision Foundation creates the decision substrate: a comprehensive set of viable paths.
+Mora creates the decision substrate: a comprehensive set of viable paths.
 
 Product 2 tests those paths against simulated or real human reactions so the user can decide with more confidence.
 
@@ -34,7 +34,7 @@ Not the final company. The first product path should answer:
 - who pays first
 - what artifact they submit
 - what simulation result they receive
-- how it connects to Decision Foundation
+- how it connects to Mora
 - how to deliver it this week
 
 ## Candidate Paths
@@ -141,7 +141,7 @@ This gives:
 - real examples for marketing
 - data for API schema
 - proof of what users actually want
-- a clean bridge from Decision Foundation
+- a clean bridge from Mora
 
 ## MVP Contract
 
@@ -214,7 +214,7 @@ Build these first:
 1. A sample report format.
 2. A simple intake form or Stripe payment link.
 3. A script/API-shaped function that takes paths + audience + dimensions and returns a report.
-4. A public example connecting Decision Foundation output to simulation output.
+4. A public example connecting Mora output to simulation output.
 5. A waitlist or "request simulation" CTA on the LP.
 
 ## Product Naming Options
@@ -233,7 +233,7 @@ Working name: **Path Simulator**.
 
 Create one public example:
 
-1. Use Decision Foundation to generate candidate paths for Product 2.
+1. Use Mora to generate candidate paths for Product 2.
 2. Run a mock/semi-manual simulation report on those paths.
 3. Publish the pair:
    - "First, map the paths."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mora"
+  short_description: "Map coherent candidate paths before choosing"
+  default_prompt: "Use $mora to extract my current options, expand the missing alternatives, and map coherent candidate paths before recommending one."

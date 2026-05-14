@@ -1,6 +1,6 @@
 # Portable Adapters
 
-Decision Space Mapper should be maintained as a core protocol, then adapted to each AI environment.
+Mora should be maintained as a core protocol, then adapted to each AI environment.
 
 ## Mental Model
 
@@ -13,7 +13,7 @@ Claude Code supports Agent Skills as folders containing `SKILL.md` plus optional
 Recommended adapter:
 
 ```text
-.claude/skills/decision-space-mapper/
+.claude/skills/mora/
   SKILL.md
   references/
 ```
@@ -33,7 +33,7 @@ Codex uses skill folders with `SKILL.md` and optional resources. In the Codex de
 Recommended adapter:
 
 ```text
-~/.codex/skills/decision-space-mapper/
+~/.codex/skills/mora/
   SKILL.md
   agents/openai.yaml
   references/
@@ -44,7 +44,7 @@ For repo sharing, keep a copy in the repository and install/symlink it into the 
 For public distribution through the open `skills` CLI, keep the canonical copy at:
 
 ```text
-skills/decision-space-mapper/
+skills/mora/
   SKILL.md
   references/
 ```
@@ -56,7 +56,7 @@ Cursor uses Rules rather than Agent Skills. Project rules live in `.cursor/rules
 Recommended adapter:
 
 ```text
-.cursor/rules/decision-space-mapper.mdc
+.cursor/rules/mora.mdc
 ```
 
 Make the rule explicit enough that a user can say "use the decision-space mapper" and Cursor has the workflow available.
@@ -68,7 +68,7 @@ Hermes Agent uses `SKILL.md` files and follows the agentskills.io-style progress
 Recommended adapter:
 
 ```text
-~/.hermes/skills/decision-space-mapper/
+~/.hermes/skills/mora/
   SKILL.md
   references/
 ```
@@ -78,7 +78,7 @@ Recommended adapter:
 For agents without a native skill system, package the protocol as a prompt file:
 
 ```text
-prompts/decision-space-mapper.md
+prompts/mora.md
 ```
 
 The user can paste it into system/developer instructions, a project memory file, an agent profile, or a custom command.

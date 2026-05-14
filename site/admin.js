@@ -1,10 +1,15 @@
-const API_BASE = location.protocol === "file:" ? "https://agent-simulation-api.vercel.app" : "";
+const API_BASE = location.protocol === "file:" ? "https://yomira-api.vercel.app" : "";
 const statusEl = document.querySelector("#status");
 
 document.querySelector("#register").addEventListener("click", () => auth("register"));
 document.querySelector("#login").addEventListener("click", () => auth("login"));
 
-if (localStorage.getItem("agent_sim_api_key")) {
+const existingKey = localStorage.getItem("yomira_api_key") || localStorage.getItem("agent_sim_api_key");
+const existingUser = localStorage.getItem("yomira_user") || localStorage.getItem("agent_sim_user");
+if (existingKey) localStorage.setItem("yomira_api_key", existingKey);
+if (existingUser) localStorage.setItem("yomira_user", existingUser);
+
+if (existingKey) {
   statusEl.textContent = "Already signed in. Opening dashboard...";
   setTimeout(() => location.href = "./dashboard.html", 250);
 }
@@ -21,8 +26,8 @@ async function auth(mode) {
         password: document.querySelector("#password").value
       }
     });
-    localStorage.setItem("agent_sim_api_key", data.apiKey);
-    localStorage.setItem("agent_sim_user", JSON.stringify(data.user));
+    localStorage.setItem("yomira_api_key", data.apiKey);
+    localStorage.setItem("yomira_user", JSON.stringify(data.user));
     location.href = "./dashboard.html";
   } catch (error) {
     statusEl.textContent = error.message;

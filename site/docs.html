@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agent Simulation API Docs</title>
+    <title>Yomira Docs</title>
     <meta
       name="description"
-      content="Quickstart, agent setup prompt, API reference, exports, and credit notes for Agent Simulation API."
+      content="Quickstart, agent setup prompt, API reference, exports, and credit notes for Yomira."
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="essay-page">
     <div class="essay-shell docs-shell">
       <nav class="essay-nav" aria-label="Primary navigation">
-        <a class="essay-brand" href="./">Agent Simulation API</a>
+        <a class="essay-brand" href="./">Yomira</a>
         <div class="essay-nav-links">
           <a href="./">Home</a>
           <a href="/ja/docs">日本語</a>
@@ -30,7 +30,7 @@
             then ask it to simulate reactions.
           </h1>
           <p class="essay-lede">
-            This page is for users who want to use Agent Simulation API from Claude Code, Codex, Cursor, Hermes Agent, OpenClaw, a script, or their own product.
+            This page is for users who want to use Yomira from Claude Code, Codex, Cursor, Hermes Agent, OpenClaw, a script, or their own product.
           </p>
           <div class="essay-actions">
             <a class="essay-button" href="./admin.html">Create account &rarr;</a>
@@ -67,15 +67,15 @@
           </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
-              <strong>Install the official Agent Simulation skill</strong>
+              <strong>Install the official Yomira skill</strong>
               <button class="docs-copy-button" type="button" data-copy-target="official-skill-prompt">Copy</button>
             </div>
-            <pre class="essay-code"><code id="official-skill-prompt">Install the official Agent Simulation skill from this GitHub repo:
-https://github.com/ryuzo-k/decision-space-mapper/tree/main/skills/agent-simulation
+            <pre class="essay-code"><code id="official-skill-prompt">Install the official Yomira skill from this GitHub repo:
+https://github.com/ryuzo-k/yomira/tree/main/skills/yomira
 
 After installing, use it whenever I ask you to simulate reactions to a message, post, landing page, offer, pricing page, product idea, or decision option.
 
-If I provide an Agent Simulation API key, call the real API. Do not replace it with casual reaction prediction unless I explicitly ask you not to use the API.</code></pre>
+If I provide a Yomira API key, call the real API. Do not replace it with casual reaction prediction unless I explicitly ask you not to use the API.</code></pre>
           </div>
         </section>
 
@@ -89,10 +89,10 @@ If I provide an Agent Simulation API key, call the real API. Do not replace it w
               <strong>Universal prompt for Claude Code, Codex, Cursor, Hermes Agent, and OpenClaw</strong>
               <button class="docs-copy-button" type="button" data-copy-target="agent-setup-prompt">Copy</button>
             </div>
-            <pre class="essay-code"><code id="agent-setup-prompt">You can use Agent Simulation API for reaction simulation.
+            <pre class="essay-code"><code id="agent-setup-prompt">You can use Yomira for reaction simulation.
 
 API base URL:
-https://agent-simulation-api.vercel.app
+https://yomira-api.vercel.app
 
 API key:
 sim_YOUR_KEY
@@ -123,11 +123,11 @@ When I ask you to simulate reactions, do this:
         <section class="essay-section" id="example-ask">
           <h2>Example asks</h2>
           <ul class="essay-feature-list">
-            <li><span>Message decision</span> &mdash; "Use Agent Simulation API to compare these three DMs and tell me which one I should send."</li>
+            <li><span>Message decision</span> &mdash; "Use Yomira to compare these three DMs and tell me which one I should send."</li>
             <li><span>Content preflight</span> &mdash; "Simulate how AI founders and agency owners will react before I publish this post."</li>
             <li><span>Landing page</span> &mdash; "Run a standard simulation on this LP and show what makes people trust or distrust it."</li>
             <li><span>New business idea</span> &mdash; "Simulate the buyer reaction to this product concept and separate curiosity from willingness to pay."</li>
-            <li><span>Decision Foundation flow</span> &mdash; "Use Decision Foundation to map the options, then simulate every concrete option with Agent Simulation API."</li>
+            <li><span>Mora flow</span> &mdash; "Use Mora to map the options, then simulate every concrete option with Yomira."</li>
           </ul>
         </section>
 
@@ -141,11 +141,11 @@ When I ask you to simulate reactions, do this:
               <strong>Create a simulation</strong>
               <button class="docs-copy-button" type="button" data-copy-target="curl-create">Copy</button>
             </div>
-            <pre class="essay-code"><code id="curl-create">export AGENT_SIMULATION_API_KEY="sim_..."
+            <pre class="essay-code"><code id="curl-create">export YOMIRA_API_KEY="sim_..."
 
-curl -s -X POST "https://agent-simulation-api.vercel.app/api/simulate" \
+curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
   -H "content-type: application/json" \
-  -H "x-api-key: $AGENT_SIMULATION_API_KEY" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
   -d '{
     "objective": "Decide whether to publish this content.",
     "artifact": {
@@ -169,8 +169,8 @@ curl -s -X POST "https://agent-simulation-api.vercel.app/api/simulate" \
               <strong>Poll the result</strong>
               <button class="docs-copy-button" type="button" data-copy-target="curl-poll">Copy</button>
             </div>
-            <pre class="essay-code"><code id="curl-poll">curl -s "https://agent-simulation-api.vercel.app/api/simulations/SIMULATION_ID" \
-  -H "x-api-key: $AGENT_SIMULATION_API_KEY"</code></pre>
+            <pre class="essay-code"><code id="curl-poll">curl -s "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID" \
+  -H "x-api-key: $YOMIRA_API_KEY"</code></pre>
           </div>
         </section>
 
@@ -196,8 +196,8 @@ curl -s -X POST "https://agent-simulation-api.vercel.app/api/simulate" \
               <strong>Download Markdown</strong>
               <button class="docs-copy-button" type="button" data-copy-target="curl-export">Copy</button>
             </div>
-            <pre class="essay-code"><code id="curl-export">curl -s "https://agent-simulation-api.vercel.app/api/simulations/SIMULATION_ID?format=markdown" \
-  -H "x-api-key: $AGENT_SIMULATION_API_KEY"</code></pre>
+            <pre class="essay-code"><code id="curl-export">curl -s "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID?format=markdown" \
+  -H "x-api-key: $YOMIRA_API_KEY"</code></pre>
           </div>
         </section>
 
@@ -228,7 +228,7 @@ curl -s -X POST "https://agent-simulation-api.vercel.app/api/simulate" \
 
       <footer class="essay-footer">
         <div>Contact: <a href="mailto:ryuzo.kijima@yobouinc.co.jp">ryuzo.kijima@yobouinc.co.jp</a></div>
-        <div>&copy; 2026 Yobou Inc. &mdash; Agent Simulation API Docs</div>
+        <div>&copy; 2026 Yobou Inc. &mdash; Yomira Docs</div>
       </footer>
     </div>
     <script src="./docs.js"></script>

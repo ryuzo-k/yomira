@@ -1,4 +1,4 @@
-# Agent Simulation Go-To-Market
+# Yomira Go-To-Market
 
 ## Short Version
 
@@ -162,13 +162,13 @@ That can become meaningful while the product improves.
 
 ### Free Skills
 
-Keep Decision Foundation as the top-of-funnel skill:
+Keep Mora as the top-of-funnel skill:
 
 - it maps options
 - it naturally creates simulation candidates
 - it is useful even without the paid API
 
-Add Agent Simulation as the paid bridge skill:
+Add Yomira as the paid bridge skill:
 
 - it calls the API
 - it exports Markdown/JSON
@@ -216,7 +216,7 @@ After that:
 
 ## First Launch Motion
 
-1. Publish the free Decision Foundation skill.
+1. Publish the free Mora skill.
 2. Show a real example: "I simulated this product's launch."
 3. Show the distribution and raw voices.
 4. Offer to run simulations for people's landing pages, offers, posts, or profiles.

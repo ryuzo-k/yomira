@@ -31,7 +31,7 @@ export async function maybeAutoTopup({ user, creditAccount, creditsNeeded = 0, r
     payment_method: paymentMethod,
     off_session: true,
     confirm: true,
-    description: "Agent Simulation API auto top-up",
+    description: "Yomira auto top-up",
     "metadata[user_id]": user.id,
     "metadata[credits]": topupCredits,
     "metadata[reason]": reason

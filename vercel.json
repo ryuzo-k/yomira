@@ -23,6 +23,18 @@
       "destination": "/site/docs-ja.html"
     },
     {
+      "source": "/mora",
+      "destination": "/site/index.html"
+    },
+    {
+      "source": "/mora/ja",
+      "destination": "/site/index-ja.html"
+    },
+    {
+      "source": "/mora.html",
+      "destination": "/site/index.html"
+    },
+    {
       "source": "/decision-foundation",
       "destination": "/site/index.html"
     },

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Decision Foundation"
-  short_description: "Map coherent candidate paths before choosing"
-  default_prompt: "Use $decision-space-mapper to extract my current options, expand the missing alternatives, and map coherent candidate paths before recommending one."

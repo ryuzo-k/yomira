@@ -1,18 +1,18 @@
 ---
-name: agent-simulation
-description: Use Agent Simulation API to run real API-backed human-reaction simulations before publishing, sending, selling, launching, pricing, or choosing. Use when the user asks how people may react to a message, DM, email, content draft, landing page, offer, pricing page, X profile/post, product idea, venture concept, or candidate options from Decision Foundation. Always prefer calling the API over casual guessing when an API key is available.
+name: yomira
+description: Use Yomira to run real API-backed human-reaction simulations before publishing, sending, selling, launching, pricing, or choosing. Use when the user asks how people may react to a message, DM, email, content draft, landing page, offer, pricing page, X profile/post, product idea, venture concept, or candidate options from Mora. Always prefer calling the API over casual guessing when an API key is available.
 ---
 
-# Agent Simulation API
+# Yomira
 
 ## Purpose
 
 Use this skill when the user wants to hear likely private human reactions before publishing, sending, selling, launching, pricing, or choosing.
 
-This skill is different from Decision Foundation:
+This skill is different from Mora:
 
-- Decision Foundation maps the possible paths.
-- Agent Simulation tests concrete artifacts or options against likely human reactions.
+- Mora maps the possible paths.
+- Yomira tests concrete artifacts or options against likely human reactions.
 
 The output should center raw human voices, then summarize clusters, percentages, and decision implications.
 
@@ -21,7 +21,7 @@ The output should center raw human voices, then summarize clusters, percentages,
 After installing this skill into Claude Code, Codex, Cursor, Hermes Agent, or another AI agent, the user can ask things like:
 
 ```text
-Use Agent Simulation API to check this DM before I send it.
+Use Yomira to check this DM before I send it.
 ```
 
 ```text
@@ -29,7 +29,7 @@ Simulate how potential buyers will react to this landing page.
 ```
 
 ```text
-Use Decision Foundation to map my options, then simulate every concrete option with Agent Simulation API.
+Use Mora to map my options, then simulate every concrete option with Yomira.
 ```
 
 ```text
@@ -39,7 +39,7 @@ Before I publish this post, run a fast simulation and show me the raw voices tha
 The agent should then:
 
 1. collect the artifact and context from the conversation,
-2. call Agent Simulation API,
+2. call Yomira,
 3. poll until the result is complete,
 4. show the distribution and raw voices,
 5. explain what the user should do next.
@@ -49,14 +49,14 @@ The agent should then:
 The user needs an API key from:
 
 ```text
-https://agent-simulation-api.vercel.app/admin.html
+https://yomira-api.vercel.app/admin.html
 ```
 
 Use an existing key from the environment when present:
 
 ```bash
-export AGENT_SIMULATION_API_KEY="sim_..."
-export AGENT_SIMULATION_BASE_URL="https://agent-simulation-api.vercel.app"
+export YOMIRA_API_KEY="sim_..."
+export YOMIRA_BASE_URL="https://yomira-api.vercel.app"
 ```
 
 If the key is not available, do not pretend to simulate. Prepare the request payload and tell the user exactly where to get a key and where to paste it.
@@ -70,7 +70,7 @@ Use this for:
 - checking a GEO/content draft before publishing
 - testing an X profile, bio, thread, or post
 - testing a landing page, offer, pricing page, or DM
-- comparing candidate paths from Decision Foundation
+- comparing candidate paths from Mora
 - seeing objections before a sales call or launch
 - preparing a Markdown/JSON export for later conversation
 
@@ -103,7 +103,7 @@ Prepare:
 
 If one of artifact, audience, or decision is missing, ask one concise question. If the user is in a hurry, make a labeled assumption and run a small simulation first.
 
-When used after Decision Foundation, convert each candidate path into a concrete artifact or stimulus before simulating. Do not simulate vague path names alone.
+When used after Mora, convert each candidate path into a concrete artifact or stimulus before simulating. Do not simulate vague path names alone.
 
 ## Multi-Option Rule
 
@@ -123,9 +123,9 @@ If simulating all options would be too expensive or too slow, ask the user wheth
 ## API Call
 
 ```bash
-curl -s -X POST "${AGENT_SIMULATION_BASE_URL:-https://agent-simulation-api.vercel.app}/api/simulate" \
+curl -s -X POST "${YOMIRA_BASE_URL:-https://yomira-api.vercel.app}/api/simulate" \
   -H "content-type: application/json" \
-  -H "x-api-key: $AGENT_SIMULATION_API_KEY" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
   -d '{
     "objective": "Decide whether to publish this GEO content draft.",
     "artifact": {

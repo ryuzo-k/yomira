@@ -1,4 +1,4 @@
-# Agent Simulation API Production Architecture
+# Yomira Production Architecture
 
 ## Principle
 
@@ -11,7 +11,7 @@ The product should be run from this repository and chat-driven agent work:
 - Stripe owns payments and subscriptions.
 - OpenAI runs the simulation model calls.
 
-Decision Foundation is only a distribution/sales channel. The core product is Agent Simulation API.
+Mora is only a distribution/sales channel. The core product is Yomira.
 
 ## Stack
 

@@ -1,4 +1,4 @@
-const API_BASE = location.protocol === "file:" ? "https://yomira-api.vercel.app" : "";
+const API_BASE = location.protocol === "file:" ? "https://tryyomira.com" : "";
 const state = {
   apiKey: localStorage.getItem("yomira_api_key") || localStorage.getItem("agent_sim_api_key") || "",
   user: JSON.parse(localStorage.getItem("yomira_user") || localStorage.getItem("agent_sim_user") || "null"),
@@ -235,7 +235,7 @@ function agentSetupPrompt() {
   return `You can use Yomira for reaction simulation.
 
 API base URL:
-https://yomira-api.vercel.app
+https://tryyomira.com
 
 API key:
 ${state.apiKey}

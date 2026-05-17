@@ -2,22 +2,22 @@
 
 Yomira is an API for simulating likely private human reactions to messages, content, landing pages, offers, pricing pages, product ideas, and decision options.
 
-Base URL: https://yomira-api.vercel.app
+Base URL: https://tryyomira.com
 
 Important pages:
-- Home: https://yomira-api.vercel.app/
-- Docs: https://yomira-api.vercel.app/docs
-- Agent-native setup: https://yomira-api.vercel.app/agent-start
-- Japanese docs: https://yomira-api.vercel.app/ja/docs
-- Dashboard/signup: https://yomira-api.vercel.app/admin.html
-- Mora option-mapping skill: https://yomira-api.vercel.app/mora
+- Home: https://tryyomira.com/
+- Docs: https://tryyomira.com/docs
+- Agent-native setup: https://tryyomira.com/agent-start
+- Japanese docs: https://tryyomira.com/ja/docs
+- Dashboard/signup: https://tryyomira.com/admin.html
+- Mora option-mapping skill: https://tryyomira.com/mora
 - GitHub: https://github.com/ryuzo-k/yomira
 
 AI agent docs access:
 - Mintlify docs: https://kokororesearch.mintlify.app/
 - Mintlify MCP server: https://kokororesearch.mintlify.app/mcp
 - Use the MCP server as a documentation/search MCP for Yomira setup, API parameters, examples, and best practices.
-- Do not treat the Mintlify MCP server as the Yomira simulation API itself. The simulation API remains https://yomira-api.vercel.app/api/simulate.
+- Do not treat the Mintlify MCP server as the Yomira simulation API itself. The simulation API remains https://tryyomira.com/api/simulate.
 
 Enterprise:
 - Enterprise pilots start from 300,000 JPY / $2,000.
@@ -43,7 +43,7 @@ npx -y github:ryuzo-k/yomira doctor
 Create account:
 
 ```bash
-curl -s -X POST "https://yomira-api.vercel.app/api/auth/register" \
+curl -s -X POST "https://tryyomira.com/api/auth/register" \
   -H "content-type: application/json" \
   -d '{
     "name": "Your Name",
@@ -59,7 +59,7 @@ curl -s -X POST "https://yomira-api.vercel.app/api/auth/register" \
 Create simulation:
 
 ```bash
-curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
+curl -s -X POST "https://tryyomira.com/api/simulate" \
   -H "content-type: application/json" \
   -H "x-api-key: $YOMIRA_API_KEY" \
   -d '{

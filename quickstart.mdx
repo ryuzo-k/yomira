@@ -7,7 +7,7 @@ description: "Create, poll, and export a Yomira simulation."
 
 Create an account at the dashboard:
 
-https://yomira-api.vercel.app/admin.html
+https://tryyomira.com/admin.html
 
 Store the returned API key as an environment variable.
 
@@ -18,7 +18,7 @@ export YOMIRA_API_KEY="sim_..."
 ## 2. Create a simulation
 
 ```bash
-curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
+curl -s -X POST "https://tryyomira.com/api/simulate" \
   -H "content-type: application/json" \
   -H "x-api-key: $YOMIRA_API_KEY" \
   -d '{
@@ -44,14 +44,14 @@ The API returns `202 Accepted` with a `simulation_id`.
 ## 3. Poll the result
 
 ```bash
-curl -s "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID" \
+curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID" \
   -H "x-api-key: $YOMIRA_API_KEY"
 ```
 
 ## 4. Export Markdown
 
 ```bash
-curl -L "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID?format=markdown" \
+curl -L "https://tryyomira.com/api/simulations/SIMULATION_ID?format=markdown" \
   -H "x-api-key: $YOMIRA_API_KEY" \
   -o simulation.md
 ```

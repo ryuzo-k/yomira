@@ -96,7 +96,7 @@ Yomira API keyを渡した場合は、必ず実際のAPIを呼んでください
               <strong>エージェントからアカウントを作成する</strong>
               <button class="docs-copy-button" type="button" data-copy-target="agent-signup-ja">Copy</button>
             </div>
-            <pre class="essay-code"><code id="agent-signup-ja">curl -s -X POST "https://yomira-api.vercel.app/api/auth/register" \
+            <pre class="essay-code"><code id="agent-signup-ja">curl -s -X POST "https://tryyomira.com/api/auth/register" \
   -H "content-type: application/json" \
   -d '{
     "name": "Your Name",
@@ -134,7 +134,7 @@ npx -y github:ryuzo-k/yomira doctor</code></pre>
             <pre class="essay-code"><code id="agent-setup-prompt-ja">あなたは Yomira を使って、人間の反応シミュレーションを実行できます。
 
 API base URL:
-https://yomira-api.vercel.app
+https://tryyomira.com
 
 API key:
 sim_YOUR_KEY
@@ -185,7 +185,7 @@ sim_YOUR_KEY
             </div>
             <pre class="essay-code"><code id="curl-create-ja">export YOMIRA_API_KEY="sim_..."
 
-curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
+curl -s -X POST "https://tryyomira.com/api/simulate" \
   -H "content-type: application/json" \
   -H "x-api-key: $YOMIRA_API_KEY" \
   -d '{
@@ -211,7 +211,7 @@ curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
               <strong>結果をpollする</strong>
               <button class="docs-copy-button" type="button" data-copy-target="curl-poll-ja">Copy</button>
             </div>
-            <pre class="essay-code"><code id="curl-poll-ja">curl -s "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID" \
+            <pre class="essay-code"><code id="curl-poll-ja">curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID" \
   -H "x-api-key: $YOMIRA_API_KEY"</code></pre>
           </div>
         </section>
@@ -238,7 +238,7 @@ curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
               <strong>Markdownをダウンロード</strong>
               <button class="docs-copy-button" type="button" data-copy-target="curl-export-ja">Copy</button>
             </div>
-            <pre class="essay-code"><code id="curl-export-ja">curl -s "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID?format=markdown" \
+            <pre class="essay-code"><code id="curl-export-ja">curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID?format=markdown" \
   -H "x-api-key: $YOMIRA_API_KEY"</code></pre>
           </div>
         </section>

@@ -15,7 +15,7 @@ It is intentionally not a taste engine. For surfaces like profiles, launch posts
 For agent-native onboarding, give your AI agent:
 
 ```text
-https://yomira-api.vercel.app/agent-start
+https://tryyomira.com/agent-start
 ```
 
 Or initialize Yomira directly from this GitHub repo:
@@ -163,8 +163,8 @@ See `docs/product-2-api.md` for the current contract.
 
 The paid simulation product now has:
 
-- Web onboarding: `https://yomira-api.vercel.app/admin.html`
-- Dashboard: `https://yomira-api.vercel.app/dashboard.html`
+- Web onboarding: `https://tryyomira.com/admin.html`
+- Dashboard: `https://tryyomira.com/dashboard.html`
 - API docs: `docs/yomira-api.md`
 - Go-to-market notes: `docs/go-to-market.md`
 - Agent skill: `skills/yomira/SKILL.md`

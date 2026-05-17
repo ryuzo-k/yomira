@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://yomira-api.vercel.app"
+      "url": "https://tryyomira.com"
     }
   ],
   "components": {

@@ -1,4 +1,4 @@
-const API_BASE = location.protocol === "file:" ? "https://yomira-api.vercel.app" : "";
+const API_BASE = location.protocol === "file:" ? "https://tryyomira.com" : "";
 const statusEl = document.querySelector("#status");
 
 document.querySelector("#register").addEventListener("click", () => auth("register"));

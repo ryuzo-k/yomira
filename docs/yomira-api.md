@@ -18,13 +18,13 @@ The product is not a truth machine and not a replacement for real customers. It 
 1. Create an account:
 
 ```text
-https://yomira-api.vercel.app/admin.html
+https://tryyomira.com/admin.html
 ```
 
 2. Open the dashboard:
 
 ```text
-https://yomira-api.vercel.app/dashboard.html
+https://tryyomira.com/dashboard.html
 ```
 
 3. Paste the artifact, audience, and decision objective.
@@ -42,7 +42,7 @@ export YOMIRA_API_KEY="sim_..."
 Create a simulation job:
 
 ```bash
-curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
+curl -s -X POST "https://tryyomira.com/api/simulate" \
   -H "content-type: application/json" \
   -H "x-api-key: $YOMIRA_API_KEY" \
   -d '{
@@ -79,7 +79,7 @@ The endpoint returns immediately:
 Poll until `status` is `completed`:
 
 ```bash
-curl -s "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID" \
+curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID" \
   -H "x-api-key: $YOMIRA_API_KEY"
 ```
 
@@ -99,12 +99,12 @@ Important fields:
 ## Download A Saved Result
 
 ```bash
-curl -s "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID?format=markdown" \
+curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID?format=markdown" \
   -H "x-api-key: $YOMIRA_API_KEY"
 ```
 
 ```bash
-curl -s "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID?format=json" \
+curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID?format=json" \
   -H "x-api-key: $YOMIRA_API_KEY"
 ```
 

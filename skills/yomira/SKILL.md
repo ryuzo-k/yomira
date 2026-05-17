@@ -49,7 +49,7 @@ The agent should then:
 The user needs an API key from:
 
 ```text
-https://yomira-api.vercel.app/admin.html
+https://tryyomira.com/admin.html
 ```
 
 If this environment supports MCP, the agent may connect to the Yomira documentation MCP server:
@@ -64,7 +64,7 @@ Use an existing key from the environment when present:
 
 ```bash
 export YOMIRA_API_KEY="sim_..."
-export YOMIRA_BASE_URL="https://yomira-api.vercel.app"
+export YOMIRA_BASE_URL="https://tryyomira.com"
 ```
 
 If the key is not available, do not pretend to simulate. Prepare the request payload and tell the user exactly where to get a key and where to paste it.
@@ -173,7 +173,7 @@ If simulating all options would be too expensive or too slow, ask the user wheth
 ## API Call
 
 ```bash
-curl -s -X POST "${YOMIRA_BASE_URL:-https://yomira-api.vercel.app}/api/simulate" \
+curl -s -X POST "${YOMIRA_BASE_URL:-https://tryyomira.com}/api/simulate" \
   -H "content-type: application/json" \
   -H "x-api-key: $YOMIRA_API_KEY" \
   -d '{

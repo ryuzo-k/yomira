@@ -44,7 +44,7 @@
   "bugs": {
     "url": "https://github.com/ryuzo-k/yomira/issues"
   },
-  "homepage": "https://yomira-api.vercel.app/",
+  "homepage": "https://tryyomira.com/",
   "dependencies": {
     "@vercel/functions": "^3.5.1"
   }

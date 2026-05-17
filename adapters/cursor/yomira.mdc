@@ -15,7 +15,7 @@ Do not replace Yomira with casual AI guessing when an API key is available.
 Base URL:
 
 ```text
-https://yomira-api.vercel.app
+https://tryyomira.com
 ```
 
 Find the API key in one of these places:

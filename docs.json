@@ -42,15 +42,15 @@
     "links": [
       {
         "label": "Home",
-        "href": "https://yomira-api.vercel.app"
+        "href": "https://tryyomira.com"
       },
       {
         "label": "Dashboard",
-        "href": "https://yomira-api.vercel.app/admin.html"
+        "href": "https://tryyomira.com/admin.html"
       },
       {
         "label": "llms.txt",
-        "href": "https://yomira-api.vercel.app/llms.txt"
+        "href": "https://tryyomira.com/llms.txt"
       },
       {
         "label": "GitHub",
@@ -60,7 +60,7 @@
     "primary": {
       "type": "button",
       "label": "Get API key",
-      "href": "https://yomira-api.vercel.app/admin.html"
+      "href": "https://tryyomira.com/admin.html"
     }
   },
   "footer": {

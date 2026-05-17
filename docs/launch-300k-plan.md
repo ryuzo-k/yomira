@@ -46,7 +46,7 @@ Pilot starts at 300,000 JPY / $2,000.
 
 If your team is about to launch something and wants to know how the market may privately react before it goes live, DM me.
 
-https://yomira-api.vercel.app/
+https://tryyomira.com/
 
 ## Japanese launch post
 
@@ -72,7 +72,7 @@ Yomiraを作っています。
 
 ローンチ前に市場の反応を見たい企業・チームがあればDMください。
 
-https://yomira-api.vercel.app/ja
+https://tryyomira.com/ja
 
 ## Warm DM
 

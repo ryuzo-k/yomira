@@ -13,7 +13,7 @@ const moraSkillSource = path.join(packageRoot, "skills", "mora");
 const cursorYomiraRuleSource = path.join(packageRoot, "adapters", "cursor", "yomira.mdc");
 const cursorMoraRuleSource = path.join(packageRoot, "adapters", "cursor", "mora.mdc");
 const home = os.homedir();
-const defaultBaseUrl = "https://yomira-api.vercel.app";
+const defaultBaseUrl = "https://tryyomira.com";
 
 function usage() {
   return `Yomira agent-native onboarding
@@ -230,7 +230,7 @@ function prompt() {
   console.log(`Install Yomira for this environment.
 
 Read:
-https://yomira-api.vercel.app/llms.txt
+https://tryyomira.com/llms.txt
 
 If I provide signup details, create my account with POST /api/auth/register.
 If I provide an API key, run:

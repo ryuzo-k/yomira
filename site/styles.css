@@ -642,7 +642,7 @@ pre { margin: 0; }
 
 .enterprise-contact {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
   align-items: center;
   gap: 14px;
   margin-top: 22px;
@@ -672,6 +672,10 @@ pre { margin: 0; }
   color: var(--essay-ink);
   font-size: 13px;
   white-space: nowrap;
+}
+
+.enterprise-cal-link {
+  text-decoration: none;
 }
 
 .essay-code {

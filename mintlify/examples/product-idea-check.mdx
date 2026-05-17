@@ -1,0 +1,72 @@
+---
+title: "Product idea check"
+description: "Simulate who would care about a product idea, who would ignore it, and why."
+---
+
+Use this when you are deciding what to build, who to sell to, or whether a product idea is worth turning into a real offer.
+
+This is not a replacement for real customers. It is a fast preflight that helps you decide what to test next.
+
+## Strong input
+
+```text
+Use Yomira to check this product idea.
+
+Product:
+
+Target users:
+
+Pain:
+
+Current alternatives:
+
+Why now:
+
+Price or business model:
+
+What I am trying to decide:
+```
+
+## Weak input
+
+```text
+Would people want an AI simulation API?
+```
+
+Weak inputs usually produce generic outputs. A good product idea simulation needs the market context, the buyer, the current behavior, and the concrete offer.
+
+## Example request
+
+```bash
+curl -s -X POST "https://tryyomira.com/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Decide which initial buyer segment is most likely to pay for this product.",
+    "artifact": {
+      "type": "product_concept",
+      "content": "A context-first reaction simulation API that AI agents can call before a user sends, publishes, prices, or launches something."
+    },
+    "audience": {
+      "description": "Founders, marketers, agencies, product managers, and AI-native builders who already use Claude Code, Codex, Cursor, or similar agents."
+    },
+    "simulation": {
+      "mode": "standard",
+      "target_n": 120,
+      "max_agent_voices": 20,
+      "max_output_tokens": 50000
+    }
+  }'
+```
+
+## Recommended output format
+
+Ask the agent to separate:
+
+- likely early buyers
+- curious but non-paying users
+- enterprise buyers
+- people who misunderstand the product
+- missing proof needed before payment
+- next experiment
+

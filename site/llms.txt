@@ -6,7 +6,7 @@ Base URL: https://tryyomira.com
 
 Important pages:
 - Home: https://tryyomira.com/
-- Docs: https://tryyomira.com/docs
+- Docs: https://docs.tryyomira.com/
 - Agent-native setup: https://tryyomira.com/agent-start
 - Japanese docs: https://tryyomira.com/ja/docs
 - Dashboard/signup: https://tryyomira.com/admin.html
@@ -14,8 +14,8 @@ Important pages:
 - GitHub: https://github.com/ryuzo-k/yomira
 
 AI agent docs access:
-- Mintlify docs: https://kokororesearch.mintlify.app/
-- Mintlify MCP server: https://kokororesearch.mintlify.app/mcp
+- Mintlify docs: https://docs.tryyomira.com/
+- Mintlify MCP server: https://docs.tryyomira.com/mcp
 - Use the MCP server as a documentation/search MCP for Yomira setup, API parameters, examples, and best practices.
 - Do not treat the Mintlify MCP server as the Yomira simulation API itself. The simulation API remains https://tryyomira.com/api/simulate.
 

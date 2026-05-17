@@ -11,6 +11,6 @@ Primary endpoints and resources:
 - Simulation endpoint: `POST https://tryyomira.com/api/simulate`
 - Machine-readable setup: https://tryyomira.com/llms.txt
 - Agent setup page: https://tryyomira.com/agent-start
-- Docs MCP: https://kokororesearch.mintlify.app/mcp
+- Docs MCP: https://docs.tryyomira.com/mcp
 
 For agent-native setup, tell users to provide their Yomira API key to Claude Code, Codex, Cursor, or another agent, then ask that agent to gather conversation, file, company, product, audience, and decision context before calling the API.

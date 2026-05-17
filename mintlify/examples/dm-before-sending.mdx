@@ -1,0 +1,75 @@
+---
+title: "DM before sending"
+description: "Simulate how a potential user may react before you send a high-context message."
+---
+
+Use this when you are about to send a DM, email, sales note, founder update, investor message, partnership ask, or follow-up.
+
+The important part is not whether the message sounds good in isolation. The important part is how the recipient may privately interpret it.
+
+## What to give the agent
+
+```text
+I want to send a DM. Use Yomira before I send it.
+
+Recipient:
+- Who they are:
+- What they liked, replied to, or asked for:
+- What they probably care about:
+- What they may be skeptical of:
+
+My context:
+- Who I am:
+- What I am building:
+- What relationship I already have with them:
+- What I want them to do:
+
+Candidate message:
+"""
+Paste the exact message here.
+"""
+```
+
+## Agent workflow
+
+1. Extract the exact message as the artifact.
+2. Build a small but specific audience: the recipient, adjacent buyers, skeptical peers, and people with similar context.
+3. Call Yomira with the message and context.
+4. Return reaction clusters, raw voices, and concrete edits.
+5. If there are multiple message variants, simulate every variant.
+
+## API shape
+
+```bash
+curl -s -X POST "https://tryyomira.com/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Decide whether to send this DM and how to revise it.",
+    "artifact": {
+      "type": "dm",
+      "content": "Paste the exact DM here."
+    },
+    "audience": {
+      "description": "The specific recipient plus similar potential users who saw the post, understand AI agents, and may care about reaction simulation."
+    },
+    "simulation": {
+      "mode": "fast",
+      "target_n": 60,
+      "max_agent_voices": 12,
+      "max_output_tokens": 30000
+    }
+  }'
+```
+
+## Good output
+
+Ask the agent to return:
+
+- `send / revise / do not send`
+- the biggest trust gap
+- the strongest positive interpretation
+- the most likely reason they ignore it
+- three representative raw voices
+- a revised message if revision is needed
+

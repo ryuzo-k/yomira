@@ -27,11 +27,29 @@ It is designed for workflows where an AI agent gathers the working context first
   <Card title="Agent setup" href="/agent/setup">
     Give Claude Code, Codex, Cursor, or another agent a Yomira setup prompt.
   </Card>
+  <Card title="DM before sending" href="/examples/dm-before-sending">
+    Simulate a message before you send it.
+  </Card>
+  <Card title="Content preflight" href="/examples/content-preflight">
+    Check reactions before publishing content.
+  </Card>
 </CardGroup>
+
+## What good usage looks like
+
+Good Yomira usage has three parts:
+
+1. A concrete artifact or option.
+2. A specific audience and channel.
+3. Enough context for the agent to reconstruct how that audience thinks.
+
+Bad usage is asking for generic market opinions from one short sentence.
+
+If the user is working inside Claude Code, Codex, Cursor, Hermes Agent, or another agent, the agent should gather context from the current conversation, files, docs, company material, and known constraints before calling Yomira.
 
 ## Human and machine entrypoints
 
 - Human-readable product site: https://tryyomira.com/
 - Machine-readable summary: https://tryyomira.com/llms.txt
 - Agent-native setup page: https://tryyomira.com/agent-start
-- Documentation MCP server: https://kokororesearch.mintlify.app/mcp
+- Documentation MCP server: https://docs.tryyomira.com/mcp

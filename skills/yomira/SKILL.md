@@ -55,7 +55,7 @@ https://tryyomira.com/admin.html
 If this environment supports MCP, the agent may connect to the Yomira documentation MCP server:
 
 ```text
-https://kokororesearch.mintlify.app/mcp
+https://docs.tryyomira.com/mcp
 ```
 
 Use the MCP server for documentation lookup: setup instructions, API parameters, examples, and best practices. Do not confuse it with the Yomira simulation API itself.

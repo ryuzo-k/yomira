@@ -1,0 +1,75 @@
+---
+title: "Content preflight"
+description: "Check likely audience reactions before publishing a post, article, ad, or landing page."
+---
+
+Use this before publishing content that needs to produce a reaction: trust, curiosity, reply, signup, purchase, share, or internal approval.
+
+Yomira works best when the artifact is concrete. Do not simulate an abstract strategy if the real decision is whether to publish a specific post or page.
+
+## What to include
+
+- The exact content.
+- Where it will be published.
+- Who is likely to see it first.
+- What they already know about you or the company.
+- What action matters.
+- What backlash, confusion, or skepticism would hurt.
+
+## Prompt for an AI agent
+
+```text
+Use Yomira to run a content preflight.
+
+Artifact:
+"""
+Paste the post, ad, article, landing page, video script, or email here.
+"""
+
+Channel:
+
+Audience:
+
+Desired reaction:
+
+Known concerns:
+
+Return the distribution of reactions, raw voices, decision implications, and concrete changes before publishing.
+```
+
+## Example request
+
+```bash
+curl -s -X POST "https://tryyomira.com/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Decide whether this launch post should be published as-is.",
+    "artifact": {
+      "type": "x_post",
+      "content": "Paste the exact post here."
+    },
+    "audience": {
+      "description": "AI builders, agency owners, indie founders, and early users who follow product launches on X."
+    },
+    "simulation": {
+      "mode": "fast",
+      "target_n": 80,
+      "max_agent_voices": 16,
+      "max_output_tokens": 40000
+    }
+  }'
+```
+
+## What to do with the result
+
+Do not optimize for the average reaction only.
+
+Look for:
+
+- high-intent minority reactions
+- trust-break comments
+- confusion clusters
+- people who would reply or buy
+- people who like the idea but do nothing
+

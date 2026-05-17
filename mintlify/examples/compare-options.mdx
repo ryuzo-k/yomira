@@ -1,0 +1,49 @@
+---
+title: "Compare options"
+description: "Simulate every concrete option instead of asking an AI to choose too early."
+---
+
+Yomira is strongest when the user has multiple concrete options.
+
+Do not simulate only the top three unless the user explicitly asks for that. If the decision depends on reactions to every option, simulate every option.
+
+## Pattern
+
+1. Map the option space.
+2. Convert each option into the exact artifact or decision people will see.
+3. Run one simulation per option.
+4. Compare distributions and raw voices.
+5. Decide, revise, or run a sharper second round.
+
+## Prompt for an agent
+
+```text
+I have multiple options. Use Yomira to simulate all of them.
+
+Decision:
+
+Audience:
+
+Options:
+1.
+2.
+3.
+4.
+
+For each option, call Yomira separately. Then return a comparison table, the raw reaction clusters, and the recommended next action.
+```
+
+## Comparison table
+
+Ask the agent to return:
+
+| Option | Positive reaction | Negative reaction | High-intent users | Main objection | Decision |
+| --- | --- | --- | --- | --- | --- |
+| A | % | % | who | why | send / revise / cut |
+
+## When to use Mora first
+
+Use Mora before Yomira if the options are still messy.
+
+Mora maps the decision space. Yomira simulates the concrete options.
+

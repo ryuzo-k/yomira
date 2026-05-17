@@ -15,6 +15,8 @@ Store the returned API key as an environment variable.
 export YOMIRA_API_KEY="sim_..."
 ```
 
+If you are using an AI agent, you can give the key to the agent and ask it to follow the [agent setup](/agent/setup) guide.
+
 ## 2. Create a simulation
 
 ```bash
@@ -40,6 +42,8 @@ curl -s -X POST "https://tryyomira.com/api/simulate" \
 ```
 
 The API returns `202 Accepted` with a `simulation_id`.
+
+Do not treat `202` as a failure. Yomira simulations are asynchronous.
 
 ## 3. Poll the result
 
@@ -69,3 +73,11 @@ Include:
 - The desired action.
 - Known worries, objections, and alternatives.
 
+## First useful tests
+
+Start with one of these:
+
+- [DM before sending](/examples/dm-before-sending)
+- [Content preflight](/examples/content-preflight)
+- [Product idea check](/examples/product-idea-check)
+- [Compare options](/examples/compare-options)

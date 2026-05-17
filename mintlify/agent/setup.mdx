@@ -31,7 +31,7 @@ API base URL:
 https://tryyomira.com
 
 Documentation MCP server:
-https://kokororesearch.mintlify.app/mcp
+https://docs.tryyomira.com/mcp
 
 API key:
 sim_YOUR_KEY
@@ -46,6 +46,26 @@ When I ask you to simulate reactions:
 6. Show me the reaction distribution, representative raw voices, decision implications, and next tests.
 7. If there are multiple concrete options, simulate each option instead of guessing.
 8. Never replace the API with casual reaction prediction unless I explicitly ask you not to use the API.
+```
+
+## Copy-paste task prompts
+
+### Simulate a DM
+
+```text
+Use Yomira to simulate this DM before I send it. Gather context from this conversation first. If the recipient, channel, objective, or exact message is missing, ask me for it. Then call the real Yomira API and return reaction clusters, raw voices, and the best revision.
+```
+
+### Simulate content before publishing
+
+```text
+Use Yomira as a content preflight. Gather the exact content, channel, target audience, sender/company context, desired action, and known worries. Then call the real Yomira API and tell me whether to publish, revise, or test another version.
+```
+
+### Compare multiple options
+
+```text
+Use Yomira to simulate every concrete option. Do not only pick the top three unless I ask for that. Run one simulation per option, then compare the distributions, raw voices, main objections, and likely high-intent users.
 ```
 
 ## Optional CLI bootstrap

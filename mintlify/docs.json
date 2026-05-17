@@ -19,8 +19,23 @@
             "pages": [
               "index",
               "quickstart",
-              "agent/setup",
+              "agent/setup"
+            ]
+          },
+          {
+            "group": "Use cases",
+            "pages": [
+              "examples/dm-before-sending",
+              "examples/content-preflight",
+              "examples/product-idea-check",
+              "examples/compare-options"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
               "guides/context-packet",
+              "guides/pricing-credits-timeouts",
               "guides/mora-to-yomira",
               "guides/enterprise-pilot"
             ]
@@ -50,7 +65,7 @@
       },
       {
         "label": "llms.txt",
-        "href": "https://tryyomira.com/llms.txt"
+        "href": "https://docs.tryyomira.com/llms.txt"
       },
       {
         "label": "GitHub",

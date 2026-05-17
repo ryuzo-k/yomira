@@ -1,0 +1,53 @@
+---
+title: "Credits and timeouts"
+description: "How to choose simulation size, avoid timeouts, and control cost."
+---
+
+Yomira jobs run asynchronously.
+
+Create a simulation, receive a `simulation_id`, then poll until the job is completed. This keeps agent workflows stable even when the simulation takes longer than a normal request.
+
+## Simulation size
+
+Use smaller runs while drafting and larger runs when the artifact is close to real publication.
+
+| Use case | Suggested `target_n` | Mode |
+| --- | ---: | --- |
+| Quick message check | 40-60 | `fast` |
+| Content preflight | 60-120 | `fast` or `standard` |
+| Product idea check | 80-160 | `standard` |
+| Multiple option comparison | 40-100 per option | `fast` first, then `standard` |
+| Enterprise grounded pilot | custom | custom |
+
+## Timeout behavior
+
+If the initial request returns `202 Accepted`, the job is queued correctly.
+
+Poll:
+
+```bash
+curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID" \
+  -H "x-api-key: $YOMIRA_API_KEY"
+```
+
+If a client or AI agent times out, do not restart the simulation immediately. Poll the existing `simulation_id` first.
+
+## Cost control
+
+When testing:
+
+- start with `target_n: 40`
+- limit `max_agent_voices`
+- export Markdown only after completion
+- simulate fewer options first, then expand
+
+When making a real decision:
+
+- include the exact artifact
+- include richer context
+- simulate every option that could actually be chosen
+- use a larger `target_n` only after the options are concrete
+
+## When self-serve is not enough
+
+Self-serve simulations are context-enriched synthetic simulations. For high-stakes enterprise work, use a grounded pilot where Yomira builds the audience dataset from customer notes, interviews, reviews, CRM context, social data, or market source material.

@@ -33,6 +33,9 @@
           <p class="essay-lede">
             Yomira は、ユーザーのAIエージェントが会話・ファイル・docs・会社文脈を集め、その文脈から適切な synthetic audience を生成し、公開・送信・開発前の反応をシミュレーションするためのAPIです。
           </p>
+          <p class="essay-small-note">
+            DM、投稿、LP、価格ページ、商品コンセプト、事業案など、人に見せる前に反応を知りたい意思決定に使います。
+          </p>
           <div class="essay-actions">
             <a class="essay-button" href="/admin.html">クレジットで始める &rarr;</a>
             <a class="essay-link" href="#enterprise">Enterprise pilot</a>
@@ -55,6 +58,31 @@
         </section>
 
         <section class="essay-section">
+          <h2>Self-serve と Enterprise</h2>
+          <p>
+            線引きはデータです。セルフサーブは、AIエージェントが集められる文脈をもとにした synthetic simulation。エンタープライズは、実際の顧客・市場・social data から対象母集団を作る grounded simulation です。
+          </p>
+          <div class="essay-comparison">
+            <div>
+              <strong>Self-serve credits</strong>
+              <span>DM、投稿、LP、オファー、価格ページ、商品案など、成果物と文脈が手元にあるときに使います。</span>
+            </div>
+            <div>
+              <strong>Enterprise pilot</strong>
+              <span>CRM、顧客メモ、インタビュー、レビュー、営業ログ、SNS、市場資料などを使って母集団を作る必要があるときに使います。</span>
+            </div>
+            <div>
+              <strong>向いている用途</strong>
+              <span>高速な仮説検証、公開前チェック、DM、コンテンツ、初期のプロダクト案、agent-native workflow。</span>
+            </div>
+            <div>
+              <strong>向いている用途</strong>
+              <span>ローンチ判断、価格変更、事業戦略、広報、エンタープライズ向けの高リスク意思決定。</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="essay-section">
           <h2>用途</h2>
           <ul class="essay-feature-list">
             <li><span>コンテンツ公開前チェック</span> &mdash; 投稿、記事、広告、GEOページを出す前に、どう受け取られるかを見る。</li>
@@ -63,6 +91,28 @@
             <li><span>新規事業アイデア検証</span> &mdash; どこで欲しくなるのか、どこで疑われるのか、どこで支払意欲が消えるのかを見る。</li>
             <li><span>自社プロダクトへの組み込み</span> &mdash; 自分たちのワークフロー、調査ツール、代理店ツール、意思決定システムにシミュレーション機能を入れる。</li>
           </ul>
+        </section>
+
+        <section class="essay-section">
+          <h2>具体的なワークフロー</h2>
+          <div class="essay-case-grid">
+            <article>
+              <strong>DMを送る前に確認する</strong>
+              <p>相手、関係性、目的、正確な文面を渡すと、好意、疑い、返信可能性、無視される理由を見ます。</p>
+            </article>
+            <article>
+              <strong>コンテンツ公開前に確認する</strong>
+              <p>投稿、記事、広告、GEOページを出す前に、どの層がどう受け取り、どこで混乱するかを見ます。</p>
+            </article>
+            <article>
+              <strong>プロダクト方向性を比較する</strong>
+              <p>複数の具体案をそれぞれシミュレーションし、欲しさ、疑い、試す理由、必要な証拠を比較します。</p>
+            </article>
+            <article>
+              <strong>自社プロダクトに組み込む</strong>
+              <p>調査ツール、GTM支援、代理店ツール、意思決定システムに reaction simulation をAPIとして組み込みます。</p>
+            </article>
+          </div>
         </section>
 
         <section class="essay-section">
@@ -166,6 +216,24 @@ Yomira API keyを渡した場合は、必ず実際のAPIを呼んでください
             「正確なら、延々とA/Bテストする手間を短縮できそう。」別の声では「skill導入ではなく、もっとすぐ使えるツールだと嬉しい。」という反応も出ました。
           </blockquote>
           <p class="essay-small-note">Simulation id: fe1d26c8-8a74-413c-b9bf-3b0b6ab7e289</p>
+        </section>
+
+        <section class="essay-section">
+          <h2>初期ユーザーから学んでいること</h2>
+          <div class="essay-interview-list">
+            <div>
+              <strong>「本当に信頼できる声なのかを見たい」</strong>
+              <p>そのために、単一スコアではなく、生の声、反応クラスター、仮定、不足データを出します。</p>
+            </div>
+            <div>
+              <strong>「別の管理画面ではなく、AIエージェントの中で使いたい」</strong>
+              <p>Yomira は agent-native を前提に、AIエージェントが文脈を集めて実際のAPIを呼ぶ体験を中心にしています。</p>
+            </div>
+            <div>
+              <strong>「高額な意思決定では実データが必要」</strong>
+              <p>ここが enterprise の線引きです。実際の顧客・市場・social data から母集団を作る場合は custom pilot になります。</p>
+            </div>
+          </div>
         </section>
 
         <section class="essay-section">

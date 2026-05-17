@@ -640,6 +640,64 @@ pre { margin: 0; }
   line-height: 1.55;
 }
 
+.essay-comparison,
+.essay-case-grid,
+.essay-interview-list {
+  display: grid;
+  gap: 0;
+  margin-top: 28px;
+  border-top: 1px solid var(--essay-line);
+  border-left: 1px solid var(--essay-line);
+}
+
+.essay-comparison {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.essay-case-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.essay-interview-list {
+  grid-template-columns: 1fr;
+}
+
+.essay-comparison div,
+.essay-case-grid article,
+.essay-interview-list div {
+  min-height: 132px;
+  padding: 18px;
+  border-right: 1px solid var(--essay-line);
+  border-bottom: 1px solid var(--essay-line);
+}
+
+.essay-comparison strong,
+.essay-comparison span,
+.essay-case-grid strong,
+.essay-case-grid p,
+.essay-interview-list strong,
+.essay-interview-list p {
+  display: block;
+}
+
+.essay-comparison strong,
+.essay-case-grid strong,
+.essay-interview-list strong {
+  color: var(--essay-ink);
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.essay-comparison span,
+.essay-case-grid p,
+.essay-interview-list p {
+  margin: 8px 0 0;
+  color: var(--essay-mid);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
 .enterprise-contact {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto auto;
@@ -863,6 +921,11 @@ pre { margin: 0; }
   }
 
   .essay-pricing {
+    grid-template-columns: 1fr;
+  }
+
+  .essay-comparison,
+  .essay-case-grid {
     grid-template-columns: 1fr;
   }
 

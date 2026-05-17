@@ -1,0 +1,71 @@
+---
+title: "Quickstart"
+description: "Create, poll, and export a Yomira simulation."
+---
+
+## 1. Get an API key
+
+Create an account at the dashboard:
+
+https://yomira-api.vercel.app/admin.html
+
+Store the returned API key as an environment variable.
+
+```bash
+export YOMIRA_API_KEY="sim_..."
+```
+
+## 2. Create a simulation
+
+```bash
+curl -s -X POST "https://yomira-api.vercel.app/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Decide whether to publish this landing page.",
+    "artifact": {
+      "type": "landing_page",
+      "content": "Paste the exact page, message, post, or offer people will see."
+    },
+    "audience": {
+      "description": "Describe who will see it, where they see it, what they already believe, and what action matters."
+    },
+    "simulation": {
+      "mode": "fast",
+      "target_n": 40,
+      "max_agent_voices": 8,
+      "max_output_tokens": 30000
+    }
+  }'
+```
+
+The API returns `202 Accepted` with a `simulation_id`.
+
+## 3. Poll the result
+
+```bash
+curl -s "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID" \
+  -H "x-api-key: $YOMIRA_API_KEY"
+```
+
+## 4. Export Markdown
+
+```bash
+curl -L "https://yomira-api.vercel.app/api/simulations/SIMULATION_ID?format=markdown" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -o simulation.md
+```
+
+## What to include
+
+The output is only useful when the input contains real context.
+
+Include:
+
+- The exact artifact people will see.
+- The target audience.
+- The channel where they see it.
+- Sender or company context.
+- The desired action.
+- Known worries, objections, and alternatives.
+

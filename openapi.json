@@ -1,0 +1,223 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Yomira API",
+    "version": "0.1.0",
+    "description": "Create context-first reaction simulations and retrieve JSON or Markdown exports."
+  },
+  "servers": [
+    {
+      "url": "https://yomira-api.vercel.app"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    },
+    "schemas": {
+      "SimulationRequest": {
+        "type": "object",
+        "required": ["objective", "artifact", "audience"],
+        "properties": {
+          "objective": {
+            "type": "string",
+            "example": "Decide whether to publish this landing page."
+          },
+          "artifact": {
+            "type": "object",
+            "required": ["type", "content"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "landing_page"
+              },
+              "content": {
+                "type": "string",
+                "example": "Paste the exact artifact people will see."
+              }
+            }
+          },
+          "audience": {
+            "type": "object",
+            "required": ["description"],
+            "properties": {
+              "description": {
+                "type": "string",
+                "example": "AI founders, agency owners, and product builders who already use coding agents."
+              }
+            }
+          },
+          "simulation": {
+            "type": "object",
+            "properties": {
+              "mode": {
+                "type": "string",
+                "enum": ["fast", "standard"],
+                "example": "fast"
+              },
+              "target_n": {
+                "type": "integer",
+                "minimum": 1,
+                "example": 40
+              },
+              "max_agent_voices": {
+                "type": "integer",
+                "example": 8
+              },
+              "max_output_tokens": {
+                "type": "integer",
+                "example": 30000
+              }
+            }
+          }
+        }
+      },
+      "SimulationQueued": {
+        "type": "object",
+        "properties": {
+          "simulation_id": {
+            "type": "string",
+            "example": "d7b4c6a2-..."
+          },
+          "status": {
+            "type": "string",
+            "example": "queued"
+          },
+          "polling": {
+            "type": "object"
+          },
+          "downloads": {
+            "type": "object"
+          },
+          "billing": {
+            "type": "object"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "summary": "Create account",
+        "description": "Create a Yomira account and return an API key.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password", "name", "companyName", "companyUrl", "role", "intendedUse"],
+                "properties": {
+                  "email": { "type": "string", "format": "email" },
+                  "password": { "type": "string", "minLength": 8 },
+                  "name": { "type": "string" },
+                  "companyName": { "type": "string" },
+                  "companyUrl": { "type": "string" },
+                  "role": { "type": "string" },
+                  "intendedUse": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account created"
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/simulate": {
+      "post": {
+        "summary": "Create simulation",
+        "description": "Create an asynchronous reaction simulation job.",
+        "security": [{ "ApiKeyAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SimulationRequest" }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Simulation queued",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SimulationQueued" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "402": {
+            "description": "Insufficient credits"
+          }
+        }
+      }
+    },
+    "/api/simulations/{id}": {
+      "get": {
+        "summary": "Get simulation",
+        "description": "Retrieve simulation status, result, or an export.",
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["json", "markdown", "md"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Simulation status, result, or export"
+          },
+          "202": {
+            "description": "Simulation not completed yet"
+          },
+          "404": {
+            "description": "Simulation not found"
+          }
+        }
+      }
+    }
+  }
+}

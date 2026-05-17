@@ -1,0 +1,30 @@
+---
+title: "Context packet"
+description: "The context an AI agent should gather before it calls Yomira."
+---
+
+A simulation is only as useful as the audience it reconstructs.
+
+Before calling Yomira, the agent should build a context packet.
+
+## Required fields
+
+- `objective`: the decision the user is trying to make.
+- `artifact`: the exact message, page, post, offer, or idea people will see.
+- `audience`: who will see it and why their reaction matters.
+- `channel`: where they encounter the artifact.
+- `sender_context`: who is sending it and what the audience may already know.
+- `desired_action`: what the sender wants the audience to do.
+- `known_worries`: objections, trust gaps, confusing points, or sensitive facts.
+- `alternatives`: other options being considered.
+
+## When to ask questions
+
+If the artifact is missing, ask for it.
+
+If the audience is generic, ask who actually sees it.
+
+If multiple options exist, simulate each option.
+
+If the decision is high-stakes and the audience needs real external data, label the run as self-serve synthetic and recommend an enterprise grounded dataset.
+

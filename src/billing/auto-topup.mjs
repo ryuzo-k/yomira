@@ -2,6 +2,7 @@ import { addCredits } from "./ledger.mjs";
 import { stripeGet, stripeRequest } from "./stripe.mjs";
 
 const DEFAULT_TOPUP_AMOUNT_CENTS = 2000;
+const DEFAULT_TOPUP_CREDITS = 100;
 
 export async function maybeAutoTopup({ user, creditAccount, creditsNeeded = 0, reason = "low_balance" }) {
   if (!user?.stripeCustomerId || !creditAccount?.auto_topup_enabled) {
@@ -14,7 +15,8 @@ export async function maybeAutoTopup({ user, creditAccount, creditsNeeded = 0, r
     return { attempted: false };
   }
 
-  const topupCredits = Math.max(Number(creditAccount.auto_topup_credits || 200), creditsNeeded);
+  const packs = Math.max(1, Math.ceil(Number(creditsNeeded || DEFAULT_TOPUP_CREDITS) / DEFAULT_TOPUP_CREDITS));
+  const topupCredits = packs * DEFAULT_TOPUP_CREDITS;
   const paymentMethod = await getReusablePaymentMethod(user.stripeCustomerId);
   if (!paymentMethod) {
     return {
@@ -25,7 +27,7 @@ export async function maybeAutoTopup({ user, creditAccount, creditsNeeded = 0, r
   }
 
   const paymentIntent = await stripeRequest("/payment_intents", {
-    amount: DEFAULT_TOPUP_AMOUNT_CENTS,
+    amount: packs * DEFAULT_TOPUP_AMOUNT_CENTS,
     currency: "usd",
     customer: user.stripeCustomerId,
     payment_method: paymentMethod,
@@ -34,6 +36,7 @@ export async function maybeAutoTopup({ user, creditAccount, creditsNeeded = 0, r
     description: "Yomira auto top-up",
     "metadata[user_id]": user.id,
     "metadata[credits]": topupCredits,
+    "metadata[packs]": packs,
     "metadata[reason]": reason
   });
 

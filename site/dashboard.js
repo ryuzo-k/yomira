@@ -108,8 +108,7 @@ async function saveAutoTopup() {
       headers: { "x-api-key": state.apiKey },
       body: {
         enabled: $("#auto-enabled").checked,
-        threshold: Number($("#auto-threshold").value),
-        credits: Number($("#auto-credits").value)
+        threshold: Number($("#auto-threshold").value)
       }
     });
     syncAutoTopup(data.credit_account);
@@ -219,7 +218,7 @@ function downloadSimulation(id, format) {
 function syncAutoTopup(account) {
   $("#auto-enabled").checked = Boolean(account.auto_topup_enabled);
   $("#auto-threshold").value = account.auto_topup_threshold ?? 10;
-  $("#auto-credits").value = account.auto_topup_credits ?? 200;
+  $("#auto-credits").value = "$20 / 100 credits";
 }
 
 function loadSample() {

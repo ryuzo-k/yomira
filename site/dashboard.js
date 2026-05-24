@@ -100,6 +100,12 @@ $("#run").addEventListener("click", runSimulation);
 $("#sample").addEventListener("click", loadSample);
 $("#download-json").addEventListener("click", () => downloadLatest("json"));
 $("#download-md").addEventListener("click", () => downloadLatest("markdown"));
+$("#compare-enabled").addEventListener("change", () => {
+  $("#compare-options-wrap").classList.toggle("hidden", !$("#compare-enabled").checked);
+  updateContextPreview();
+});
+$("#compare-options").addEventListener("input", updateContextPreview);
+$("#save-calibration").addEventListener("click", saveCalibration);
 for (const button of $$("[data-template]")) {
   button.addEventListener("click", () => applyTemplate(button.dataset.template));
 }
@@ -207,12 +213,17 @@ async function runSimulation() {
   $("#run-status").textContent = "Creating simulation job...";
   try {
     const context = buildContextPacket();
+    const options = $("#compare-enabled").checked ? parseComparisonOptions() : [];
+    if ($("#compare-enabled").checked && options.length < 2) {
+      throw new Error("Add at least two concrete options to compare.");
+    }
     const job = await api("/api/simulate", {
       method: "POST",
       headers: { "x-api-key": state.apiKey },
       body: {
         objective: $("#objective").value,
         artifact: { type: $("#artifact-type").value || state.template || "artifact", content: buildArtifactContent(context) },
+        options: options.length ? options : undefined,
         audience: {
           description: buildAudienceDescription(context),
           source: "dashboard_context_packet"
@@ -231,6 +242,7 @@ async function runSimulation() {
     await refreshHistory();
     const completed = await pollSimulation(job.simulation_id);
     state.latest = completed.result;
+    state.latest.simulation_id = completed.id || job.simulation_id;
     renderResult(completed.result);
     $("#run-status").textContent = `Done. Charged ${completed.credits_charged ?? job.billing?.credits_charged ?? "-"} credits.`;
     await refreshHistory();
@@ -262,6 +274,9 @@ function delay(ms) {
 function renderResult(data) {
   $("#results").classList.remove("hidden");
   $("#result-note").textContent = `${data.simulation_design?.simulated_n || 0} simulated people. Export this result into your next agent conversation.`;
+  renderTrustLayer(data.trust_layer);
+  renderAudienceReport(data.audience_construction_report);
+  renderComparison(data.comparison);
   const distribution = $("#distribution");
   const clusters = $("#clusters");
   const next = $("#result-next");
@@ -303,6 +318,78 @@ function renderResult(data) {
         ${suggestions.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
       </ul>
     `;
+  }
+}
+
+function renderTrustLayer(trust = {}) {
+  const missing = trust.missing_context || [];
+  const validation = trust.recommended_validation || [];
+  $("#trust-layer").innerHTML = `
+    <h3>Trust layer <span class="pill">${escapeHtml(trust.grounding_level || "unknown")}</span></h3>
+    <div class="small">${escapeHtml(trust.data_basis || "")}</div>
+    <div class="small"><strong>Scope:</strong> ${escapeHtml(trust.prediction_scope || "")}</div>
+    ${missing.length ? `<div class="small"><strong>Missing:</strong><ul>${missing.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
+    ${validation.length ? `<div class="small"><strong>Validation:</strong><ul>${validation.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
+  `;
+}
+
+function renderAudienceReport(report = {}) {
+  const segments = report.segments || [];
+  $("#audience-report").innerHTML = `
+    <h3>Audience construction</h3>
+    <div class="small">${escapeHtml(report.construction_method || "")}</div>
+    ${segments.slice(0, 6).map((segment) => `
+      <div class="small" style="margin-top:8px">
+        <strong>${Math.round(Number(segment.share || 0) * 100)}% ${escapeHtml(segment.name || "")}</strong><br />
+        ${escapeHtml(segment.why_included || "")}
+      </div>
+    `).join("")}
+  `;
+}
+
+function renderComparison(comparison) {
+  const el = $("#comparison-result");
+  if (!comparison?.matrix?.length) {
+    el.classList.add("hidden");
+    el.innerHTML = "";
+    return;
+  }
+  el.classList.remove("hidden");
+  el.innerHTML = `
+    <h3>Option comparison</h3>
+    <div class="small"><strong>Suggested path:</strong> ${escapeHtml(comparison.suggested_path?.label || "")}</div>
+    ${comparison.matrix.map((option) => `
+      <div class="small" style="margin-top:10px">
+        <strong>${escapeHtml(option.label)}</strong><br />
+        Positive ${Math.round(Number(option.positive_share || 0) * 100)}% / Skeptical ${Math.round(Number(option.skepticism_share || 0) * 100)}%<br />
+        ${escapeHtml(option.likely_action || option.core_friction || "")}
+      </div>
+    `).join("")}
+  `;
+}
+
+async function saveCalibration() {
+  if (!state.latest?.simulation_id) {
+    $("#calibration-status").textContent = "Run or load a completed simulation first.";
+    return;
+  }
+  try {
+    $("#save-calibration").disabled = true;
+    const data = await api(`/api/simulations/${encodeURIComponent(state.latest.simulation_id)}`, {
+      method: "POST",
+      headers: { "x-api-key": state.apiKey },
+      body: {
+        actualOutcome: $("#actual-outcome").value,
+        notes: $("#calibration-notes").value
+      }
+    });
+    state.latest = data.result;
+    state.latest.simulation_id = data.id;
+    $("#calibration-status").textContent = "Calibration saved.";
+  } catch (error) {
+    $("#calibration-status").textContent = error.message;
+  } finally {
+    $("#save-calibration").disabled = false;
   }
 }
 
@@ -360,6 +447,7 @@ function buildContextPacket() {
     sender_context: $("#sender-context").value.trim(),
     known_concerns: $("#known-concerns").value.trim(),
     alternatives: $("#alternatives").value.trim(),
+    comparison_options: $("#compare-enabled").checked ? $("#compare-options").value.trim() : "",
     available_data: $("#available-data").value.trim()
   };
 }
@@ -375,6 +463,7 @@ Sender / company context: ${context.sender_context}
 Desired action: ${context.desired_action}
 Known concerns / objections: ${context.known_concerns}
 Alternatives or variants being considered: ${context.alternatives}
+Concrete options being compared: ${context.comparison_options}
 Available data or grounding material: ${context.available_data}`;
 }
 
@@ -409,8 +498,32 @@ function updateContextPreview() {
     `Sender context: ${context.sender_context || "(missing)"}`,
     `Known concerns: ${context.known_concerns || "(missing)"}`,
     `Alternatives: ${context.alternatives || "(optional)"}`,
+    `Compare options: ${context.comparison_options ? "yes" : "no"}`,
     `Available data: ${context.available_data || "(optional)"}`
   ].join("\n");
+}
+
+function parseComparisonOptions() {
+  return $("#compare-options").value
+    .split(/\n\s*\n+/)
+    .map((block, index) => {
+      const [firstLine, ...rest] = block.trim().split("\n");
+      if (!firstLine) return null;
+      const colonIndex = firstLine.indexOf(":");
+      const label = colonIndex > -1 ? firstLine.slice(0, colonIndex).trim() : `Option ${index + 1}`;
+      const content = colonIndex > -1
+        ? [firstLine.slice(colonIndex + 1).trim(), ...rest].join("\n").trim()
+        : block.trim();
+      return {
+        id: `option_${index + 1}`,
+        label,
+        artifact: {
+          type: $("#artifact-type").value || state.template || "option",
+          content: `${content}\n\nShared context:\n${buildArtifactContent(buildContextPacket())}`
+        }
+      };
+    })
+    .filter((option) => option?.artifact?.content);
 }
 
 function agentSetupPrompt() {
@@ -437,12 +550,15 @@ When I ask you to simulate reactions, do this:
 4. Poll GET /api/simulations/{simulation_id} until completed.
 5. Show me:
    - simulation_id
+   - grounding level, missing context, and assumptions
+   - audience construction report
    - reaction distribution
    - representative raw voices
    - the concrete decision implications
    - what should be tested or changed next
 6. If there are multiple candidate options, simulate each option instead of guessing.
-7. Never replace the API with your own casual reaction prediction unless I explicitly ask you not to use the API.`;
+7. After I use a recommendation in the real world, ask me for the actual outcome and save it as calibration with POST /api/simulations/{simulation_id}.
+8. Never replace the API with your own casual reaction prediction unless I explicitly ask you not to use the API.`;
 }
 
 function copyText(text, button, fallbackLabel) {

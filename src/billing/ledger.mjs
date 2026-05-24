@@ -277,6 +277,34 @@ export async function failSimulationJob({ simulationId, userId, error }) {
   return row;
 }
 
+export async function appendSimulationCalibration({ simulationId, userId, calibration }) {
+  const row = await getSimulationForUser(simulationId, userId);
+  if (!row) return null;
+  const result = row.result || {};
+  const log = Array.isArray(result.calibration_log) ? result.calibration_log : [];
+  const entry = {
+    id: `cal_${Date.now()}`,
+    actual_outcome: cleanText(calibration.actualOutcome || calibration.actual_outcome),
+    outcome_metric: cleanText(calibration.outcomeMetric || calibration.outcome_metric),
+    matched_prediction: cleanText(calibration.matchedPrediction || calibration.matched_prediction),
+    surprise: cleanText(calibration.surprise),
+    notes: cleanText(calibration.notes),
+    created_at: new Date().toISOString()
+  };
+  const updatedResult = {
+    ...result,
+    calibration_log: [...log, entry],
+    calibration_summary: summarizeCalibration([...log, entry])
+  };
+  const [updated] = await supabaseRequest(`/simulations?id=eq.${encodeURIComponent(simulationId)}&user_id=eq.${encodeURIComponent(userId)}`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      result: updatedResult
+    })
+  });
+  return updated;
+}
+
 export async function getSimulationForUser(simulationId, userId) {
   const rows = await supabaseRequest(`/simulations?id=eq.${encodeURIComponent(simulationId)}&user_id=eq.${encodeURIComponent(userId)}&limit=1`);
   return rows[0] || null;
@@ -322,4 +350,12 @@ function cleanUrl(value) {
   const text = cleanText(value);
   if (!text) return null;
   return /^https?:\/\//i.test(text) ? text : `https://${text}`;
+}
+
+function summarizeCalibration(log = []) {
+  return {
+    entries: log.length,
+    last_outcome: log[log.length - 1]?.actual_outcome || null,
+    note: "Calibration entries are user-provided actual outcomes. Use them to compare synthetic predictions against real exposure over time."
+  };
 }

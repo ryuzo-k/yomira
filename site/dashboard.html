@@ -117,6 +117,9 @@
         color: #2b3033;
       }
       .result-extra { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 14px; }
+      .result-card { border: 1px solid var(--line); background: #fbfbf7; padding: 14px; margin-bottom: 12px; }
+      .result-card h3 { margin-bottom: 6px; }
+      .pill { display: inline-flex; border: 1px solid var(--line); background: var(--soft); padding: 4px 8px; font-size: 12px; font-weight: 780; }
       .result-layout { display: grid; grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); gap: 18px; }
       .distribution { display: grid; gap: 10px; }
       .dist-meta { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
@@ -240,6 +243,14 @@
             <label>Sender / company context <textarea id="sender-context">Yomira is a new agent-native simulation API. The founder wants to test real demand quickly, sell self-serve credits, and later offer grounded enterprise pilots.</textarea></label>
             <label>Known concerns / objections <textarea id="known-concerns">People may think agent simulation is just an LLM wrapper, may doubt accuracy, may not understand when to use it, or may worry the setup is too confusing.</textarea></label>
             <label>Alternatives or variants being considered <textarea id="alternatives">Self-serve API for agent users; enterprise grounded simulation pilots; content preflight; message preflight; product direction simulations.</textarea></label>
+            <label class="row"><input id="compare-enabled" type="checkbox" style="width:auto" /> Compare multiple concrete options</label>
+            <label id="compare-options-wrap" class="hidden">Options to compare
+              <textarea id="compare-options">Short DM: Hey - saw your like on my Yomira post. Want me to run one reaction simulation for something you are working on?
+
+Long context DM: I am building Yomira, an API for agent-native reaction simulation. It can test messages, LPs, offers, and product ideas before you send or publish. Want to try it and give blunt feedback?
+
+Ask-first DM: Curious what part of the post resonated with you - agent-native workflows, simulation, or decision support?</textarea>
+            </label>
             <label>Available data or grounding material <textarea id="available-data">No external dataset in this self-serve run. Use the described audience and the working context above. Enterprise pilots can use customer notes, interviews, reviews, CRM rows, X/social data, and market source material.</textarea></label>
 
             <div class="stack">
@@ -285,10 +296,24 @@
               </div>
             </div>
             <div class="panel-body result-layout">
-              <div id="distribution" class="distribution"></div>
               <div>
+                <div id="trust-layer" class="result-card"></div>
+                <div id="audience-report" class="result-card"></div>
+                <div id="distribution" class="distribution"></div>
+              </div>
+              <div>
+                <div id="comparison-result" class="result-card hidden"></div>
                 <div id="clusters"></div>
                 <div id="result-next" class="result-extra"></div>
+                <div id="calibration" class="result-extra stack">
+                  <h3>Log real outcome</h3>
+                  <label>Actual outcome <textarea id="actual-outcome" placeholder="Example: sent the DM to 12 people; 4 replied; 1 asked for the link."></textarea></label>
+                  <label>Prediction match / surprise <textarea id="calibration-notes" placeholder="What matched the simulation? What surprised you?"></textarea></label>
+                  <div class="row">
+                    <button id="save-calibration" class="secondary">Save calibration</button>
+                    <span id="calibration-status" class="small"></span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

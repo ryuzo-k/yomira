@@ -28,9 +28,9 @@ Find the API key in one of these places:
 
 1. Identify the exact artifact people will see.
 2. Build a context packet: objective, audience, channel, sender/company context, desired action, known concerns, alternatives.
-3. Call `POST /api/simulate`.
+3. Call `POST /api/simulate`. If there are multiple concrete options, send them in one `options` array.
 4. Poll `GET /api/simulations/{simulation_id}` until completion.
-5. Report reaction distribution, raw private voices, decision implications, and export links.
+5. Report trust layer, audience construction, comparison matrix if present, reaction distribution, raw private voices, decision implications, and export links.
+6. After the artifact is used, save the real outcome with `POST /api/simulations/{simulation_id}` for calibration.
 
-If there are multiple concrete options, simulate each option.
-
+If there are multiple concrete options, simulate every option instead of choosing by taste.

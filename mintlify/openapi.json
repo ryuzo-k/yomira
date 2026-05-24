@@ -21,7 +21,7 @@
     "schemas": {
       "SimulationRequest": {
         "type": "object",
-        "required": ["objective", "artifact", "audience"],
+        "required": ["objective", "audience"],
         "properties": {
           "objective": {
             "type": "string",
@@ -29,7 +29,6 @@
           },
           "artifact": {
             "type": "object",
-            "required": ["type", "content"],
             "properties": {
               "type": {
                 "type": "string",
@@ -38,6 +37,34 @@
               "content": {
                 "type": "string",
                 "example": "Paste the exact artifact people will see."
+              }
+            }
+          },
+          "options": {
+            "type": "array",
+            "description": "Concrete options to compare. Credits are charged per option.",
+            "items": {
+              "type": "object",
+              "required": ["label", "artifact"],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "example": "Short ask"
+                },
+                "artifact": {
+                  "type": "object",
+                  "required": ["type", "content"],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "message"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "Want me to run one Yomira simulation for something you are working on?"
+                    }
+                  }
+                }
               }
             }
           },
@@ -212,6 +239,44 @@
           },
           "202": {
             "description": "Simulation not completed yet"
+          },
+          "404": {
+            "description": "Simulation not found"
+          }
+        }
+      },
+      "post": {
+        "summary": "Append calibration outcome",
+        "description": "Save a real-world outcome after using a simulated artifact.",
+        "security": [{ "ApiKeyAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "actualOutcome": { "type": "string" },
+                  "outcomeMetric": { "type": "string" },
+                  "matchedPrediction": { "type": "string" },
+                  "surprise": { "type": "string" },
+                  "notes": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Calibration appended"
           },
           "404": {
             "description": "Simulation not found"

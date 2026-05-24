@@ -34,13 +34,24 @@ export function getPlan(planId) {
 }
 
 export function estimateCredits(input = {}) {
+  const options = Array.isArray(input.options)
+    ? input.options
+    : Array.isArray(input.compare?.options)
+      ? input.compare.options
+      : [];
   const n = Number(input.simulation?.target_n || input.target_n || 100);
   const provider = input.simulation?.provider || input.provider || "llm";
   const multiplier = provider === "deterministic" || provider === "local" ? 0 : 1;
   if (multiplier === 0) return 0;
-  if (n <= 40) return 5;
-  if (n <= 120) return 20;
-  if (n <= 300) return 60;
-  if (n <= 1000) return 250;
-  return Math.max(250, Math.ceil(n / 4));
+  const optionMultiplier = Math.max(1, options.filter((option) => {
+    if (typeof option === "string") return option.trim();
+    return String(option?.artifact?.content || option?.content || option?.text || option?.artifact || "").trim();
+  }).length);
+  let base = 0;
+  if (n <= 40) base = 5;
+  else if (n <= 120) base = 20;
+  else if (n <= 300) base = 60;
+  else if (n <= 1000) base = 250;
+  else base = Math.max(250, Math.ceil(n / 4));
+  return base * optionMultiplier;
 }

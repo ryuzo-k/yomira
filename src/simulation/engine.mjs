@@ -249,11 +249,46 @@ const reactionAngles = [
 ];
 
 export async function simulateReaction(input = {}) {
+  if (hasComparisonOptions(input)) {
+    return simulateComparison(input);
+  }
+
   if (shouldUseLlm(input)) {
     return simulateReactionWithLlm(input);
   }
 
   return simulateReactionDeterministic(input);
+}
+
+export async function simulateComparison(input = {}) {
+  const options = normalizeComparisonOptions(input);
+  if (options.length < 2) {
+    throw new Error("Compare mode requires at least two options.");
+  }
+
+  const optionResults = [];
+  for (const option of options) {
+    const result = await simulateReaction({
+      ...input,
+      options: undefined,
+      compare: undefined,
+      artifact: option.artifact,
+      objective: `${input.objective || input.decision_question || "Compare options."}\n\nOption being simulated: ${option.label}`,
+      simulation: {
+        ...(input.simulation || {}),
+        target_n: option.targetN || input.simulation?.target_n || input.target_n || 40
+      }
+    });
+    optionResults.push({
+      id: option.id,
+      label: option.label,
+      artifact: option.artifact,
+      result,
+      summary: summarizeOptionResult(result)
+    });
+  }
+
+  return buildComparisonResult(input, optionResults);
 }
 
 export function simulateReactionDeterministic(input = {}) {
@@ -264,7 +299,7 @@ export function simulateReactionDeterministic(input = {}) {
   const agents = population.map((agent, index) => reactAsAgent(agent, normalized, index, random));
   const voiceClusters = clusterVoices(agents, normalized);
 
-  return {
+  return withDecisionSupportLayers({
     id: `sim_${seed.toString(16).padStart(8, "0")}`,
     object: {
       type: normalized.artifact.type,
@@ -283,7 +318,7 @@ export function simulateReactionDeterministic(input = {}) {
     agent_voices: agents.slice(0, normalized.returnLimit),
     omitted_agent_voices: Math.max(0, agents.length - normalized.returnLimit),
     next_simulation_inputs: suggestNextInputs(normalized, voiceClusters)
-  };
+  }, normalized);
 }
 
 export async function simulateReactionWithLlm(input = {}) {
@@ -336,7 +371,7 @@ export async function simulateReactionWithLlm(input = {}) {
     throw new Error(`OpenAI API returned non-JSON output: ${error.message}`);
   }
 
-  return {
+  return withDecisionSupportLayers({
     ...parsed,
     id: parsed.id || `sim_llm_${Date.now()}`,
     object: {
@@ -353,7 +388,7 @@ export async function simulateReactionWithLlm(input = {}) {
       ...(parsed.simulation_design || {}),
       note: parsed.simulation_design?.note || "These are synthetic human voices for decision support. They are not a substitute for real interviews, sales calls, or live market data."
     }
-  };
+  }, normalized);
 }
 
 async function simulateReactionBatched({ apiKey, model, normalized, input, requestedN, returnedVoices, maxOutputTokens }) {
@@ -372,7 +407,7 @@ async function simulateReactionBatched({ apiKey, model, normalized, input, reque
   const agents = batchResults.flatMap((result) => result.agent_voices || []).slice(0, requestedN);
   const voiceClusters = clusterVoices(agents).slice(0, 12);
 
-  return {
+  return withDecisionSupportLayers({
     id: `sim_batch_${Date.now()}`,
     object: {
       type: normalized.artifact.type,
@@ -396,7 +431,7 @@ async function simulateReactionBatched({ apiKey, model, normalized, input, reque
     agent_voices: agents.slice(0, returnedVoices),
     omitted_agent_voices: Math.max(0, agents.length - returnedVoices),
     next_simulation_inputs: suggestNextInputs(normalized, voiceClusters)
-  };
+  }, normalized, { plan });
 }
 
 function resolveSimulationMode(input, requestedN) {
@@ -667,6 +702,233 @@ function outputTokensForBatch(input, maxOutputTokens, count) {
 function describeBatchedAudienceConstruction(plan) {
   const segments = plan.segments.map((segment) => `${segment.count} ${segment.label}`).join("; ");
   return `Audience was split into ${plan.segments.length} synthetic segments before parallel voice generation: ${segments}.`;
+}
+
+function hasComparisonOptions(input = {}) {
+  return normalizeComparisonOptions(input).length >= 2;
+}
+
+function normalizeComparisonOptions(input = {}) {
+  const raw = Array.isArray(input.options)
+    ? input.options
+    : Array.isArray(input.compare?.options)
+      ? input.compare.options
+      : [];
+
+  return raw
+    .map((option, index) => {
+      const artifact = typeof option === "string"
+        ? { type: input.artifact?.type || "option", content: option }
+        : typeof option?.artifact === "string"
+          ? { type: option.type || input.artifact?.type || "option", content: option.artifact }
+          : option?.artifact || {
+            type: option?.type || input.artifact?.type || "option",
+            content: option?.content || option?.text || ""
+          };
+      return {
+        id: String(option?.id || `option_${index + 1}`),
+        label: String(option?.label || option?.name || `Option ${index + 1}`),
+        artifact: {
+          type: String(artifact.type || input.artifact?.type || "option"),
+          content: String(artifact.content || artifact.text || "").trim()
+        },
+        targetN: Number(option?.target_n || option?.targetN || 0)
+      };
+    })
+    .filter((option) => option.artifact.content);
+}
+
+function summarizeOptionResult(result) {
+  const distribution = result.reaction_distribution || [];
+  const clusters = result.voice_clusters || [];
+  const positive = distribution
+    .filter((item) => /conversion|desire|interest|status|curious/i.test(item.reaction))
+    .reduce((sum, item) => sum + Number(item.share || 0), 0);
+  const skepticism = distribution
+    .filter((item) => /suspicion|confusion|dismissal|skeptic|unclear/i.test(item.reaction))
+    .reduce((sum, item) => sum + Number(item.share || 0), 0);
+  return {
+    positive_share: Number(positive.toFixed(3)),
+    skepticism_share: Number(skepticism.toFixed(3)),
+    leading_reaction: distribution[0]?.reaction || "",
+    strongest_cluster: clusters[0]?.people || "",
+    likely_action: clusters[0]?.likely_action || "",
+    core_friction: clusters[0]?.common_friction || clusters[0]?.deeper_pattern || ""
+  };
+}
+
+function buildComparisonResult(input, optionResults) {
+  const normalized = normalizeInput({
+    ...input,
+    artifact: {
+      type: "comparison",
+      content: optionResults.map((option) => `${option.label}: ${option.artifact.content}`).join("\n\n")
+    }
+  });
+  const ranked = [...optionResults].sort((a, b) => {
+    const aScore = a.summary.positive_share - a.summary.skepticism_share;
+    const bScore = b.summary.positive_share - b.summary.skepticism_share;
+    return bScore - aScore;
+  });
+  const matrix = optionResults.map((option) => ({
+    id: option.id,
+    label: option.label,
+    positive_share: option.summary.positive_share,
+    skepticism_share: option.summary.skepticism_share,
+    leading_reaction: option.summary.leading_reaction,
+    strongest_cluster: option.summary.strongest_cluster,
+    likely_action: option.summary.likely_action,
+    core_friction: option.summary.core_friction
+  }));
+
+  return withDecisionSupportLayers({
+    id: `compare_${Date.now()}`,
+    object: {
+      type: "comparison",
+      objective: normalized.objective,
+      audience: normalized.audience.description
+    },
+    simulation_design: {
+      requested_n: Number(input.simulation?.target_n || input.target_n || 40) * optionResults.length,
+      simulated_n: optionResults.reduce((sum, option) => sum + Number(option.result.simulation_design?.simulated_n || 0), 0),
+      backend: "comparison_wrapper",
+      option_count: optionResults.length,
+      n_reason: "Each option is simulated separately so the decision is based on option-specific reaction distributions, not one blended reaction.",
+      audience_construction: "The same described audience and context are reused across all options so differences come from the option artifact itself.",
+      note: "Comparison mode supports decision preflight. It ranks reaction patterns, not guaranteed market outcomes."
+    },
+    comparison: {
+      options: optionResults,
+      matrix,
+      suggested_path: {
+        id: ranked[0]?.id || null,
+        label: ranked[0]?.label || "",
+        reason: ranked[0]
+          ? `Highest positive-minus-skeptical reaction balance in this synthetic run. Still validate with real exposure before treating it as final.`
+          : ""
+      }
+    },
+    reaction_distribution: matrix.map((item) => ({
+      reaction: item.label,
+      count: Math.round(item.positive_share * 1000),
+      share: item.positive_share
+    })),
+    voice_clusters: optionResults.flatMap((option) => (option.result.voice_clusters || []).slice(0, 2).map((cluster) => ({
+      ...cluster,
+      people: `${option.label}: ${cluster.people}`
+    }))).slice(0, 12),
+    agent_voices: optionResults.flatMap((option) => (option.result.agent_voices || []).slice(0, 4).map((voice) => ({
+      ...voice,
+      option_id: option.id,
+      option_label: option.label
+    }))),
+    omitted_agent_voices: optionResults.reduce((sum, option) => sum + Number(option.result.omitted_agent_voices || 0), 0),
+    next_simulation_inputs: [
+      "Run the strongest option against a larger audience after tightening the exact artifact.",
+      "Run the most skeptical option again after adding the missing proof or context.",
+      "After using the chosen option in the real world, log the actual outcome for calibration."
+    ]
+  }, normalized);
+}
+
+function withDecisionSupportLayers(result, normalized, options = {}) {
+  return {
+    ...result,
+    trust_layer: result.trust_layer || buildTrustLayer(normalized, result),
+    audience_construction_report: result.audience_construction_report || buildAudienceConstructionReport(normalized, options.plan),
+    decision_support: result.decision_support || buildDecisionSupport(normalized, result)
+  };
+}
+
+function buildTrustLayer(input, result = {}) {
+  const content = input.artifact.content || "";
+  const audience = input.audience.description || "";
+  const source = input.audience.source || "described_or_inferred";
+  const hasContextPacket = /Yomira context packet|Context packet|Channel \/ situation|Known concerns/i.test(content);
+  const hasSuppliedData = /crm|interview|review|customer note|sales call|x\/social|dataset|supplied data|grounding material/i.test(content + " " + audience);
+  const missing = [];
+  if (content.length < 200) missing.push("exact artifact text or full artifact screenshot/source");
+  if (audience.length < 120) missing.push("specific audience description and who realistically sees this");
+  if (!/channel|situation|where|x dm|landing|email|sales|publish|公開|送信/i.test(content + " " + audience)) missing.push("channel and scene where the audience encounters the artifact");
+  if (!/desired action|buy|reply|contact|sign up|purchase|問い合わせ|返信|購入/i.test(content + " " + audience)) missing.push("desired action or conversion target");
+  if (!/concern|objection|risk|worry|doubt|skeptic|懸念|不安|反論/i.test(content + " " + audience)) missing.push("known concerns, objections, or trust risks");
+  if (!hasSuppliedData) missing.push("real outcome data, customer examples, or supplied audience source material");
+
+  const groundingLevel = hasSuppliedData
+    ? "supplied_data"
+    : hasContextPacket || source === "dashboard_context_packet"
+      ? "agent_context"
+      : "thin_context";
+
+  return {
+    grounding_level: groundingLevel,
+    data_basis: hasSuppliedData
+      ? "User supplied or described external source material in addition to the artifact."
+      : groundingLevel === "agent_context"
+        ? "Exact artifact plus structured context packet supplied by the user or agent."
+        : "Described artifact and audience only.",
+    prediction_scope: "Useful for reaction preflight, option comparison, missing-context discovery, and next validation planning. Not a guaranteed market forecast.",
+    missing_context: missing,
+    assumptions: [
+      "Synthetic agents are constructed from the provided artifact, audience, and context.",
+      "Percentages summarize this synthetic run; they are not survey statistics unless calibrated against real outcomes.",
+      "Real behavior can shift with timing, distribution, relationship, brand trust, and competing alternatives."
+    ],
+    cannot_predict: [
+      "Exact conversion rate or revenue without real traffic/outcome data.",
+      "Viral spread, platform algorithm behavior, or one specific person's final decision.",
+      "Effects of facts that were not included in the context packet."
+    ],
+    recommended_validation: missing.length
+      ? [
+        "Add the missing context before treating this as a serious decision input.",
+        "Expose the chosen artifact to a small real audience and log the actual result.",
+        "Re-run with supplied customer/interview/social data for a grounded version."
+      ]
+      : [
+        "Use this as a preflight result, then log real outcomes for calibration.",
+        "For high-stakes decisions, run a grounded audience pack with real source data."
+      ]
+  };
+}
+
+function buildAudienceConstructionReport(input, plan) {
+  const segments = plan?.segments?.length
+    ? plan.segments
+    : buildAudiencePlan(input, input.n || 120, "standard").segments;
+
+  return {
+    audience_source: input.audience.source || "described_or_inferred",
+    audience_brief: input.audience.description,
+    construction_method: plan
+      ? "weighted_segments_from_artifact_and_context"
+      : "inferred_segments_from_artifact_and_context",
+    segments: segments.map((segment) => ({
+      id: segment.id,
+      name: segment.label,
+      count: segment.count,
+      share: segment.share,
+      why_included: segment.context,
+      likely_pressure: segment.motive,
+      main_friction: segment.friction,
+      data_basis: input.audience.source || "inferred from prompt/context"
+    })),
+    thin_spots: buildTrustLayer(input).missing_context,
+    enterprise_upgrade_note: "For grounded simulations, replace inferred segments with supplied customer notes, interviews, CRM rows, reviews, social data, or panel data."
+  };
+}
+
+function buildDecisionSupport(input, result = {}) {
+  const distribution = result.reaction_distribution || [];
+  const topRisk = distribution.find((item) => /suspicion|confusion|dismissal/i.test(item.reaction));
+  const topPositive = distribution.find((item) => /conversion|desire|interest|status|curious/i.test(item.reaction));
+  return {
+    use_as: "preflight_decision_support",
+    strongest_positive_signal: topPositive?.reaction || "",
+    strongest_risk_signal: topRisk?.reaction || "",
+    decision_rule: "Choose or revise based on the reaction pattern you can actually validate next, not on a synthetic winner alone.",
+    next_step: "Run a real-world exposure or log the actual outcome after using the selected artifact."
+  };
 }
 
 async function callOpenAiReactionSimulation({ apiKey, model, normalized, requestedN, returnedVoices, maxOutputTokens }) {

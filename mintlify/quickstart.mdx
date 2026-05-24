@@ -52,7 +52,62 @@ curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID" \
   -H "x-api-key: $YOMIRA_API_KEY"
 ```
 
-## 4. Export Markdown
+The completed result includes:
+
+- `trust_layer`: grounding level, missing context, assumptions, limits, and validation next steps.
+- `audience_construction_report`: the synthetic audience segments used in the run.
+- `reaction_distribution`: reaction percentages and counts.
+- `voice_clusters`: grouped private voices.
+- `comparison`: option-by-option summaries when you send multiple options.
+
+## 4. Compare options
+
+Use `options` when you need a decision between multiple concrete artifacts.
+
+```bash
+curl -s -X POST "https://tryyomira.com/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Choose which message to send.",
+    "audience": {
+      "description": "Potential early users who liked a post about agent-native reaction simulation."
+    },
+    "options": [
+      {
+        "label": "Short ask",
+        "artifact": { "type": "message", "content": "Want me to run one Yomira simulation for something you are working on?" }
+      },
+      {
+        "label": "Long context",
+        "artifact": { "type": "message", "content": "I am building Yomira, an API for agent-native reaction simulation. Want to try it and give blunt feedback?" }
+      }
+    ],
+    "simulation": {
+      "mode": "fast",
+      "target_n": 40,
+      "max_agent_voices": 8
+    }
+  }'
+```
+
+Credits are charged per option.
+
+## 5. Log real outcomes
+
+After you use the artifact, append calibration data.
+
+```bash
+curl -s -X POST "https://tryyomira.com/api/simulations/SIMULATION_ID" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "actualOutcome": "Sent to 12 people. 4 replied. 1 asked for the link.",
+    "notes": "The simulation matched curiosity, but underestimated how many people asked about validation."
+  }'
+```
+
+## 6. Export Markdown
 
 ```bash
 curl -L "https://tryyomira.com/api/simulations/SIMULATION_ID?format=markdown" \

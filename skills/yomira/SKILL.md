@@ -41,8 +41,9 @@ The agent should then:
 1. collect the artifact and context from the conversation,
 2. call Yomira,
 3. poll until the result is complete,
-4. show the distribution and raw voices,
-5. explain what the user should do next.
+4. show the trust layer, audience construction, distribution, and raw voices,
+5. explain what the user should do next,
+6. save the real-world outcome later as calibration when the user has one.
 
 ## Requirements
 
@@ -93,6 +94,7 @@ Do not use this as proof of reality. It is synthetic decision support.
 5. Start with `mode: "fast"` and `target_n: 40` for speed.
 6. If the result is useful, suggest `mode: "standard"` and `target_n: 120`.
 7. Download or preserve the JSON/Markdown result so the user can continue discussing it with another agent.
+8. After the user sends, publishes, launches, or sells the artifact, ask for the actual result and save it as calibration.
 
 ## Context-First Rule
 
@@ -159,16 +161,53 @@ Enterprise runs can be grounded or calibrated. For enterprise work, Yobou/Yomira
 
 When there are multiple options, do not pick based on taste. Simulate each concrete option.
 
+Prefer one compare-mode API call with an `options` array when the options share the same objective and audience.
+
 For each option, report:
 
 - option name
-- simulation id
+- comparison matrix row
 - reaction distribution
 - raw voices that reveal the important objection or desire
 - likely action
 - decision implication
 
 If simulating all options would be too expensive or too slow, ask the user whether to run all options or start with a smaller `target_n`.
+
+## Compare API Call
+
+```bash
+curl -s -X POST "${YOMIRA_BASE_URL:-https://tryyomira.com}/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Choose which message to send.",
+    "audience": {
+      "description": "Potential early users who liked a public post."
+    },
+    "options": [
+      {
+        "label": "Short ask",
+        "artifact": {
+          "type": "message",
+          "content": "Want me to run one Yomira simulation for something you are working on?"
+        }
+      },
+      {
+        "label": "Long context",
+        "artifact": {
+          "type": "message",
+          "content": "I am building Yomira, an agent-native reaction simulation API. Want to try it and give blunt feedback?"
+        }
+      }
+    ],
+    "simulation": {
+      "mode": "fast",
+      "target_n": 40,
+      "max_agent_voices": 8
+    }
+  }'
+```
 
 ## API Call
 
@@ -198,11 +237,28 @@ curl -s -X POST "${YOMIRA_BASE_URL:-https://tryyomira.com}/api/simulate" \
 
 Read the result in this order:
 
-1. `reaction_distribution`: what share felt each way.
-2. `voice_clusters`: the main business signal.
-3. raw voices inside clusters and agent voices: quote voices that reveal hidden objection/desire.
-4. `likely_action`: what they may do next.
-5. `downloads.markdown` or `downloads.json`: preserve the result for future agent work.
+1. `trust_layer`: grounding level, missing context, assumptions, limits, and validation next steps.
+2. `audience_construction_report`: who was simulated and why those segments were included.
+3. `comparison`: if present, read the option matrix before recommending a path.
+4. `reaction_distribution`: what share felt each way.
+5. `voice_clusters`: the main business signal.
+6. raw voices inside clusters and agent voices: quote voices that reveal hidden objection/desire.
+7. `likely_action`: what they may do next.
+8. `downloads.markdown` or `downloads.json`: preserve the result for future agent work.
+
+## Calibration
+
+After the user uses an artifact in the real world, save what actually happened:
+
+```bash
+curl -s -X POST "${YOMIRA_BASE_URL:-https://tryyomira.com}/api/simulations/SIMULATION_ID" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "actualOutcome": "Sent to 12 people. 4 replied. 1 asked for the link.",
+    "notes": "The simulation matched curiosity, but underestimated validation questions."
+  }'
+```
 
 ## Report Format
 
@@ -212,12 +268,14 @@ Return:
 ## Simulation Summary
 - Simulated people:
 - Credits charged:
+- Grounding level:
 - Main distribution:
 
 ## What This Means
 - Data mode:
-- Confidence:
-- Missing data:
+- Missing context:
+- Assumptions / limits:
+- Audience construction:
 - Buyer desire:
 - Suspicion:
 - Confusion:

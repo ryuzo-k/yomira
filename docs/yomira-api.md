@@ -88,13 +88,69 @@ curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID" \
 Important fields:
 
 - `status`: `queued`, `running`, `completed`, or `failed`.
+- `result.trust_layer`: grounding level, data basis, missing context, assumptions, limits, and recommended validation.
+- `result.audience_construction_report`: the synthetic audience segments used in the run and why they were included.
 - `result.reaction_distribution`: percentage and count for each reaction type.
 - `result.voice_clusters`: the core output; similar private voices grouped together.
 - `result.agent_voices`: representative individual dossiers and reactions.
+- `result.comparison`: present when you send multiple options; includes option-by-option summaries and a suggested path.
 - `id`: saved simulation id.
 - `downloads.markdown`: URL path to export Markdown once completed.
 - `downloads.json`: URL path to export JSON once completed.
 - `credits_charged`: credits used.
+
+## Compare Options
+
+Send `options` when the decision depends on choosing among multiple concrete artifacts. Yomira simulates every option separately and returns a comparison summary.
+
+```bash
+curl -s -X POST "https://tryyomira.com/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Choose which DM to send.",
+    "audience": {
+      "description": "Potential early users who liked a post about agent-native reaction simulation."
+    },
+    "options": [
+      {
+        "label": "Short ask",
+        "artifact": {
+          "type": "message",
+          "content": "Saw your like on my Yomira post. Want me to run one reaction simulation for something you are working on?"
+        }
+      },
+      {
+        "label": "Long context",
+        "artifact": {
+          "type": "message",
+          "content": "I am building Yomira, an API for agent-native reaction simulation. It can test messages, LPs, offers, and product ideas before you send or publish. Want to try it and give blunt feedback?"
+        }
+      }
+    ],
+    "simulation": {
+      "mode": "fast",
+      "target_n": 40,
+      "max_agent_voices": 8
+    }
+  }'
+```
+
+Credits are charged per option. A 40-person fast comparison with three options costs 15 credits.
+
+## Log Real Outcomes
+
+After using an artifact in the real world, append calibration data to the saved simulation. This is how Yomira becomes more than a one-off synthetic read.
+
+```bash
+curl -s -X POST "https://tryyomira.com/api/simulations/SIMULATION_ID" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "actualOutcome": "Sent to 12 people. 4 replied. 1 asked for the link.",
+    "notes": "The simulation was right about curiosity, but underestimated how many people asked whether this is validated."
+  }'
+```
 
 ## Download A Saved Result
 

@@ -11,8 +11,8 @@ Do not simulate only the top three unless the user explicitly asks for that. If 
 
 1. Map the option space.
 2. Convert each option into the exact artifact or decision people will see.
-3. Run one simulation per option.
-4. Compare distributions and raw voices.
+3. Send the options array to Yomira.
+4. Compare distributions, raw voices, trust notes, and audience construction.
 5. Decide, revise, or run a sharper second round.
 
 ## Prompt for an agent
@@ -30,7 +30,39 @@ Options:
 3.
 4.
 
-For each option, call Yomira separately. Then return a comparison table, the raw reaction clusters, and the recommended next action.
+Call Yomira with all options in one request. Then return the comparison matrix, the raw reaction clusters, the trust layer, and the recommended next validation.
+```
+
+## API shape
+
+```json
+{
+  "objective": "Choose which message to send.",
+  "audience": {
+    "description": "Potential early users who liked a post about agent-native reaction simulation."
+  },
+  "options": [
+    {
+      "label": "Short ask",
+      "artifact": {
+        "type": "message",
+        "content": "Want me to run one Yomira simulation for something you are working on?"
+      }
+    },
+    {
+      "label": "Long context",
+      "artifact": {
+        "type": "message",
+        "content": "I am building Yomira, an API for agent-native reaction simulation. Want to try it and give blunt feedback?"
+      }
+    }
+  ],
+  "simulation": {
+    "mode": "fast",
+    "target_n": 40,
+    "max_agent_voices": 8
+  }
+}
 ```
 
 ## Comparison table
@@ -41,9 +73,15 @@ Ask the agent to return:
 | --- | --- | --- | --- | --- | --- |
 | A | % | % | who | why | send / revise / cut |
 
+The API response also includes:
+
+- `result.comparison.matrix`
+- `result.comparison.suggested_path`
+- `result.trust_layer`
+- `result.audience_construction_report`
+
 ## When to use Mora first
 
 Use Mora before Yomira if the options are still messy.
 
 Mora maps the decision space. Yomira simulates the concrete options.
-

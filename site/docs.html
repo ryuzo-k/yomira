@@ -220,12 +220,66 @@ curl -s -X POST "https://tryyomira.com/api/simulate" \
           <h2>Response shape</h2>
           <ul class="essay-feature-list">
             <li><span>status</span> &mdash; queued, running, completed, or failed.</li>
+            <li><span>result.trust_layer</span> &mdash; grounding level, missing context, assumptions, limits, and validation next steps.</li>
+            <li><span>result.audience_construction_report</span> &mdash; the audience segments Yomira built and why they were included.</li>
             <li><span>result.reaction_distribution</span> &mdash; percentages and counts by reaction type.</li>
             <li><span>result.voice_clusters</span> &mdash; grouped private voices and deeper patterns.</li>
             <li><span>result.agent_voices</span> &mdash; representative individual simulated voices.</li>
+            <li><span>result.comparison</span> &mdash; option-by-option summaries when you send multiple options.</li>
             <li><span>downloads</span> &mdash; Markdown and JSON export URLs after completion.</li>
             <li><span>credits_charged</span> &mdash; credits used by the simulation.</li>
           </ul>
+        </section>
+
+        <section class="essay-section" id="compare">
+          <h2>Compare options</h2>
+          <p>
+            If the decision has multiple concrete options, send them together. Yomira simulates every option separately, then returns a comparison matrix. Credits are charged per option.
+          </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>Compare two messages</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="curl-compare">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="curl-compare">curl -s -X POST "https://tryyomira.com/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Choose which message to send.",
+    "audience": { "description": "Potential early users who liked a public post." },
+    "options": [
+      {
+        "label": "Short ask",
+        "artifact": { "type": "message", "content": "Want me to run one Yomira simulation for something you are working on?" }
+      },
+      {
+        "label": "Long context",
+        "artifact": { "type": "message", "content": "I am building Yomira, an agent-native reaction simulation API. Want to try it and give blunt feedback?" }
+      }
+    ],
+    "simulation": { "mode": "fast", "target_n": 40, "max_agent_voices": 8 }
+  }'</code></pre>
+          </div>
+        </section>
+
+        <section class="essay-section" id="calibration">
+          <h2>Calibration log</h2>
+          <p>
+            After you use a simulated artifact in the real world, save what actually happened. This lets you compare synthetic predictions against real outcomes over time.
+          </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>Save an outcome</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="curl-calibration">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="curl-calibration">curl -s -X POST "https://tryyomira.com/api/simulations/SIMULATION_ID" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "actualOutcome": "Sent to 12 people. 4 replied. 1 asked for the link.",
+    "notes": "The simulation matched curiosity, but underestimated how often people asked about validation."
+  }'</code></pre>
+          </div>
         </section>
 
         <section class="essay-section" id="exports">

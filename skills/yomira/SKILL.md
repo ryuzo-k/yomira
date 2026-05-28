@@ -43,7 +43,19 @@ The agent should then:
 3. poll until the result is complete,
 4. show the trust layer, audience construction, distribution, and raw voices,
 5. explain what the user should do next,
-6. save the real-world outcome later as calibration when the user has one.
+6. optionally save the real-world outcome later as an outcome log when the user has one.
+
+## Automatic Hook Mode
+
+If the user installed Yomira with `--hooks`, the agent may receive an automatic preflight reminder before prompts that look like human-reaction decisions.
+
+Treat that reminder as a signal to consider Yomira, not as permission to run a thin simulation. The right behavior is:
+
+1. detect whether the decision really depends on human reaction,
+2. gather the exact artifact/options, audience, channel, objective, desired action, company context, and worries,
+3. ask only for missing context if needed,
+4. call the real Yomira API if a key is available,
+5. avoid presenting casual AI guessing as a Yomira result.
 
 ## Requirements
 
@@ -94,7 +106,7 @@ Do not use this as proof of reality. It is synthetic decision support.
 5. Start with `mode: "fast"` and `target_n: 40` for speed.
 6. If the result is useful, suggest `mode: "standard"` and `target_n: 120`.
 7. Download or preserve the JSON/Markdown result so the user can continue discussing it with another agent.
-8. After the user sends, publishes, launches, or sells the artifact, ask for the actual result and save it as calibration.
+8. After the user sends, publishes, launches, or sells the artifact, ask for the actual result and save it as an outcome log attached to that simulation.
 
 ## Context-First Rule
 
@@ -137,7 +149,7 @@ Prepare:
 - **distribution context:** X, Reddit, LinkedIn, email, sales DM, SEO/GEO, enterprise deck, app UI, etc.
 - **known worries:** the user's explicit fears, dislikes, or hypotheses.
 - **alternatives:** any candidate paths or variants being compared.
-- **data mode:** whether this is described, context-enriched, grounded, or calibrated.
+- **data mode:** whether this is described, context-enriched, grounded, or outcome-logged.
 - **missing data:** what would make the simulation more reliable.
 
 If one of artifact, audience, or decision is missing, ask one concise question. If the user is in a hurry, make a labeled assumption and run a small simulation first.
@@ -151,11 +163,11 @@ Use these labels in your report:
 - **described:** the audience is described by the user or inferred from the conversation.
 - **context-enriched:** the agent used company context, product context, channel context, files, or docs.
 - **grounded:** the simulation used real source material such as CRM rows, customer notes, interviews, reviews, social posts, or supplied audience examples.
-- **calibrated:** Yomira predictions are being compared with real outcomes for this use case over time.
+- **outcome-logged:** a real-world result has been attached to a previous simulation so prediction and reality can be compared later.
 
 Self-serve runs are usually described or context-enriched.
 
-Enterprise runs can be grounded or calibrated. For enterprise work, Yobou/Yomira helps construct the necessary audience dataset from real customer, market, or social data.
+Enterprise runs can be grounded or calibrated. For enterprise work, Yobou/Yomira helps construct the necessary audience dataset from real customer, market, or social data. Self-serve outcome logs do not automatically retrain the model today.
 
 ## Multi-Option Rule
 
@@ -246,9 +258,9 @@ Read the result in this order:
 7. `likely_action`: what they may do next.
 8. `downloads.markdown` or `downloads.json`: preserve the result for future agent work.
 
-## Calibration
+## Outcome Log
 
-After the user uses an artifact in the real world, save what actually happened:
+After the user uses an artifact in the real world, save what actually happened. This attaches the result to the simulation for later comparison; it is not automatic model training:
 
 ```bash
 curl -s -X POST "${YOMIRA_BASE_URL:-https://tryyomira.com}/api/simulations/SIMULATION_ID" \

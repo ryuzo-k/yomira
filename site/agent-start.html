@@ -29,7 +29,7 @@
             let your agent set up Yomira.
           </h1>
           <p class="essay-lede">
-            This page is built for terminal AI agents. The agent can read the onboarding instructions, create an account, save the API key, install the Yomira skill, and run a setup check.
+            This page is built for terminal AI agents. Run it in the user's own project environment. The agent can read the onboarding instructions, create an account, save the API key, install the Yomira skill, install hooks/rules, and run a setup check.
           </p>
         </header>
 
@@ -64,23 +64,24 @@ Then do this:
 2. Save the returned API key securely.
 3. Install the official Yomira skill.
 4. Also install Mora if available.
-5. Run a setup check.
-6. Run a tiny test simulation or prepare the exact command I should approve.
-7. Tell me exactly how to use Yomira next.</code></pre>
+5. Install automatic hooks/rules into this user's AI-agent environment, not into the Yomira repository.
+6. Run a setup check.
+7. Run a tiny test simulation or prepare the exact command I should approve.
+8. Tell me exactly how to use Yomira next.</code></pre>
           </div>
         </section>
 
         <section class="essay-section" id="cli">
           <h2>CLI path</h2>
           <p>
-            If the package is available through npm or a GitHub install, the agent can use the Yomira bootstrap command directly.
+            If the package is available through npm or a GitHub install, the agent can use the Yomira bootstrap command directly from the user's project root.
           </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
               <strong>With an existing API key</strong>
               <button class="docs-copy-button" type="button" data-copy-target="cli-init">Copy</button>
             </div>
-            <pre class="essay-code"><code id="cli-init">npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora
+            <pre class="essay-code"><code id="cli-init">npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
 npx -y github:ryuzo-k/yomira doctor</code></pre>
           </div>
           <div class="docs-copy-card">
@@ -97,7 +98,8 @@ npx -y github:ryuzo-k/yomira doctor</code></pre>
   --role "Founder" \
   --intended-use "Pre-release content checks, product validation, and sales messages" \
   --target all \
-  --with-mora
+  --with-mora \
+  --hooks
 
 npx -y github:ryuzo-k/yomira doctor</code></pre>
           </div>
@@ -108,7 +110,9 @@ npx -y github:ryuzo-k/yomira doctor</code></pre>
           <ul class="essay-feature-list">
             <li><span>Account</span> &mdash; creates a Yomira account and returns an API key.</li>
             <li><span>Secret</span> &mdash; stores the API key in <code>~/.yomira/config.json</code> with local file permissions.</li>
+            <li><span>Runtime</span> &mdash; copies a stable hook runtime to <code>~/.yomira/bin/yomira.mjs</code>.</li>
             <li><span>Skill</span> &mdash; installs Yomira into Claude Code, Codex, Hermes Agent, and Cursor where possible.</li>
+            <li><span>Hook</span> &mdash; installs a Claude Code prompt hook, a Codex project rule, and a Cursor always-on rule where possible.</li>
             <li><span>Mora</span> &mdash; optionally installs Mora so the agent can map options before simulation.</li>
             <li><span>Verification</span> &mdash; checks the local install paths and tells the user what changed.</li>
           </ul>

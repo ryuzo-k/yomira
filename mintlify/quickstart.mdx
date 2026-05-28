@@ -15,9 +15,25 @@ Store the returned API key as an environment variable.
 export YOMIRA_API_KEY="sim_..."
 ```
 
-If you are using an AI agent, you can give the key to the agent and ask it to follow the [agent setup](/agent/setup) guide.
+If you are using an AI agent, you usually do not need to write curl yourself. Give the key to the agent and ask it to follow the [agent setup](/agent/setup) guide.
+
+For the agent-native setup, include the automatic hook/rule layer:
+
+```bash
+npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
+```
+
+Claude Code gets a real `UserPromptSubmit` hook. Codex and Cursor get always-available project instructions/rules so the agent proactively considers Yomira when a decision depends on human reaction.
+
+Example ask:
+
+```text
+Use Yomira to simulate reactions before I send or publish this. Gather the missing context first, then call the real API.
+```
 
 ## 2. Create a simulation
+
+The API checks for a concrete artifact or concrete options, a decision objective, and a specific audience/channel. If those are missing, it returns `422` with `missing_context` so the agent can ask the user for the missing pieces.
 
 ```bash
 curl -s -X POST "https://tryyomira.com/api/simulate" \
@@ -95,7 +111,7 @@ Credits are charged per option.
 
 ## 5. Log real outcomes
 
-After you use the artifact, append calibration data.
+After you use the artifact, append the real outcome to the saved simulation. This is an outcome log for comparison; it does not automatically retrain the model in self-serve today.
 
 ```bash
 curl -s -X POST "https://tryyomira.com/api/simulations/SIMULATION_ID" \

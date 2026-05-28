@@ -1,176 +1,164 @@
-# Yomira / Mora
+# Yomira
 
 [![skills.sh](https://skills.sh/b/ryuzo-k/yomira)](https://skills.sh/ryuzo-k/yomira)
 
-Yomira is the reaction simulation API. Mora is the free option-mapping skill that prepares better decisions before simulation.
+Yomira is a context-first reaction simulation API for AI agents.
 
-Mora is an agent-native skill/protocol for Claude Code, Codex, Hermes Agent, Cursor, and generic AI agents. It makes an AI extract the options already latent in your context, expand the missing alternatives, and package them as coherent candidate paths before it recommends one.
+Use it before you send, publish, price, launch, or choose. Your AI agent gathers the working context, calls the API, and brings back reaction distributions, raw private voices, missing-context warnings, and exports.
 
-The installable skill id remains `mora`.
+Mora is separate: it is the free option-mapping skill that helps you decide what concrete options should be simulated. Mora maps the paths. Yomira tests the concrete artifacts.
 
-It is intentionally not a taste engine. For surfaces like profiles, launch posts, landing pages, and personal positioning, the skill maps viable paths, ingredients, action norms, inclusion/exclusion choices, and reactions to test instead of writing polished copy by default.
+## Public Links
 
-## Install
+- Product: https://tryyomira.com/
+- Japanese product page: https://tryyomira.com/ja
+- Docs: https://docs.tryyomira.com/
+- Agent setup: https://docs.tryyomira.com/agent/setup
+- Dashboard: https://tryyomira.com/admin.html
+- Machine-readable guide: https://tryyomira.com/llms.txt
 
-For agent-native onboarding, give your AI agent:
+## What Yomira Does
 
-```text
-https://tryyomira.com/agent-start
-```
+- Simulates likely reactions to messages, content, landing pages, offers, pricing pages, product ideas, and decision options.
+- Compares multiple concrete options instead of letting one LLM choose from taste.
+- Returns raw voices, reaction clusters, audience-construction notes, trust/missing-context warnings, and JSON/Markdown exports.
+- Lets users attach actual outcomes to saved simulations for later comparison.
 
-Or initialize Yomira directly from this GitHub repo:
+Self-serve outcome logs do not automatically retrain the model today. Enterprise work can use grounded or calibrated datasets built from customer notes, interviews, CRM context, reviews, social data, or other source material.
 
-```bash
-npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora
-```
+## Agent-First Setup
 
-The primary install path is the open `skills` CLI:
-
-```bash
-npx skills add ryuzo-k/yomira
-```
-
-This is also the path that should make the skill show up on skills.sh once the GitHub repo is public and people install it.
-
-This should make it available to supported agents such as Claude Code, Codex, Cursor, GitHub Copilot, Windsurf, Gemini CLI, Cline, Amp, Antigravity, Goose, OpenCode, Roo, Trae, VS Code, and more.
-
-You can also paste this into the AI agent you already use:
+Most users should not start with curl. Paste this into Claude Code, Codex, Cursor, Hermes Agent, or another terminal-capable AI agent:
 
 ```text
-Install Mora from this GitHub repo:
-https://github.com/ryuzo-k/yomira
+Use Yomira for reaction simulation.
 
-Detect whether this environment is Claude Code, Codex, Hermes Agent, Cursor, or another agent.
-Install the right adapter for the current environment, then tell me what changed.
+API base URL: https://tryyomira.com
+API key: sim_YOUR_KEY
+
+When I ask you to check a message, content draft, landing page, offer, product idea, or decision option:
+1. Gather the exact artifact, audience, channel, objective, desired action, and known concerns from the conversation/files.
+2. If any of those are missing, ask me the smallest number of questions before calling the API.
+3. Call POST /api/simulate.
+4. Poll the result.
+5. Show reaction distribution, raw voices, missing-context warnings, and what decision this supports.
+6. Do not replace Yomira with your own guess unless I explicitly ask you not to use the API.
 ```
 
-For terminal-capable agents, the agent should copy the right files:
-
-- Claude Code: copy `skills/mora/` to `~/.claude/skills/mora`
-- Codex: copy `skills/mora/` to `${CODEX_HOME:-~/.codex}/skills/mora`
-- Hermes Agent: copy `skills/mora/` to `~/.hermes/skills/mora`
-- Cursor: copy `adapters/cursor/mora.mdc` to `.cursor/rules/mora.mdc`
-
-Optional repo-local installer:
-
-```bash
-node bin/mora.mjs install --target all
-```
-
-## Paste Into An AI Agent
-
-Paste this into Claude Code, Codex, Cursor, Hermes, or another terminal-capable agent:
+The official Yomira skill lives at:
 
 ```text
-Install Mora from this GitHub repo:
-https://github.com/ryuzo-k/yomira
-
-Detect the current AI environment. If this is Claude Code, Codex, or Hermes, install the SKILL.md-based skill into the right user skill directory. If this is Cursor, install the Cursor rule.
-
-After installing, verify the files exist and show me the exact path.
+skills/yomira/SKILL.md
 ```
 
-## Use
-
-Ask your agent:
+The Mora option-mapping skill lives at:
 
 ```text
-Use mora for this decision:
-I am deciding what product to build next...
+skills/mora/SKILL.md
 ```
 
-The skill returns:
+## Optional CLI
 
-- Decision frame
-- Source inventory from your own context
-- Candidate paths / action patterns
-- Supporting option families when useful
-- Comparison without premature narrowing
-- Simulation bridge for later human or agent testing
+Run this inside the user's own project/environment, not inside the Yomira repository. The installer writes to that user's home directory and current project:
 
-Use it when the default AI answer feels too narrow, too confident, or too optimized for sounding helpful instead of showing the real paths you could choose.
+- `~/.yomira/config.json`
+- `~/.yomira/bin/yomira.mjs`
+- `~/.claude/settings.json` for Claude Code hooks
+- `${CODEX_HOME:-~/.codex}/skills/yomira`
+- `AGENTS.md` in the current project for Codex
+- `.cursor/rules/yomira.mdc` in the current project for Cursor
 
-## What It Produces
-
-The skill should produce source-grounded candidate paths, not loose categories or polished copy.
-
-```text
-## Source Inventory
-- Existing options mentioned: AI search, AI-native agency, TryMind, Japan GTM, credentials, age.
-- Tensions: business clarity vs personal taste, trust vs suspicion, boring service vs interesting founder.
-
-## Candidate Paths
-### Path A: Business acquisition profile
-- Purpose: convert skeptical business buyers.
-- For: operators, founders, overseas companies entering Japan.
-- Foreground: AI search/GEO, business outcome, contact path.
-- De-emphasize: age, too many side projects, abstract personal philosophy.
-- Action norm: post proof, customer problems, teardown threads, clear offers.
-- Reaction to test: trustworthy or too narrow?
-
-### Path B: Full self / artist-founder profile
-- Purpose: attract people who resonate with the person, not only the service.
-- For: peers, founders with taste, creative technologists.
-- Foreground: TryMind, human mind/blog work, unusual taste.
-- De-emphasize: corporate service clarity.
-- Action norm: post essays, observations, prototypes, personal theses.
-- Reaction to test: attracts right people or confuses buyers?
-
-## Simulation Bridge
-- Stimulus required: 2-3 actual profile drafts written in the user's voice.
-- Audience to test: buyers, peers, skeptical operators.
-- Signals: trust, suspicion, willingness to contact, memorability.
-```
-
-## Distribution Model
-
-This repository intentionally separates:
-
-- **Core protocol:** `skills/mora/SKILL.md`
-- **Reaction simulation API prototype:** `src/simulation/`
-- **Cursor adapter:** `adapters/cursor/mora.mdc`
-- **Generic prompt:** `prompts/ai-install.md`
-- **Website:** `site/`
-- **Optional CLI:** `bin/mora.mjs`
-
-The skill is the free distribution layer for the path-mapping product and a preparation layer for future simulation workflows.
-
-## Product 2 Prototype: Reaction Simulation API
-
-The first local API prototype is included so we can test the output shape before building the full backend.
+If the package can be installed from GitHub, a terminal-capable agent can run:
 
 ```bash
-npm run serve:api
+npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
+npx -y github:ryuzo-k/yomira doctor
 ```
 
-Then call:
+`--hooks` installs the automatic path where the agent platform supports it:
+
+- Claude Code: a `UserPromptSubmit` hook that injects Yomira context when a prompt looks like a human-reaction decision.
+- Codex: an `AGENTS.md` preflight rule in the current project.
+- Cursor: an always-on project rule.
+- Hermes Agent: the Yomira skill fallback, because there is no generic hook file assumed here.
+
+You can install only the hook layer with:
 
 ```bash
-curl -X POST http://127.0.0.1:8787/simulate \
-  -H 'content-type: application/json' \
-  -d @request.json
+npx -y github:ryuzo-k/yomira hook install --target all
+npx -y github:ryuzo-k/yomira hook doctor
 ```
 
-Or print a sample request:
+## API Quickstart
 
 ```bash
-npm run sim:sample
+export YOMIRA_API_KEY="sim_..."
+
+curl -s -X POST "https://tryyomira.com/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Decide whether to publish this landing page.",
+    "artifact": {
+      "type": "landing_page",
+      "content": "Paste the exact artifact people will see."
+    },
+    "audience": {
+      "description": "Describe who will see it, where they see it, what they already believe, and what action matters."
+    },
+    "simulation": {
+      "mode": "fast",
+      "target_n": 40,
+      "max_agent_voices": 8
+    }
+  }'
 ```
 
-See `docs/product-2-api.md` for the current contract.
+The API returns `202 Accepted` with a `simulation_id`. Poll it:
 
-## Yomira
+```bash
+curl -s "https://tryyomira.com/api/simulations/SIMULATION_ID" \
+  -H "x-api-key: $YOMIRA_API_KEY"
+```
 
-The paid simulation product now has:
+If the request is missing the artifact, audience/channel, or objective, the API returns `422` with `missing_context` and `agent_next_step`.
 
-- Web onboarding: `https://tryyomira.com/admin.html`
-- Dashboard: `https://tryyomira.com/dashboard.html`
-- API docs: `docs/yomira-api.md`
-- Go-to-market notes: `docs/go-to-market.md`
-- Agent skill: `skills/yomira/SKILL.md`
-- Use-case skills:
-  - `skills/content-reaction-check/SKILL.md`
-  - `skills/message-reaction-flow/SKILL.md`
-  - `skills/venture-idea-simulation/SKILL.md`
+## Compare Options
 
-Mora is the free option-mapping layer. Yomira is the paid reaction-testing layer.
+```bash
+curl -s -X POST "https://tryyomira.com/api/simulate" \
+  -H "content-type: application/json" \
+  -H "x-api-key: $YOMIRA_API_KEY" \
+  -d '{
+    "objective": "Choose which message to send.",
+    "audience": {
+      "description": "Potential early users who liked a post about agent-native reaction simulation."
+    },
+    "options": [
+      {
+        "label": "Short ask",
+        "artifact": { "type": "message", "content": "Want me to run one Yomira simulation for something you are working on?" }
+      },
+      {
+        "label": "Long context",
+        "artifact": { "type": "message", "content": "I am building Yomira, an API for agent-native reaction simulation. Want to try it and give blunt feedback?" }
+      }
+    ],
+    "simulation": { "mode": "fast", "target_n": 40, "max_agent_voices": 8 }
+  }'
+```
+
+## Repository Shape
+
+- `api/`: Vercel API routes.
+- `src/simulation/`: simulation engine.
+- `src/billing/`: accounts, credits, API keys, and saved simulations.
+- `site/`: product pages, dashboard, docs mirror, and machine-readable files.
+- `mintlify/`: Mintlify docs source.
+- `skills/yomira/`: official Yomira agent skill.
+- `skills/mora/`: Mora option-mapping skill.
+- `docs/`: internal product and launch notes.
+
+## Product Boundary
+
+Yomira is synthetic decision support, not proof of reality. It becomes more useful when the input includes the exact artifact, audience, channel, sender/company context, desired action, known concerns, and real source material. For high-stakes decisions, use grounded enterprise work with real customer, market, or social data.

@@ -86,6 +86,9 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
             Yomira can be created from a terminal-capable AI agent. The user still owns the email, password, and API key. The agent can prepare the request, run the signup call, install the skill, and verify the API.
           </p>
           <p>
+            Run the CLI from the user's own project root. It installs into that user's home directory and current project, not into the Yomira source repository.
+          </p>
+          <p>
             If your agent supports MCP, connect it to the Yomira documentation MCP server at <code>https://docs.tryyomira.com/mcp</code>. Use it to search setup instructions, API parameters, examples, and best practices before calling the Yomira API.
           </p>
           <p>
@@ -116,8 +119,29 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
               <strong>Bootstrap with CLI after you have an API key</strong>
               <button class="docs-copy-button" type="button" data-copy-target="yomira-cli-init">Copy</button>
             </div>
-            <pre class="essay-code"><code id="yomira-cli-init">npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora
+            <pre class="essay-code"><code id="yomira-cli-init">npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
 npx -y github:ryuzo-k/yomira doctor</code></pre>
+          </div>
+        </section>
+
+        <section class="essay-section" id="auto-hook">
+          <h2>Automatic hook</h2>
+          <p>
+            The CLI can install the strongest automatic preflight path available in each agent. Claude Code gets a real <code>UserPromptSubmit</code> hook. Codex gets an <code>AGENTS.md</code> rule in the current project. Cursor gets an always-on project rule. Hermes Agent uses the installed skill fallback.
+          </p>
+          <p>
+            User-level files: <code>~/.yomira/config.json</code>, <code>~/.yomira/bin/yomira.mjs</code>, <code>~/.claude/settings.json</code>, and the relevant skill directories. Project-level files: <code>AGENTS.md</code> and <code>.cursor/rules/yomira.mdc</code> in the user's current project.
+          </p>
+          <p>
+            The hook does not call the API blindly. It tells the agent to gather the artifact, audience, channel, objective, desired action, company context, and known worries first. If the context is thin, the agent should ask the smallest number of questions before running Yomira.
+          </p>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>Install only hooks and rules</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="yomira-hook-install">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="yomira-hook-install">npx -y github:ryuzo-k/yomira hook install --target all
+npx -y github:ryuzo-k/yomira hook doctor</code></pre>
           </div>
         </section>
 
@@ -177,6 +201,9 @@ When I ask you to simulate reactions, do this:
           <h2>API quickstart</h2>
           <p>
             The API is asynchronous. Create a job, poll until it completes, then download JSON or Markdown.
+          </p>
+          <p>
+            If you are using Claude Code, Codex, Cursor, Hermes Agent, or another AI agent, the intended workflow is simpler: ask the agent to use Yomira. The agent should gather the context packet first and only call the API after the artifact, audience, channel, and objective are clear.
           </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
@@ -263,9 +290,9 @@ curl -s -X POST "https://tryyomira.com/api/simulate" \
         </section>
 
         <section class="essay-section" id="calibration">
-          <h2>Calibration log</h2>
+          <h2>Outcome log</h2>
           <p>
-            After you use a simulated artifact in the real world, save what actually happened. This lets you compare synthetic predictions against real outcomes over time.
+            After you use a simulated artifact in the real world, save what actually happened. This attaches the real outcome to the simulation so you can compare prediction and reality later. It does not automatically retrain the model today.
           </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
@@ -308,9 +335,9 @@ curl -s -X POST "https://tryyomira.com/api/simulate" \
         </section>
 
         <section class="essay-section" id="context">
-          <h2>Context quality</h2>
+          <h2>Context quality gate</h2>
           <p>
-            The API gets better when the agent sends the exact artifact, the audience, the channel, the sender/company context, the desired action, and known worries. Thin context produces generic voices. Good agent usage should build a context packet before calling the API.
+            The API rejects empty or underspecified requests. For useful runs, the agent should send the exact artifact, the audience, the channel, the sender/company context, the desired action, and known worries. Thin context produces generic voices, so good agent usage should build a context packet before calling the API.
           </p>
         </section>
 
@@ -323,7 +350,7 @@ curl -s -X POST "https://tryyomira.com/api/simulate" \
             <li><span>Described</span> &mdash; the user or agent describes the audience. This is the fastest self-serve mode.</li>
             <li><span>Context-enriched</span> &mdash; the agent adds company, channel, product, pricing, proof, and known worries from the user's workspace.</li>
             <li><span>Grounded</span> &mdash; the simulation uses real source material: CRM rows, customer notes, interviews, reviews, X/social data, community posts, or supplied audience examples.</li>
-            <li><span>Calibrated</span> &mdash; predictions are compared with real outcomes and corrected by use case over time.</li>
+            <li><span>Outcome-logged</span> &mdash; predictions are compared with real outcomes in the saved simulation. Automatic model retraining is not part of self-serve today.</li>
           </ul>
         </section>
 
@@ -336,7 +363,7 @@ curl -s -X POST "https://tryyomira.com/api/simulate" \
             <li><span>Level 1: Described audience</span> &mdash; the current default. The user or agent describes who should react.</li>
             <li><span>Level 2: Context-enriched audience</span> &mdash; the agent adds company context, channel context, prior conversation, docs, and customer hypotheses before calling the API.</li>
             <li><span>Level 3: Grounded audience</span> &mdash; the simulation is built from uploaded CRM rows, customer lists, reviews, interview notes, X/social data, community posts, or other source material.</li>
-            <li><span>Level 4: Calibrated audience</span> &mdash; synthetic outputs are compared against real survey/interview outcomes, then adjusted by segment and use case.</li>
+            <li><span>Level 4: Calibrated audience</span> &mdash; enterprise work can compare synthetic outputs against real survey/interview outcomes and adjust future audience construction by segment and use case.</li>
           </ul>
         </section>
 

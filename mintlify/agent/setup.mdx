@@ -7,6 +7,37 @@ Yomira is meant to be used from inside the agent where the decision is already h
 
 The agent should not guess reactions from a thin prompt. It should gather context, construct the target audience, call the API, poll the result, and bring the evidence back into the conversation.
 
+Yomira can now install an automatic preflight layer where the agent platform supports it. Claude Code gets a real `UserPromptSubmit` hook. Codex gets an `AGENTS.md` preflight rule. Cursor gets an always-on rule. Hermes Agent uses the skill fallback unless your local Hermes setup exposes a hook file.
+
+This does not mean every AI product has the same hook system. It means the installer uses the strongest available path for each environment and keeps the API-backed rule consistent.
+
+## Automatic hook install
+
+Run this in the user's own AI-agent environment and project root. Do not run it inside the Yomira repository unless you are developing Yomira itself.
+
+If you already have an API key, run:
+
+```bash
+npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
+npx -y github:ryuzo-k/yomira hook doctor
+```
+
+To install only the hook/rule layer:
+
+```bash
+npx -y github:ryuzo-k/yomira hook install --target all
+```
+
+What this installs:
+
+- `~/.yomira/config.json` and `~/.yomira/bin/yomira.mjs` for the current user.
+- Claude Code: `UserPromptSubmit` hook in `~/.claude/settings.json` by default.
+- Codex: a Yomira auto-preflight block in `AGENTS.md` for the current project.
+- Cursor: `.cursor/rules/yomira.mdc` with `alwaysApply: true`.
+- Hermes Agent: skill fallback.
+
+After this, the agent should proactively consider Yomira when the user is about to send, publish, launch, price, pitch, choose, or compare something that other people will judge. It should still ask for missing context before calling the API.
+
 ## Install the skill
 
 Ask your agent to install the official skill:
@@ -41,11 +72,12 @@ When I ask you to simulate reactions:
 1. If MCP is available, use the documentation MCP server to look up Yomira setup, API parameters, examples, and best practices.
 2. Identify the exact artifact people will see. If the artifact is missing, ask me for it.
 3. Build a context packet from the current conversation: objective, audience, channel, sender/company context, desired action, known concerns, and alternatives.
-4. Call POST /api/simulate.
-5. Poll GET /api/simulations/{simulation_id} until completed.
-6. Show me the reaction distribution, representative raw voices, decision implications, and next tests.
-7. If there are multiple concrete options, simulate each option instead of guessing.
-8. Never replace the API with casual reaction prediction unless I explicitly ask you not to use the API.
+4. If the exact artifact, audience, channel, or objective is missing, ask me the smallest number of questions before calling the API.
+5. Call POST /api/simulate.
+6. Poll GET /api/simulations/{simulation_id} until completed.
+7. Show me the reaction distribution, representative raw voices, missing-context warnings, decision implications, and next tests.
+8. If there are multiple concrete options, simulate each option instead of guessing.
+9. Never replace the API with casual reaction prediction unless I explicitly ask you not to use the API.
 ```
 
 ## Copy-paste task prompts
@@ -71,6 +103,20 @@ Use Yomira to simulate every concrete option. Do not only pick the top three unl
 ## Optional CLI bootstrap
 
 ```bash
-npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora
+npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
 npx -y github:ryuzo-k/yomira doctor
 ```
+
+## What the API checks
+
+`POST /api/simulate` requires enough input to run:
+
+- a concrete artifact or at least two concrete options,
+- the decision or objective,
+- a specific audience and channel.
+
+If those are missing, the API returns `422` with `missing_context` and an `agent_next_step` message. The agent should ask the user for the missing pieces instead of running a generic simulation.
+
+## Outcome logging
+
+You can attach a real-world outcome to a saved simulation with `POST /api/simulations/{simulation_id}`. This is an outcome log for comparison. It does not automatically retrain the model in self-serve today.

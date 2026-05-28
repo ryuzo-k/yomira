@@ -95,6 +95,23 @@ npx -y github:ryuzo-k/yomira hook install --target all
 npx -y github:ryuzo-k/yomira hook doctor
 ```
 
+## Optional MCP
+
+MCP is optional. The canonical Yomira API is still HTTPS, and the installer/hooks above remain the default path. The MCP server is useful when an AI client can register local MCP tools and you want the agent to call Yomira as a first-class tool instead of hand-writing curl.
+
+```bash
+YOMIRA_API_KEY="sim_..." npx -y --package github:ryuzo-k/yomira yomira-mcp
+```
+
+Tools:
+
+- `yomira_simulate_reactions`
+- `yomira_get_simulation`
+- `yomira_export_simulation_markdown`
+- `yomira_setup_help`
+
+This is a simulation API adapter, not a docs/search MCP.
+
 ## API Quickstart
 
 ```bash

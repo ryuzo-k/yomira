@@ -65,7 +65,22 @@ The user needs an API key from:
 https://tryyomira.com/admin.html
 ```
 
-MCP is not required. Yomira currently works through the HTTP API plus the official installer, hooks, and agent rules. There is no official Yomira simulation MCP server yet.
+MCP is not required. Yomira works through the HTTP API plus the official installer, hooks, and agent rules.
+
+If the user's AI client supports MCP, the official local Yomira MCP server can be used as an optional adapter over the same real API:
+
+```bash
+npx -y --package github:ryuzo-k/yomira yomira-mcp
+```
+
+The MCP server exposes:
+
+- `yomira_simulate_reactions`
+- `yomira_get_simulation`
+- `yomira_export_simulation_markdown`
+- `yomira_setup_help`
+
+Do not confuse this with a documentation/search MCP. The Yomira MCP server exists to call the simulation API, fetch saved simulations, and export Markdown.
 
 Use an existing key from the environment when present:
 

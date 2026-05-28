@@ -15,9 +15,10 @@ Important pages:
 
 AI agent docs access:
 - Mintlify docs: https://docs.tryyomira.com/
-- MCP is not required for Yomira self-serve setup.
-- There is no official Yomira simulation MCP server yet.
-- The reliable integration path is the HTTP API plus the official local installer, hooks, and agent rules.
+- MCP is optional for Yomira self-serve setup.
+- Official local MCP command: npx -y --package github:ryuzo-k/yomira yomira-mcp
+- The MCP server is only an adapter over the real Yomira HTTP API. It exposes simulation tools; it is not a documentation/search MCP.
+- The reliable default integration path is still the HTTP API plus the official local installer, hooks, and agent rules.
 
 Enterprise:
 - Enterprise pilots start from 300,000 JPY / $2,000.
@@ -38,6 +39,7 @@ Agent onboarding contract:
 8. Poll GET /api/simulations/{simulation_id} until completed.
 9. Download Markdown with GET /api/simulations/{simulation_id}?format=markdown.
 10. If POST /api/simulate returns 422 with missing_context, ask the user for the missing artifact, audience/channel, or objective before retrying.
+11. If the agent supports MCP, it may register the official local Yomira MCP server and call yomira_simulate_reactions, yomira_get_simulation, and yomira_export_simulation_markdown instead of manually constructing HTTP requests.
 
 One-line setup prompt for users to paste into an AI agent:
 
@@ -67,6 +69,20 @@ Hook behavior:
 - User-level files include ~/.yomira/config.json, ~/.yomira/bin/yomira.mjs, ~/.claude/settings.json, and the relevant skill directories.
 - The hook/rule should make the agent proactively consider Yomira when the user is about to send, publish, launch, price, pitch, choose, or compare something that other people will judge.
 - The agent must still gather missing context before calling the API.
+
+Optional MCP:
+
+```bash
+YOMIRA_API_KEY="sim_..." npx -y --package github:ryuzo-k/yomira yomira-mcp
+```
+
+MCP tools:
+- yomira_simulate_reactions: create and optionally wait for an API-backed simulation.
+- yomira_get_simulation: fetch a saved simulation as JSON.
+- yomira_export_simulation_markdown: download a completed simulation as Markdown.
+- yomira_setup_help: show setup guidance.
+
+Use MCP only when the user's AI client supports MCP tools. It does not replace hooks or setup. It gives the agent a reliable tool surface so it does not have to invent curl commands.
 
 Create account:
 

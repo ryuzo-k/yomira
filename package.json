@@ -5,6 +5,7 @@
   "type": "module",
   "bin": {
     "yomira": "bin/yomira.mjs",
+    "yomira-mcp": "bin/yomira-mcp.mjs",
     "mora": "bin/mora.mjs",
     "dsm": "bin/mora.mjs",
     "reaction-sim": "bin/reaction-sim.mjs"

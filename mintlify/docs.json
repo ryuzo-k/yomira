@@ -19,7 +19,8 @@
             "pages": [
               "index",
               "quickstart",
-              "agent/setup"
+              "agent/setup",
+              "agent/mcp"
             ]
           },
           {

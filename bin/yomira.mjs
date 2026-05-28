@@ -34,6 +34,7 @@ Usage:
   yomira install --target all
   yomira hook install --target claude
   yomira hook doctor
+  yomira mcp
   yomira doctor
   yomira prompt
 
@@ -42,6 +43,7 @@ Commands:
   signup    Create an account through the API, save the returned key, install the skill, and verify setup.
   install   Install the Yomira skill without creating an account.
   hook      Install or run automatic agent hooks.
+  mcp       Start the optional local MCP server that wraps the real Yomira API.
   doctor    Check local config and skill install locations.
   prompt    Print a copy-paste prompt for AI agents.
 
@@ -575,6 +577,10 @@ async function main() {
       const installs = await installSkillSet(args);
       for (const result of installs) console.log(`${result.target}/${result.skill}: ${result.path}`);
     } else if (args.command === "hook") await hook(args);
+    else if (args.command === "mcp") {
+      const { startMcpServer } = await import("./yomira-mcp.mjs");
+      await startMcpServer();
+    }
     else if (args.command === "doctor") await doctor();
     else if (args.command === "prompt") prompt();
     else throw new Error(`Unknown command: ${args.command}`);

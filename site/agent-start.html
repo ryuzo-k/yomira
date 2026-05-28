@@ -52,7 +52,7 @@
 Read the agent instructions first:
 https://tryyomira.com/llms.txt
 
-MCP is not required. Yomira currently works through the HTTP API plus the official installer, hooks, and agent rules.
+MCP is optional. If this agent supports MCP tools, use the official local Yomira MCP server. Otherwise use the HTTP API plus the official installer, hooks, and agent rules.
 
 If you do not already have my Yomira API key, ask me for it first. If I do not have one, open the dashboard URL and help me create one:
 https://tryyomira.com/admin.html
@@ -62,7 +62,8 @@ Then do this:
 2. Replace sim_MY_KEY with the API key I provide.
 3. Request command approval only if this agent environment requires it.
 4. Run: npx -y github:ryuzo-k/yomira doctor
-5. Tell me exactly what was installed and how to use Yomira next.</code></pre>
+5. If this client supports MCP, register: YOMIRA_API_KEY="sim_MY_KEY" npx -y --package github:ryuzo-k/yomira yomira-mcp
+6. Tell me exactly what was installed and how to use Yomira next.</code></pre>
           </div>
         </section>
 

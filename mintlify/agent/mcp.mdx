@@ -1,0 +1,63 @@
+---
+title: "MCP"
+description: "Expose Yomira as local MCP tools for AI clients that support the Model Context Protocol."
+---
+
+Yomira's MCP server is optional.
+
+The canonical product API is still:
+
+- `POST https://tryyomira.com/api/simulate`
+- `GET https://tryyomira.com/api/simulations/{simulation_id}`
+
+Use MCP when your AI client can register local MCP tools and you want the agent to call Yomira as a first-class tool instead of constructing curl commands.
+
+## Start the server
+
+```bash
+YOMIRA_API_KEY="sim_YOUR_KEY" npx -y --package github:ryuzo-k/yomira yomira-mcp
+```
+
+If you already ran the agent installer, the MCP server can also read `~/.yomira/config.json`.
+
+```bash
+npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
+npx -y --package github:ryuzo-k/yomira yomira-mcp
+```
+
+## Tools
+
+### `yomira_simulate_reactions`
+
+Creates a real API-backed Yomira simulation and, by default, waits for completion.
+
+Use it for messages, posts, landing pages, offers, pricing pages, product ideas, and concrete decision options.
+
+### `yomira_get_simulation`
+
+Fetches a saved simulation as JSON.
+
+### `yomira_export_simulation_markdown`
+
+Downloads a completed simulation as Markdown so the result can be shared with another agent or saved in a repo.
+
+### `yomira_setup_help`
+
+Returns the canonical setup prompt and command guidance.
+
+## What MCP does not solve
+
+MCP does not automatically know when to run Yomira across every conversation. For that, use the installer with hooks/rules:
+
+```bash
+npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
+```
+
+Think of the product layers this way:
+
+- Hooks/rules: remind the agent when Yomira should be considered.
+- Skill: teaches the agent how to gather context and interpret results.
+- MCP: gives the agent a reliable tool surface for calling the real API.
+- HTTP API: the canonical backend.
+
+Do not confuse this MCP server with a documentation/search MCP. Yomira MCP is for simulation calls, result fetching, and exports.

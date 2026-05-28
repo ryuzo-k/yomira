@@ -484,7 +484,14 @@ export async function startMcpServer() {
   }
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1] || "").href) {
+async function isDirectRun() {
+  if (!process.argv[1]) return false;
+  const invokedPath = await fs.realpath(process.argv[1]).catch(() => process.argv[1]);
+  const modulePath = await fs.realpath(__filename).catch(() => __filename);
+  return pathToFileURL(invokedPath).href === pathToFileURL(modulePath).href;
+}
+
+if (await isDirectRun()) {
   startMcpServer().catch((error) => {
     console.error(error);
     process.exit(1);

@@ -95,9 +95,11 @@ npx -y github:ryuzo-k/yomira hook install --target all
 npx -y github:ryuzo-k/yomira hook doctor
 ```
 
-## Optional MCP
+## Advanced: MCP
 
-MCP is optional. The canonical Yomira API is still HTTPS, and the installer/hooks above remain the default path. The MCP server is useful when an AI client can register local MCP tools and you want the agent to call Yomira as a first-class tool instead of hand-writing curl.
+The user-facing setup should stay one prompt. Do not ask users to choose an "MCP version" of Yomira.
+
+MCP is an optional execution layer inside the same flow. The canonical Yomira API is still HTTPS, and the installer/hooks above remain the default path. The MCP server is useful when an AI client can register local MCP tools and you want the agent to call Yomira as a first-class tool instead of hand-writing curl.
 
 ```bash
 YOMIRA_API_KEY="sim_..." npx -y --package github:ryuzo-k/yomira yomira-mcp

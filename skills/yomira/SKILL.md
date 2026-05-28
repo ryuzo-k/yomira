@@ -67,7 +67,9 @@ https://tryyomira.com/admin.html
 
 MCP is not required. Yomira works through the HTTP API plus the official installer, hooks, and agent rules.
 
-If the user's AI client supports MCP, the official local Yomira MCP server can be used as an optional adapter over the same real API:
+The user-facing experience should stay one prompt. Do not ask the user to choose an "MCP version" of Yomira.
+
+If the user's AI client supports MCP, the official local Yomira MCP server can be used behind the scenes as an optional adapter over the same real API:
 
 ```bash
 npx -y --package github:ryuzo-k/yomira yomira-mcp

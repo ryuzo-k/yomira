@@ -76,7 +76,7 @@ sim_YOUR_KEY
 
 When I ask you to simulate reactions:
 
-1. Use the real Yomira API. If this agent supports MCP, you may use the official local Yomira MCP server; otherwise use the HTTP API directly.
+1. Use the real Yomira API. Do not ask me to choose an MCP version. If this agent supports MCP, you may use the official local Yomira MCP server behind the scenes; otherwise use the HTTP API directly.
 2. Identify the exact artifact people will see. If the artifact is missing, ask me for it.
 3. Build a context packet from the current conversation: objective, audience, channel, sender/company context, desired action, known concerns, and alternatives.
 4. If the exact artifact, audience, channel, or objective is missing, ask me the smallest number of questions before calling the API.
@@ -87,9 +87,9 @@ When I ask you to simulate reactions:
 9. Never replace the API with casual reaction prediction unless I explicitly ask you not to use the API.
 ```
 
-## Optional MCP
+## Advanced: MCP
 
-MCP is optional. Use it when the user's AI client supports local MCP tools and you want Yomira exposed as a real tool rather than a curl snippet.
+MCP is optional. The normal user experience should still be the one setup prompt. Use MCP only when the user's AI client supports local MCP tools and you want Yomira exposed as a real tool rather than a curl snippet.
 
 ```bash
 YOMIRA_API_KEY="sim_YOUR_KEY" npx -y --package github:ryuzo-k/yomira yomira-mcp

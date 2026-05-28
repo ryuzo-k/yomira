@@ -5,12 +5,14 @@ description: "Expose Yomira as local MCP tools for AI clients that support the M
 
 Yomira's MCP server is optional.
 
+Do not present MCP as a separate version of Yomira. The user-facing promise is still one-prompt setup: paste the setup instruction into an AI agent, provide an API key, and let the agent install the best available integration for that environment.
+
 The canonical product API is still:
 
 - `POST https://tryyomira.com/api/simulate`
 - `GET https://tryyomira.com/api/simulations/{simulation_id}`
 
-Use MCP when your AI client can register local MCP tools and you want the agent to call Yomira as a first-class tool instead of constructing curl commands.
+Use MCP behind the scenes when your AI client can register local MCP tools and you want the agent to call Yomira as a first-class tool instead of constructing curl commands.
 
 ## Start the server
 

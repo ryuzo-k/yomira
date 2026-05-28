@@ -17,8 +17,10 @@ export default async function handler(request, response) {
       return;
     }
 
-    const { enabled, threshold } = request.body || {};
-    const updated = await updateAutoTopup(user.id, { enabled, threshold, credits: 100 });
+    const { enabled, threshold, credits } = request.body || {};
+    const allowedCredits = new Set([100, 700, 2500]);
+    const topupCredits = allowedCredits.has(Number(credits)) ? Number(credits) : 100;
+    const updated = await updateAutoTopup(user.id, { enabled, threshold, credits: topupCredits });
     response.status(200).json({ user, credit_account: updated });
   } catch (error) {
     response.status(400).json({ error: error.message });

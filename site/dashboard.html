@@ -7,319 +7,419 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f7f7f2;
+        --bg: #ffffff;
+        --ink: #0a0a0b;
+        --muted: #666666;
+        --soft: #f7f7f7;
+        --line: #e2e2e2;
         --panel: #ffffff;
-        --ink: #101214;
-        --muted: #626a70;
-        --line: #d9ddd5;
-        --soft: #eef1ea;
-        --accent: #176f63;
-        --accent-2: #a83f2d;
-        --shadow: rgba(16, 18, 20, 0.08);
       }
       * { box-sizing: border-box; }
       body {
         margin: 0;
         background: var(--bg);
         color: var(--ink);
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
       }
-      button, input, textarea, select { font: inherit; }
+      button, input, select { font: inherit; }
       button {
-        min-height: 42px;
+        min-height: 40px;
         border: 1px solid var(--ink);
+        border-radius: 0;
         background: var(--ink);
-        color: white;
+        color: #ffffff;
         padding: 0 14px;
         cursor: pointer;
-        font-weight: 780;
+        font-weight: 720;
       }
-      button.secondary { border-color: var(--line); background: white; color: var(--ink); }
+      button.secondary {
+        border-color: var(--line);
+        background: #ffffff;
+        color: var(--ink);
+      }
+      button.ghost {
+        border-color: transparent;
+        background: transparent;
+        color: var(--ink);
+      }
       button:disabled { opacity: 0.55; cursor: wait; }
-      input, textarea, select {
+      input, select {
         width: 100%;
+        min-height: 44px;
         border: 1px solid var(--line);
-        background: white;
-        padding: 11px 12px;
+        background: #ffffff;
+        color: var(--ink);
+        padding: 0 12px;
       }
-      textarea { min-height: 140px; resize: vertical; line-height: 1.5; }
-      label { display: grid; gap: 7px; color: var(--muted); font-size: 13px; font-weight: 700; }
+      label {
+        display: grid;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
       .topbar {
-        min-height: 68px;
+        position: sticky;
+        top: 0;
+        z-index: 20;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 18px;
+        min-height: 64px;
         padding: 0 clamp(18px, 4vw, 48px);
         border-bottom: 1px solid var(--line);
-        background: #fbfbf7;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(16px);
       }
-      .brand { display: flex; align-items: center; gap: 10px; font-weight: 850; }
-      .mark { width: 17px; height: 17px; background: var(--accent); transform: rotate(45deg); }
-      .layout {
-        display: grid;
-        grid-template-columns: minmax(300px, 430px) minmax(0, 1fr);
-        gap: 18px;
-        padding: 18px;
-      }
-      .panel { border: 1px solid var(--line); background: var(--panel); box-shadow: 0 18px 48px var(--shadow); }
-      .panel + .panel { margin-top: 18px; }
-      .panel-head { padding: 18px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
-      .panel-body { padding: 18px; }
-      h1, h2, h3, p { margin-top: 0; letter-spacing: 0; }
-      h1 { font-size: 28px; margin-bottom: 4px; }
-      h2 { font-size: 18px; margin-bottom: 0; }
-      h3 { font-size: 15px; margin-bottom: 8px; }
-      p, .small { color: var(--muted); line-height: 1.55; }
-      .small { font-size: 13px; }
-      .stack { display: grid; gap: 14px; }
-      .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-      .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-      .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-      .plan { border: 1px solid var(--line); padding: 12px; }
-      .key-box, .status { border: 1px solid var(--line); background: var(--soft); padding: 12px; min-height: 44px; }
-      .key-box { word-break: break-all; font-family: "SFMono-Regular", Consolas, monospace; font-size: 12px; }
-      .section-label { color: var(--muted); font-size: 12px; font-weight: 850; letter-spacing: 0.08em; text-transform: uppercase; }
-      .intro-copy { max-width: 840px; font-size: 15px; }
-      .use-case-card {
-        min-height: 118px;
-        padding: 14px;
-        border: 1px solid var(--line);
-        background: white;
+      .brand {
         color: var(--ink);
-        text-align: left;
-        display: grid;
-        align-content: start;
-        gap: 8px;
+        font-size: 18px;
+        font-weight: 820;
+        text-decoration: none;
       }
-      .use-case-card strong { font-size: 14px; }
-      .use-case-card span { color: var(--muted); font-size: 13px; line-height: 1.45; font-weight: 560; }
-      .use-case-card[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
-      .context-checks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-      .context-check {
-        border: 1px solid var(--line);
-        background: #fbfbf7;
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 16px;
         color: var(--muted);
-        padding: 10px 11px;
+        font-size: 14px;
+      }
+      .nav a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .nav a:hover { color: var(--ink); }
+      .shell {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 auto;
+        padding: 42px 0 80px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
+        gap: 28px;
+        align-items: start;
+        margin-bottom: 32px;
+      }
+      h1, h2, h3, p { margin-top: 0; letter-spacing: 0; }
+      h1 {
+        max-width: 780px;
+        margin-bottom: 14px;
+        font-size: clamp(38px, 6vw, 74px);
+        line-height: 1.03;
+      }
+      h2 { margin-bottom: 0; font-size: 20px; }
+      h3 { margin-bottom: 8px; font-size: 15px; }
+      p, .small {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .lede {
+        max-width: 720px;
+        font-size: 18px;
+      }
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+      .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .panel {
+        border: 1px solid var(--line);
+        background: var(--panel);
+      }
+      .panel-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: flex-start;
+        padding: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+      .panel-body { padding: 18px; }
+      .metric {
+        min-height: 132px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+      .metric span {
+        display: block;
+        margin-bottom: 22px;
+        color: var(--muted);
         font-size: 12px;
         font-weight: 760;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
-      .context-check.done { color: var(--ink); border-color: #9fa89a; background: var(--soft); }
-      .context-preview {
+      .metric strong {
+        display: block;
+        font-size: 30px;
+        font-weight: 780;
+      }
+      .metric small {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .key-box {
         border: 1px solid var(--line);
-        background: #fbfbf7;
+        background: var(--soft);
         padding: 14px;
-        white-space: pre-wrap;
+        word-break: break-all;
         font-family: "SFMono-Regular", Consolas, monospace;
         font-size: 12px;
-        line-height: 1.55;
-        color: #2b3033;
+        line-height: 1.5;
       }
-      .result-extra { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 14px; }
-      .result-card { border: 1px solid var(--line); background: #fbfbf7; padding: 14px; margin-bottom: 12px; }
-      .result-card h3 { margin-bottom: 6px; }
-      .pill { display: inline-flex; border: 1px solid var(--line); background: var(--soft); padding: 4px 8px; font-size: 12px; font-weight: 780; }
-      .result-layout { display: grid; grid-template-columns: minmax(240px, 340px) minmax(0, 1fr); gap: 18px; }
-      .distribution { display: grid; gap: 10px; }
-      .dist-meta { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
-      .bar { height: 9px; background: var(--soft); }
-      .bar span { display: block; height: 100%; background: var(--accent); }
-      .cluster { border: 1px solid var(--line); padding: 16px; margin-bottom: 12px; background: white; }
-      .cluster-top { display: flex; justify-content: space-between; gap: 18px; margin-bottom: 10px; }
-      .share { color: var(--accent-2); font-weight: 850; white-space: nowrap; }
-      .voice { border-left: 3px solid var(--ink); padding: 8px 0 8px 12px; margin: 8px 0; line-height: 1.55; }
-      .history-item { border-top: 1px solid var(--line); padding: 12px 0; }
-      .text-link { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+      .section {
+        margin-top: 24px;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .stack {
+        display: grid;
+        gap: 14px;
+      }
+      .usage-row {
+        display: grid;
+        grid-template-columns: minmax(120px, 180px) minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .usage-row:last-child { border-bottom: 0; }
+      .bar {
+        height: 8px;
+        background: var(--soft);
+      }
+      .bar span {
+        display: block;
+        height: 100%;
+        background: var(--ink);
+      }
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      .table th, .table td {
+        padding: 13px 10px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+      .table th {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 780;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 0 8px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .plan-button {
+        min-height: 46px;
+        border-color: var(--line);
+        background: #ffffff;
+        color: var(--ink);
+      }
+      .plan-button[aria-pressed="true"] {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: #ffffff;
+      }
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        display: grid;
+        place-items: center;
+        padding: 18px;
+        background: rgba(0, 0, 0, 0.32);
+      }
+      .modal {
+        width: min(100%, 620px);
+        border: 1px solid var(--line);
+        background: #ffffff;
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.22);
+      }
+      .modal .panel-head { align-items: center; }
+      .modal h2 { font-size: 28px; }
       .hidden { display: none !important; }
-      @media (max-width: 980px) {
-        .layout, .result-layout, .grid-2, .grid-3, .plans, .context-checks { grid-template-columns: 1fr; }
+      @media (max-width: 900px) {
+        .hero, .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        .topbar { align-items: flex-start; flex-direction: column; padding: 16px 18px; }
+        .usage-row { grid-template-columns: 1fr; }
+        .table { display: block; overflow-x: auto; white-space: nowrap; }
       }
     </style>
   </head>
   <body>
     <header class="topbar">
-      <div class="brand"><span class="mark"></span><span>Yomira</span></div>
-      <div class="row">
-        <span id="account" class="small"></span>
+      <a class="brand" href="./">Yomira</a>
+      <nav class="nav" aria-label="Dashboard">
+        <a href="#overview">Overview</a>
+        <a href="#billing">Billing</a>
+        <a href="#history">History</a>
+        <a href="https://docs.tryyomira.com/" target="_blank" rel="noopener">Docs</a>
         <button id="logout" class="secondary">Log out</button>
-      </div>
+      </nav>
     </header>
-    <main class="layout">
-      <aside>
-        <section class="panel">
-          <div class="panel-head"><div><h2>Account</h2><p class="small">API key and credits.</p></div></div>
-          <div class="panel-body stack">
-            <div id="balance" class="status">Credits: -</div>
-            <div class="key-box" id="api-key"></div>
-            <button id="copy-key" class="secondary">Copy API key</button>
+
+    <main class="shell">
+      <section class="hero" id="overview">
+        <div>
+          <h1>API usage, credits, and history.</h1>
+          <p class="lede">Yomira is used from your AI agent or API client. This dashboard is for the boring important parts: keys, usage, billing, auto top-up, and previous simulation exports.</p>
+          <div class="row">
+            <button id="copy-agent-prompt">Copy one-line agent setup</button>
+            <button id="open-buy-credits" class="secondary">Purchase credits</button>
           </div>
-        </section>
-
-        <section class="panel">
-          <div class="panel-head"><div><h2>Agent setup</h2><p class="small">Paste this into Claude Code, Codex, Cursor, Hermes Agent, OpenClaw, or another AI agent.</p></div></div>
-          <div class="panel-body stack">
-            <button id="copy-agent-prompt">Copy agent setup prompt</button>
-            <div class="small">This includes your API key and tells the agent to call the API instead of guessing reactions.</div>
-            <a class="small text-link" href="https://docs.tryyomira.com/" target="_blank" rel="noopener">Open docs</a>
-          </div>
-        </section>
-
-        <section class="panel">
-          <div class="panel-head"><div><h2>Credits</h2><p class="small">Buy credits. External-data and enterprise simulations are custom.</p></div></div>
-          <div class="panel-body stack">
-            <div class="plans">
-              <div class="plan"><strong>$20</strong><div class="small">100 credits</div><button data-plan="pack_100">Buy</button></div>
-              <div class="plan"><strong>$99</strong><div class="small">700 credits</div><button data-plan="pack_700">Buy</button></div>
-              <div class="plan"><strong>$299</strong><div class="small">2,500 credits</div><button data-plan="pack_2500">Buy</button></div>
-            </div>
-            <div class="small">Credit use: Quick 5, Standard 20, Deep 60, 1000-person Report 250.</div>
-            <label class="row"><input id="auto-enabled" type="checkbox" style="width:auto" /> Auto top-up</label>
-            <div class="grid-2">
-              <label>Threshold <input id="auto-threshold" type="number" min="0" step="1" value="10" /></label>
-              <label>Top-up pack <input id="auto-credits" type="text" value="$20 / 100 credits" disabled /></label>
-            </div>
-            <button id="save-auto" class="secondary">Save billing settings</button>
-            <div id="billing-status" class="small"></div>
-          </div>
-        </section>
-
-        <section class="panel">
-          <div class="panel-head"><div><h2>History</h2><p class="small">Download previous runs.</p></div></div>
-          <div class="panel-body" id="history"></div>
-        </section>
-      </aside>
-
-      <section>
-        <section class="panel">
+        </div>
+        <aside class="panel">
           <div class="panel-head">
             <div>
-              <div class="section-label">First-run workflow</div>
-              <h1>Build context, then simulate.</h1>
-              <p class="small intro-copy">Yomira is not a casual reaction guesser. Choose the decision scene, paste the real thing people will see, add the surrounding context, and then run a synthetic audience that returns percentages and raw private voices.</p>
+              <h2>Account</h2>
+              <p id="account" class="small"></p>
             </div>
-            <button id="sample" class="secondary">Load sample</button>
           </div>
           <div class="panel-body stack">
-            <div class="stack">
-              <div class="section-label">What do you want to simulate?</div>
-              <div class="grid-3" id="use-case-grid">
-                <button type="button" class="use-case-card" data-template="message" aria-pressed="true">
-                  <strong>Message before sending</strong>
-                  <span>DMs, emails, asks, intros, founder outreach, or sensitive replies.</span>
-                </button>
-                <button type="button" class="use-case-card" data-template="content" aria-pressed="false">
-                  <strong>Content before publishing</strong>
-                  <span>X posts, LinkedIn posts, essays, ads, GEO pages, or launch content.</span>
-                </button>
-                <button type="button" class="use-case-card" data-template="landing" aria-pressed="false">
-                  <strong>Landing page / offer</strong>
-                  <span>Trust, confusion, desire, buying intent, and the proof people ask for.</span>
-                </button>
-                <button type="button" class="use-case-card" data-template="product" aria-pressed="false">
-                  <strong>Product direction</strong>
-                  <span>New products, features, positioning, and who would actually care.</span>
-                </button>
-                <button type="button" class="use-case-card" data-template="pricing" aria-pressed="false">
-                  <strong>Pricing / packaging</strong>
-                  <span>Willingness to pay, objections, plan confusion, and enterprise pull.</span>
-                </button>
-                <button type="button" class="use-case-card" data-template="enterprise" aria-pressed="false">
-                  <strong>Grounded enterprise pilot</strong>
-                  <span>Use real customer, market, social, or CRM data for serious decisions.</span>
-                </button>
-              </div>
-              <input id="artifact-type" type="hidden" value="message" />
-            </div>
-
-            <label>Decision / objective <input id="objective" value="Decide whether this product should be launched as a paid API." /></label>
-            <label>Artifact <textarea id="artifact">An API that simulates how likely human audiences would react to a product, profile, offer, or content artifact. It returns many realistic private voices and aggregate patterns for better decisions.</textarea></label>
-            <label>Audience <textarea id="audience">Indie hackers, AI tool builders, agency owners, startup founders, and operators who already use Claude Code, Codex, Cursor, or other agentic coding tools.</textarea></label>
-
-            <div class="grid-2">
-              <label>Channel / situation <input id="channel" value="AI-native product launch on X, docs, and direct founder conversations" /></label>
-              <label>Desired action <input id="desired-action" value="Understand it, trust it enough to try it, and consider buying credits." /></label>
-            </div>
-            <label>Sender / company context <textarea id="sender-context">Yomira is a new agent-native simulation API. The founder wants to test real demand quickly, sell self-serve credits, and later offer grounded enterprise pilots.</textarea></label>
-            <label>Known concerns / objections <textarea id="known-concerns">People may think agent simulation is just an LLM wrapper, may doubt accuracy, may not understand when to use it, or may worry the setup is too confusing.</textarea></label>
-            <label>Alternatives or variants being considered <textarea id="alternatives">Self-serve API for agent users; enterprise grounded simulation pilots; content preflight; message preflight; product direction simulations.</textarea></label>
-            <label class="row"><input id="compare-enabled" type="checkbox" style="width:auto" /> Compare multiple concrete options</label>
-            <label id="compare-options-wrap" class="hidden">Options to compare
-              <textarea id="compare-options">Short DM: Hey - saw your like on my Yomira post. Want me to run one reaction simulation for something you are working on?
-
-Long context DM: I am building Yomira, an API for agent-native reaction simulation. It can test messages, LPs, offers, and product ideas before you send or publish. Want to try it and give blunt feedback?
-
-Ask-first DM: Curious what part of the post resonated with you - agent-native workflows, simulation, or decision support?</textarea>
-            </label>
-            <label>Available data or grounding material <textarea id="available-data">No external dataset in this self-serve run. Use the described audience and the working context above. Enterprise pilots can use customer notes, interviews, reviews, CRM rows, X/social data, and market source material.</textarea></label>
-
-            <div class="stack">
-              <div class="section-label">Context quality</div>
-              <div class="context-checks" id="context-checks">
-                <div class="context-check" data-check="artifact">Exact artifact</div>
-                <div class="context-check" data-check="audience">Audience</div>
-                <div class="context-check" data-check="channel">Channel</div>
-                <div class="context-check" data-check="sender">Sender context</div>
-                <div class="context-check" data-check="action">Desired action</div>
-                <div class="context-check" data-check="concerns">Known concerns</div>
-              </div>
-              <div id="context-preview" class="context-preview"></div>
-            </div>
-
-            <div class="grid-2">
-              <label>Mode
-                <select id="mode">
-                  <option value="fast">Fast</option>
-                  <option value="standard">Standard</option>
-                  <option value="deep">Deep</option>
-                </select>
-              </label>
-              <label>Simulated people <input id="target-n" type="number" min="12" max="1000" value="40" /></label>
-            </div>
-            <div class="grid-2">
-              <label>Representative voices shown <input id="voice-limit" type="number" min="8" max="40" value="8" /></label>
-            </div>
+            <div class="key-box" id="api-key"></div>
             <div class="row">
-              <button id="run">Run simulation</button>
-              <span id="run-status" class="small"></span>
+              <button id="copy-key" class="secondary">Copy API key</button>
+              <button id="open-auto-topup" class="secondary">Auto top-up</button>
             </div>
           </div>
-        </section>
+        </aside>
+      </section>
 
-        <section id="results" class="hidden">
-          <div class="panel">
-            <div class="panel-head">
-              <div><h2>Result</h2><p id="result-note" class="small"></p></div>
-              <div class="row">
-                <button id="download-json" class="secondary">Download JSON</button>
-                <button id="download-md" class="secondary">Download Markdown</button>
-              </div>
-            </div>
-            <div class="panel-body result-layout">
-              <div>
-                <div id="trust-layer" class="result-card"></div>
-                <div id="audience-report" class="result-card"></div>
-                <div id="distribution" class="distribution"></div>
-              </div>
-              <div>
-                <div id="comparison-result" class="result-card hidden"></div>
-                <div id="clusters"></div>
-                <div id="result-next" class="result-extra"></div>
-                <div id="calibration" class="result-extra stack">
-                  <h3>Log real outcome</h3>
-                  <label>Actual outcome <textarea id="actual-outcome" placeholder="Example: sent the DM to 12 people; 4 replied; 1 asked for the link."></textarea></label>
-                  <label>Prediction match / surprise <textarea id="calibration-notes" placeholder="What matched the simulation? What surprised you?"></textarea></label>
-                  <div class="row">
-                    <button id="save-calibration" class="secondary">Save calibration</button>
-                    <span id="calibration-status" class="small"></span>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <section class="grid grid-4 section" aria-label="Metrics">
+        <div class="metric"><span>Credits</span><strong id="metric-credits">-</strong><small id="metric-autotopup">Auto top-up -</small></div>
+        <div class="metric"><span>Simulations</span><strong id="metric-runs">-</strong><small id="metric-last-run">Last run -</small></div>
+        <div class="metric"><span>Credits used</span><strong id="metric-used">-</strong><small id="metric-avg">Average -</small></div>
+        <div class="metric"><span>Success rate</span><strong id="metric-success">-</strong><small id="metric-active">Queued / running -</small></div>
+      </section>
+
+      <section class="grid grid-2 section">
+        <div class="panel">
+          <div class="panel-head"><div><h2>API usage analysis</h2><p class="small">Based on saved simulation jobs.</p></div></div>
+          <div class="panel-body" id="usage-analysis"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div><h2>Simulation analysis</h2><p class="small">What you have actually been using Yomira for.</p></div></div>
+          <div class="panel-body" id="simulation-analysis"></div>
+        </div>
+      </section>
+
+      <section class="panel section" id="billing">
+        <div class="panel-head">
+          <div>
+            <h2>Billing</h2>
+            <p class="small">Prepaid credits. Auto top-up keeps agent workflows from failing mid-decision.</p>
           </div>
-        </section>
+          <div class="row">
+            <button id="open-buy-credits-2">Purchase credits</button>
+            <button id="open-auto-topup-2" class="secondary">Auto top-up settings</button>
+          </div>
+        </div>
+        <div class="panel-body grid grid-3">
+          <div class="metric"><span>Current balance</span><strong id="billing-balance">-</strong><small>credits</small></div>
+          <div class="metric"><span>Auto top-up threshold</span><strong id="billing-threshold">-</strong><small>credits</small></div>
+          <div class="metric"><span>Auto top-up pack</span><strong id="billing-pack">-</strong><small>when enabled</small></div>
+        </div>
+      </section>
+
+      <section class="panel section" id="history">
+        <div class="panel-head">
+          <div>
+            <h2>History</h2>
+            <p class="small">Every saved simulation. Download JSON or Markdown and continue in Claude Code, Codex, Cursor, or your team docs.</p>
+          </div>
+          <button id="refresh-history" class="secondary">Refresh</button>
+        </div>
+        <div class="panel-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Simulation</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>People</th>
+                <th>Credits</th>
+                <th>Created</th>
+                <th>Export</th>
+              </tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
       </section>
     </main>
+
+    <div id="purchase-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="purchase-title">
+      <div class="modal">
+        <div class="panel-head">
+          <div><h2 id="purchase-title">Purchase credits</h2><p class="small">Add prepaid balance. Purchased credits do not expire.</p></div>
+          <button class="ghost" data-close-modal="purchase-modal" aria-label="Close">Close</button>
+        </div>
+        <div class="panel-body stack">
+          <div class="grid grid-3" id="purchase-plans">
+            <button class="plan-button" data-plan="pack_100" aria-pressed="true">$20 / 100</button>
+            <button class="plan-button" data-plan="pack_700" aria-pressed="false">$99 / 700</button>
+            <button class="plan-button" data-plan="pack_2500" aria-pressed="false">$299 / 2,500</button>
+          </div>
+          <div class="metric"><span>Selected pack</span><strong id="selected-plan-label">$20</strong><small id="selected-plan-note">100 credits for quick checks and early experiments.</small></div>
+          <button id="continue-checkout">Continue to payment</button>
+          <div id="billing-status" class="small"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="auto-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="auto-title">
+      <div class="modal">
+        <div class="panel-head">
+          <div><h2 id="auto-title">Auto top-up settings</h2><p class="small">Trigger a saved-payment recharge when credits fall below a threshold.</p></div>
+          <button class="ghost" data-close-modal="auto-modal" aria-label="Close">Close</button>
+        </div>
+        <div class="panel-body stack">
+          <label>Top-up pack
+            <select id="auto-credits">
+              <option value="100">100 credits / $20</option>
+              <option value="700">700 credits / $99</option>
+              <option value="2500">2,500 credits / $299</option>
+            </select>
+          </label>
+          <label>Trigger when balance is below
+            <input id="auto-threshold" type="number" min="0" step="1" value="10" />
+          </label>
+          <label class="row">
+            <input id="auto-enabled" type="checkbox" style="width:auto; min-height:auto" />
+            Enable auto top-up for this account.
+          </label>
+          <p class="small">Auto top-up requires a saved Stripe payment method. Buying any credit pack saves the payment method for future off-session top-ups when Stripe allows it.</p>
+          <button id="save-auto">Save settings</button>
+          <div id="auto-status" class="small"></div>
+        </div>
+      </div>
+    </div>
+
     <script src="./dashboard.js"></script>
   </body>
 </html>

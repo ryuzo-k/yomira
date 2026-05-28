@@ -3,6 +3,11 @@ import { stripeGet, stripeRequest } from "./stripe.mjs";
 
 const DEFAULT_TOPUP_AMOUNT_CENTS = 2000;
 const DEFAULT_TOPUP_CREDITS = 100;
+const TOPUP_PACKS = {
+  100: 2000,
+  700: 9900,
+  2500: 29900
+};
 
 export async function maybeAutoTopup({ user, creditAccount, creditsNeeded = 0, reason = "low_balance" }) {
   if (!user?.stripeCustomerId || !creditAccount?.auto_topup_enabled) {
@@ -15,8 +20,11 @@ export async function maybeAutoTopup({ user, creditAccount, creditsNeeded = 0, r
     return { attempted: false };
   }
 
-  const packs = Math.max(1, Math.ceil(Number(creditsNeeded || DEFAULT_TOPUP_CREDITS) / DEFAULT_TOPUP_CREDITS));
-  const topupCredits = packs * DEFAULT_TOPUP_CREDITS;
+  const configuredCredits = Number(creditAccount.auto_topup_credits || DEFAULT_TOPUP_CREDITS);
+  const baseCredits = TOPUP_PACKS[configuredCredits] ? configuredCredits : DEFAULT_TOPUP_CREDITS;
+  const packs = Math.max(1, Math.ceil(Number(creditsNeeded || baseCredits) / baseCredits));
+  const topupCredits = packs * baseCredits;
+  const amountCents = packs * (TOPUP_PACKS[baseCredits] || DEFAULT_TOPUP_AMOUNT_CENTS);
   const paymentMethod = await getReusablePaymentMethod(user.stripeCustomerId);
   if (!paymentMethod) {
     return {
@@ -27,7 +35,7 @@ export async function maybeAutoTopup({ user, creditAccount, creditsNeeded = 0, r
   }
 
   const paymentIntent = await stripeRequest("/payment_intents", {
-    amount: packs * DEFAULT_TOPUP_AMOUNT_CENTS,
+    amount: amountCents,
     currency: "usd",
     customer: user.stripeCustomerId,
     payment_method: paymentMethod,

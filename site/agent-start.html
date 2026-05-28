@@ -37,7 +37,14 @@
           <h2>Copy this into your AI agent</h2>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
-              <strong>Agent-native setup prompt</strong>
+              <strong>One-line setup prompt</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="agent-one-line-setup">Copy</button>
+            </div>
+            <pre class="essay-code"><code id="agent-one-line-setup">Set up Yomira in this user's AI-agent environment: read https://tryyomira.com/llms.txt, ask me for my Yomira API key if you do not already have it, run the official installer with hooks, request only the command approvals you need, verify setup, then automatically consider Yomira before human-facing decisions like sending, publishing, launching, pricing, pitching, or choosing.</code></pre>
+          </div>
+          <div class="docs-copy-card">
+            <div class="docs-copy-head">
+              <strong>Long-form setup prompt</strong>
               <button class="docs-copy-button" type="button" data-copy-target="agent-native-setup">Copy</button>
             </div>
             <pre class="essay-code"><code id="agent-native-setup">Set up Yomira in this environment.
@@ -50,24 +57,15 @@ https://docs.tryyomira.com/mcp
 
 Use that MCP server to look up Yomira setup, API parameters, examples, and best practices. Do not confuse it with the Yomira simulation API.
 
-Use these signup details:
-name: YOUR_NAME
-email: YOUR_EMAIL
-password: CHOOSE_A_LONG_PASSWORD
-companyName: YOUR_COMPANY
-companyUrl: YOUR_COMPANY_URL
-role: YOUR_ROLE
-intendedUse: WHAT_YOU_WANT_TO_SIMULATE
+If you do not already have my Yomira API key, ask me for it first. If I do not have one, open the dashboard URL and help me create one:
+https://tryyomira.com/admin.html
 
 Then do this:
-1. Create my account with POST /api/auth/register.
-2. Save the returned API key securely.
-3. Install the official Yomira skill.
-4. Also install Mora if available.
-5. Install automatic hooks/rules into this user's AI-agent environment, not into the Yomira repository.
-6. Run a setup check.
-7. Run a tiny test simulation or prepare the exact command I should approve.
-8. Tell me exactly how to use Yomira next.</code></pre>
+1. Run: npx -y github:ryuzo-k/yomira init --api-key sim_MY_KEY --target all --with-mora --hooks
+2. Replace sim_MY_KEY with the API key I provide.
+3. Request command approval only if this agent environment requires it.
+4. Run: npx -y github:ryuzo-k/yomira doctor
+5. Tell me exactly what was installed and how to use Yomira next.</code></pre>
           </div>
         </section>
 

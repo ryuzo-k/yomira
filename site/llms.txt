@@ -28,13 +28,20 @@ Enterprise:
 
 Agent onboarding:
 0. Run setup in the user's own project/environment, not inside the Yomira source repository.
-1. Create an account with POST /api/auth/register.
-2. Store the returned apiKey securely.
-3. Install the official Yomira skill from https://github.com/ryuzo-k/yomira/tree/main/skills/yomira.
-4. Use POST /api/simulate to create a simulation.
-5. Poll GET /api/simulations/{simulation_id} until completed.
-6. Download Markdown with GET /api/simulations/{simulation_id}?format=markdown.
-7. If POST /api/simulate returns 422 with missing_context, ask the user for the missing artifact, audience/channel, or objective before retrying.
+1. If the user did not provide an API key, ask for it first. Do not make them manually edit config files.
+2. If the user does not have a key, direct them to https://tryyomira.com/admin.html or help them create an account with POST /api/auth/register.
+3. Store the returned apiKey securely using the official CLI installer.
+4. Install the official Yomira skill from https://github.com/ryuzo-k/yomira/tree/main/skills/yomira.
+5. Use POST /api/simulate to create a simulation.
+6. Poll GET /api/simulations/{simulation_id} until completed.
+7. Download Markdown with GET /api/simulations/{simulation_id}?format=markdown.
+8. If POST /api/simulate returns 422 with missing_context, ask the user for the missing artifact, audience/channel, or objective before retrying.
+
+One-line setup prompt for users to paste into an AI agent:
+
+```text
+Set up Yomira in this user's AI-agent environment: read https://tryyomira.com/llms.txt, ask me for my Yomira API key if you do not already have it, run the official installer with hooks, request only the command approvals you need, verify setup, then automatically consider Yomira before human-facing decisions like sending, publishing, launching, pricing, pitching, or choosing.
+```
 
 If the `yomira` CLI is available, use:
 

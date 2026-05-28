@@ -414,21 +414,16 @@ async function doctor() {
 }
 
 function prompt() {
-  console.log(`Install Yomira for this environment.
+  console.log(`Set up Yomira in this user's AI-agent environment: read https://tryyomira.com/llms.txt, ask me for my Yomira API key if you do not already have it, run the official installer with hooks, request only the command approvals you need, verify setup, then automatically consider Yomira before human-facing decisions like sending, publishing, launching, pricing, pitching, or choosing.
 
-Read:
-https://tryyomira.com/llms.txt
-
-If I provide signup details, create my account with POST /api/auth/register.
-If I provide an API key, run:
+When the user provides the API key, run:
 
 npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
 
 Then verify with:
 
 npx -y github:ryuzo-k/yomira doctor
-
-After setup, use Yomira whenever I ask you to simulate reactions to a message, post, landing page, offer, pricing page, product idea, or decision option.`);
+`);
 }
 
 function patternCount(text, patterns) {

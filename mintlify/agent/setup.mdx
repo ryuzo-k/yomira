@@ -15,6 +15,21 @@ This does not mean every AI product has the same hook system. It means the insta
 
 Run this in the user's own AI-agent environment and project root. Do not run it inside the Yomira repository unless you are developing Yomira itself.
 
+## One-line agent setup
+
+Paste this into Claude Code, Codex, Cursor, Hermes Agent, or another terminal-capable AI agent:
+
+```text
+Set up Yomira in this user's AI-agent environment: read https://tryyomira.com/llms.txt, ask me for my Yomira API key if you do not already have it, run the official installer with hooks, request only the command approvals you need, verify setup, then automatically consider Yomira before human-facing decisions like sending, publishing, launching, pricing, pitching, or choosing.
+```
+
+The agent should ask for the API key, then run:
+
+```bash
+npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
+npx -y github:ryuzo-k/yomira doctor
+```
+
 If you already have an API key, run:
 
 ```bash

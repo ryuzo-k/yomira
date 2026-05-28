@@ -31,6 +31,12 @@ Self-serve outcome logs do not automatically retrain the model today. Enterprise
 Most users should not start with curl. Paste this into Claude Code, Codex, Cursor, Hermes Agent, or another terminal-capable AI agent:
 
 ```text
+Set up Yomira in this user's AI-agent environment: read https://tryyomira.com/llms.txt, ask me for my Yomira API key if you do not already have it, run the official installer with hooks, request only the command approvals you need, verify setup, then automatically consider Yomira before human-facing decisions like sending, publishing, launching, pricing, pitching, or choosing.
+```
+
+Long-form version:
+
+```text
 Use Yomira for reaction simulation.
 
 API base URL: https://tryyomira.com

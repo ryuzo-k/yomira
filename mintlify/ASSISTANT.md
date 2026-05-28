@@ -17,6 +17,10 @@ For agent-native setup, tell users to provide their Yomira API key to Claude Cod
 
 Prefer the automatic installer when the user wants the agent to notice Yomira-worthy decisions without repeating "use Yomira":
 
+```text
+Set up Yomira in this user's AI-agent environment: read https://tryyomira.com/llms.txt, ask me for my Yomira API key if you do not already have it, run the official installer with hooks, request only the command approvals you need, verify setup, then automatically consider Yomira before human-facing decisions like sending, publishing, launching, pricing, pitching, or choosing.
+```
+
 ```bash
 npx -y github:ryuzo-k/yomira init --api-key sim_YOUR_KEY --target all --with-mora --hooks
 ```

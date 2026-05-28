@@ -16,9 +16,10 @@ It is designed for workflows where an AI agent gathers the working context first
 ## Fastest path
 
 1. Create an account and get an API key from the dashboard.
-2. Install the official Yomira skill into your AI agent.
-3. Ask the agent to gather context before calling the API.
-4. Poll the simulation result and use the output in your next decision.
+2. Paste the one-line setup prompt into your AI agent.
+3. Let the agent run the official installer with hooks/rules.
+4. Ask the agent to gather context before calling the API.
+5. Poll the simulation result and use the output in your next decision.
 
 <CardGroup cols={2}>
   <Card title="Quickstart" href="/quickstart">
@@ -47,9 +48,11 @@ Bad usage is asking for generic market opinions from one short sentence.
 
 If the user is working inside Claude Code, Codex, Cursor, Hermes Agent, or another agent, the agent should gather context from the current conversation, files, docs, company material, and known constraints before calling Yomira.
 
+Yomira is not an always-on hook inside every AI agent yet. The reliable path is to install the skill or paste the setup prompt, then explicitly ask the agent to use Yomira for a decision. The agent should ask for missing information before calling the API.
+
 ## Human and machine entrypoints
 
 - Human-readable product site: https://tryyomira.com/
 - Machine-readable summary: https://tryyomira.com/llms.txt
 - Agent-native setup page: https://tryyomira.com/agent-start
-- Documentation MCP server: https://docs.tryyomira.com/mcp
+- MCP is not required. There is no official Yomira simulation MCP server yet.

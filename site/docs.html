@@ -61,22 +61,17 @@
           </ol>
         </section>
 
-        <section class="essay-section" id="official-skill">
-          <h2>Official skill</h2>
+        <section class="essay-section" id="agent-setup">
+          <h2>One-line agent setup</h2>
           <p>
-            The official skill tells your agent when to use the API, how to collect context, how to poll results, and how to report raw voices without replacing the API with casual guessing.
+            The recommended path is to paste one setup prompt into a terminal-capable AI agent. The agent reads <code>llms.txt</code>, asks for your API key, runs the installer, installs hooks/rules where possible, and verifies the setup.
           </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
-              <strong>Install the official Yomira skill</strong>
-              <button class="docs-copy-button" type="button" data-copy-target="official-skill-prompt">Copy</button>
+              <strong>Set up Yomira in your agent</strong>
+              <button class="docs-copy-button" type="button" data-copy-target="agent-setup-prompt">Copy</button>
             </div>
-            <pre class="essay-code"><code id="official-skill-prompt">Install the official Yomira skill from this GitHub repo:
-https://github.com/ryuzo-k/yomira/tree/main/skills/yomira
-
-After installing, use it whenever I ask you to simulate reactions to a message, post, landing page, offer, pricing page, product idea, or decision option.
-
-If I provide a Yomira API key, call the real API. Do not replace it with casual reaction prediction unless I explicitly ask you not to use the API.</code></pre>
+            <pre class="essay-code"><code id="agent-setup-prompt">Set up Yomira in this user's AI-agent environment: read https://tryyomira.com/llms.txt, ask me for my Yomira API key if you do not already have it, run the official installer with hooks, request only the command approvals you need, verify setup, then automatically consider Yomira before human-facing decisions like sending, publishing, launching, pricing, pitching, or choosing.</code></pre>
           </div>
         </section>
 
@@ -89,7 +84,7 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
             Run the CLI from the user's own project root. It installs into that user's home directory and current project, not into the Yomira source repository.
           </p>
           <p>
-            If your agent supports MCP, connect it to the Yomira documentation MCP server at <code>https://docs.tryyomira.com/mcp</code>. Use it to search setup instructions, API parameters, examples, and best practices before calling the Yomira API.
+            MCP is not required. Yomira currently works through the HTTP API plus the official installer, hooks, and agent rules. There is no official Yomira simulation MCP server yet.
           </p>
           <p>
             For the shortest flow, open <a href="./agent-start">Agent Start</a> and paste the setup prompt into Claude Code, Codex, Cursor, Hermes Agent, or another terminal-capable agent.

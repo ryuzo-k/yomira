@@ -53,17 +53,12 @@ What this installs:
 
 After this, the agent should proactively consider Yomira when the user is about to send, publish, launch, price, pitch, choose, or compare something that other people will judge. It should still ask for missing context before calling the API.
 
-## Install the skill
+## Recommended setup prompt
 
-Ask your agent to install the official skill:
+Ask your agent to run the official installer instead of manually copying files:
 
 ```text
-Install the official Yomira skill from this GitHub repo:
-https://github.com/ryuzo-k/yomira/tree/main/skills/yomira
-
-After installing, use it whenever I ask you to simulate reactions to a message, post, landing page, offer, pricing page, product idea, or decision option.
-
-If I provide a Yomira API key, call the real API. Do not replace it with casual reaction prediction unless I explicitly ask you not to use the API.
+Set up Yomira in this user's AI-agent environment: read https://tryyomira.com/llms.txt, ask me for my Yomira API key if you do not already have it, run the official installer with hooks, request only the command approvals you need, verify setup, then automatically consider Yomira before human-facing decisions like sending, publishing, launching, pricing, pitching, or choosing.
 ```
 
 ## Universal setup prompt
@@ -76,15 +71,12 @@ You can use Yomira for reaction simulation.
 API base URL:
 https://tryyomira.com
 
-Documentation MCP server:
-https://docs.tryyomira.com/mcp
-
 API key:
 sim_YOUR_KEY
 
 When I ask you to simulate reactions:
 
-1. If MCP is available, use the documentation MCP server to look up Yomira setup, API parameters, examples, and best practices.
+1. Use the HTTP API. MCP is not required, and there is no official Yomira simulation MCP server yet.
 2. Identify the exact artifact people will see. If the artifact is missing, ask me for it.
 3. Build a context packet from the current conversation: objective, audience, channel, sender/company context, desired action, known concerns, and alternatives.
 4. If the exact artifact, audience, channel, or objective is missing, ask me the smallest number of questions before calling the API.

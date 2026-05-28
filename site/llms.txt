@@ -15,9 +15,9 @@ Important pages:
 
 AI agent docs access:
 - Mintlify docs: https://docs.tryyomira.com/
-- Mintlify MCP server: https://docs.tryyomira.com/mcp
-- Use the MCP server as a documentation/search MCP for Yomira setup, API parameters, examples, and best practices.
-- Do not treat the Mintlify MCP server as the Yomira simulation API itself. The simulation API remains https://tryyomira.com/api/simulate.
+- MCP is not required for Yomira self-serve setup.
+- There is no official Yomira simulation MCP server yet.
+- The reliable integration path is the HTTP API plus the official local installer, hooks, and agent rules.
 
 Enterprise:
 - Enterprise pilots start from 300,000 JPY / $2,000.

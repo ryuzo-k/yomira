@@ -40,7 +40,7 @@
             </p>
             <div class="essay-actions">
               <a class="essay-button" href="./admin.html">Start with credits &rarr;</a>
-              <a class="essay-link" href="https://docs.tryyomira.com/">Copy agent setup</a>
+              <a class="essay-link" href="#agent-setup">Copy agent setup</a>
               <a class="essay-link" href="#enterprise">Enterprise pilot</a>
             </div>
           </div>
@@ -179,28 +179,23 @@
               <p>Yomira returns a trust layer, audience construction report, distributions, clusters, raw voices, missing-data warnings, and exports for the next decision.</p>
             </li>
             <li>
-              <div>5. Compare and calibrate</div>
-              <p>When you have multiple options, Yomira simulates every concrete option. After you use one, log the real outcome so future decisions can be calibrated.</p>
+              <div>5. Compare and record outcomes</div>
+              <p>When you have multiple options, Yomira simulates every concrete option. After you use one, you can save what actually happened next to the simulation. This is a comparison log, not automatic model training.</p>
             </li>
           </ol>
         </section>
 
-        <section class="essay-section" id="skill">
-          <h2>Official skill</h2>
+        <section class="essay-section" id="agent-setup">
+          <h2>One-line agent setup</h2>
           <p>
-            Install the Yomira skill into Claude Code, Codex, Cursor, Hermes Agent, or another AI agent. The skill tells your agent to gather the necessary context first, construct the target audience, and then call the real API instead of guessing from a thin prompt.
+            The normal workflow is not curl and not a manual GitHub skill install. Create an account, get an API key, then paste one instruction into Claude Code, Codex, Cursor, Hermes Agent, or another terminal-capable AI agent. The agent reads the machine guide, asks for your API key if needed, installs the hooks, and starts considering Yomira before human-facing decisions.
           </p>
           <div class="docs-copy-card">
             <div class="docs-copy-head">
               <strong>Paste this into your AI agent</strong>
-              <button class="docs-copy-button" type="button" data-copy-target="yomira-install">Copy</button>
+              <button class="docs-copy-button" type="button" data-copy-target="yomira-agent-setup">Copy</button>
             </div>
-            <pre class="essay-code"><code id="yomira-install">Install the official Yomira skill from this GitHub repo:
-https://github.com/ryuzo-k/yomira/tree/main/skills/yomira
-
-After installing, use it whenever I ask you to simulate reactions to a message, post, landing page, offer, pricing page, product idea, or decision option.
-
-If I provide a Yomira API key, call the real API. Do not replace it with casual reaction prediction unless I explicitly ask you not to use the API.</code></pre>
+            <pre class="essay-code"><code id="yomira-agent-setup">Set up Yomira in this user's AI-agent environment: read https://tryyomira.com/llms.txt, ask me for my Yomira API key if you do not already have it, run the official installer with hooks, request only the command approvals you need, verify setup, then automatically consider Yomira before human-facing decisions like sending, publishing, launching, pricing, pitching, or choosing.</code></pre>
           </div>
         </section>
 
@@ -263,7 +258,6 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
           <blockquote class="essay-quote">
             "This could shortcut endless A/B testing if accurate." Another voice said: "Wish this was a plug-and-play tool, not a skill install."
           </blockquote>
-          <p class="essay-small-note">Simulation id: fe1d26c8-8a74-413c-b9bf-3b0b6ab7e289</p>
         </section>
 
         <section class="essay-section">
@@ -326,19 +320,6 @@ If I provide a Yomira API key, call the real API. Do not replace it with casual 
             <a class="docs-copy-button enterprise-cal-link" href="https://cal.com/japangtm/30-min">Book meeting</a>
             <button class="docs-copy-button" type="button" data-copy-target="enterprise-email">Copy email</button>
           </div>
-        </section>
-
-        <section class="essay-section">
-          <h2>API quickstart</h2>
-          <pre class="essay-code"><code>curl -s -X POST "https://tryyomira.com/api/simulate" \
-  -H "content-type: application/json" \
-  -H "x-api-key: $YOMIRA_API_KEY" \
-  -d '{
-    "objective": "Should we publish this landing page?",
-    "artifact": { "type": "landing_page", "content": "..." },
-    "audience": { "description": "founders, marketers, agencies, and AI-agent users" },
-    "simulation": { "target_n": 100, "mode": "standard" }
-  }'</code></pre>
         </section>
 
         <section class="essay-section">
